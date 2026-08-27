@@ -838,7 +838,7 @@ class NotificationReaderService : NotificationListenerService() {
             }
 
             // --- LAYERED CUSTOM ISLAND LOGIC ---
-            val data: HyperIslandData = when (type) {
+            val data: HyperIslandData? = when (type) {
                 NotificationType.CALL -> callTranslator.translate(sbn, picKey, finalConfig, activeTheme)
                 NotificationType.NAVIGATION -> {
                     // --- LAYERED NAVIGATION LOGIC ---
@@ -852,6 +852,8 @@ class NotificationReaderService : NotificationListenerService() {
                 NotificationType.MESSAGE -> messageTranslator.translate(sbn, effectiveTitle, effectiveText, picKey, finalConfig, activeTheme)
                 else -> standardTranslator.translate(sbn, effectiveTitle, effectiveText, picKey, finalConfig, activeTheme)
             }
+
+            if (data == null) return
 
             val newContentHash = data.jsonParam.hashCode()
             if (isUpdate && previous != null && previous.lastContentHash == newContentHash) return

@@ -31,7 +31,7 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
         leftLayout: NavContent,
         rightLayout: NavContent,
         theme: HyperTheme?
-    ): HyperIslandData {
+    ): HyperIslandData? {
 
         // 1. Resolve Theme Colors
         val themeProgressBarColor = theme?.defaultNavigation?.progressBarColor
@@ -63,6 +63,8 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
         // --- APP-SPECIFIC CUSTOM RULES (e.g. Naver Maps) ---
         val customMatch = NavigationRuleEngine.tryTranslate(sbn, title, text)
         if (customMatch != null) {
+            if (customMatch.shouldIgnore) return null
+            
             instruction = customMatch.instruction
             distance = customMatch.distance
             eta = customMatch.eta

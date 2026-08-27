@@ -10,7 +10,8 @@ object NavigationRuleEngine {
     data class CustomNavResult(
         val instruction: String,
         val distance: String,
-        val eta: String = ""
+        val eta: String = "",
+        val shouldIgnore: Boolean = false
     )
 
     /**
@@ -28,6 +29,11 @@ object NavigationRuleEngine {
     private fun translateNaverMaps(title: String, text: String): CustomNavResult? {
         // Use a separator to handle cases where info is split between title and text
         val combined = "$title / $text".replace("  ", " ")
+
+        // --- BLOCK LIST FOR NAVER MAPS ---
+        if (combined.contains("다른 앱 위에 표시") || combined.contains("내비게이션 - 안내 중")) {
+            return CustomNavResult("", "", shouldIgnore = true)
+        }
         
         // Case 1: 길안내를 시작합니다. / [목적지]까지 이동
         if (combined.contains("길안내를 시작합니다")) {
