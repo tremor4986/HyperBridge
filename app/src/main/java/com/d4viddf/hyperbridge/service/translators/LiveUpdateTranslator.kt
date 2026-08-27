@@ -141,6 +141,8 @@ class LiveUpdateTranslator(
         // Advanced Extraction for Navigation Layouts
         if (type == NotificationType.NAVIGATION && sbn != null) {
             val extras = sbn.notification.extras
+            val titleExtra = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString()?.replace("\n", " ")?.trim() ?: ""
+            val textExtra = extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()?.replace("\n", " ")?.trim() ?: ""
             val bigText = extras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()?.replace("\n", " ")?.trim() ?: ""
             val subText = extras.getCharSequence(Notification.EXTRA_SUB_TEXT)?.toString()?.replace("\n", " ")?.trim() ?: ""
 
@@ -149,17 +151,28 @@ class LiveUpdateTranslator(
 
             var distance = ""
             var eta = ""
+            var instructionOverride: String? = null
 
-            // Extract ETA
-            if (timeRegex.containsMatchIn(subText)) eta = subText
-            else if (timeRegex.containsMatchIn(text) && !distanceRegex.containsMatchIn(text)) eta = text
+            // --- APP-SPECIFIC CUSTOM RULES (e.g. Naver Maps) ---
+            val customMatch = NavigationRuleEngine.tryTranslate(sbn, titleExtra, textExtra)
+            if (customMatch != null) {
+                instructionOverride = customMatch.instruction
+                distance = customMatch.distance
+                eta = customMatch.eta
+            }
 
-            // Extract Distance
-            val candidates = listOf(bigText, title, text).filter { it.isNotEmpty() }
-            val contentSource = candidates.firstOrNull { str -> distanceRegex.containsMatchIn(str) } ?: title.ifEmpty { text }
+            if (instructionOverride == null) {
+                // Extract ETA
+                if (timeRegex.containsMatchIn(subText)) eta = subText
+                else if (timeRegex.containsMatchIn(textExtra) && !distanceRegex.containsMatchIn(textExtra)) eta = textExtra
 
-            if (distanceRegex.containsMatchIn(contentSource)) {
-                distanceRegex.find(contentSource)?.let { distance = it.value }
+                // Extract Distance
+                val candidates = listOf(bigText, titleExtra, textExtra).filter { it.isNotEmpty() }
+                val contentSource = candidates.firstOrNull { str -> distanceRegex.containsMatchIn(str) } ?: titleExtra.ifEmpty { textExtra }
+
+                if (distanceRegex.containsMatchIn(contentSource)) {
+                    distanceRegex.find(contentSource)?.let { distance = it.value }
+                }
             }
 
             // Return the value based on the user's customized Right Side layout!
@@ -167,8 +180,8 @@ class LiveUpdateTranslator(
                 NavContent.ETA -> eta.ifEmpty { distance }
                 NavContent.DISTANCE -> distance.ifEmpty { eta }
                 NavContent.DISTANCE_ETA -> listOf(distance, eta).filter { it.isNotEmpty() }.joinToString(" • ")
-                NavContent.INSTRUCTION -> title
-                else -> eta.ifEmpty { distance }.ifEmpty { title } // Fallback
+                NavContent.INSTRUCTION -> instructionOverride ?: titleExtra
+                else -> eta.ifEmpty { distance }.ifEmpty { instructionOverride ?: titleExtra } // Fallback
             }
         }
 

@@ -998,7 +998,7 @@ class NotificationReaderService : NotificationListenerService() {
         val extras = n.extras
         val template = extras.getString(Notification.EXTRA_TEMPLATE) ?: ""
         val isCall = n.category == Notification.CATEGORY_CALL || template == "android.app.Notification\$CallStyle"
-        val isNav = n.category == Notification.CATEGORY_NAVIGATION || sbn.packageName.let { it.contains("maps") || it.contains("waze") }
+        val isNav = n.category == Notification.CATEGORY_NAVIGATION || sbn.packageName.let { it.contains("map") || it.contains("waze") || it.contains("naver") }
         val isTimer = (extras.getBoolean(Notification.EXTRA_SHOW_CHRONOMETER) || n.category == Notification.CATEGORY_ALARM) && n.`when` > 0
         val isMedia = template.contains("MediaStyle") || n.category == Notification.CATEGORY_TRANSPORT
         val isMessage = n.category == Notification.CATEGORY_MESSAGE || template == "android.app.Notification.MessagingStyle"

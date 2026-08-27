@@ -3,6 +3,7 @@ package com.d4viddf.hyperbridge.service.translators
 import android.app.Notification
 import android.content.Context
 import android.service.notification.StatusBarNotification
+import android.util.Log
 import com.d4viddf.hyperbridge.R
 import com.d4viddf.hyperbridge.data.theme.ThemeRepository
 import com.d4viddf.hyperbridge.models.HyperIslandData
@@ -20,7 +21,7 @@ import io.github.d4viddf.hyperisland_kit.models.TextInfo
 class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(context, repo) {
 
     private val timeRegex = Regex("(\\d{1,2}:\\d{2})|(\\d+h\\s*\\d+m)", RegexOption.IGNORE_CASE)
-    private val distanceRegex = Regex("^\\d+([,.]\\d+)?\\s*(m|km|ft|mi|yd|yards|miles|meters)", RegexOption.IGNORE_CASE)
+    private val distanceRegex = Regex("^\\d+([,.]\\d+)?\\s*(m|km|ft|mi|yd|yards|miles|meters|)", RegexOption.IGNORE_CASE)
     private val arrivalKeywords by lazy { context.resources.getStringArray(R.array.nav_arrival_keywords).toList() }
 
     fun translate(
@@ -59,27 +60,37 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
         fun isTimeInfo(s: String): Boolean = timeRegex.containsMatchIn(s) || arrivalKeywords.any { s.contains(it, true) }
         fun isDistanceInfo(s: String): Boolean = distanceRegex.containsMatchIn(s)
 
+        // --- APP-SPECIFIC CUSTOM RULES (e.g. Naver Maps) ---
+        val customMatch = NavigationRuleEngine.tryTranslate(sbn, title, text)
+        if (customMatch != null) {
+            instruction = customMatch.instruction
+            distance = customMatch.distance
+            eta = customMatch.eta
+        }
+
         // logic to extract ETA/Distance from various fields (Waze vs Maps vs Others)
-        if (isTimeInfo(subText)) eta = subText
-        else if (isTimeInfo(text) && !isDistanceInfo(text)) eta = text
+        if (instruction.isEmpty() && distance.isEmpty()) {
+            if (isTimeInfo(subText)) eta = subText
+            else if (isTimeInfo(text) && !isDistanceInfo(text)) eta = text
 
-        val candidates = listOf(bigText, title, text).filter { it.isNotEmpty() }
-        val contentSource = candidates.firstOrNull { str -> distanceRegex.containsMatchIn(str) } ?: title.ifEmpty { text }
+            val candidates = listOf(bigText, title, text).filter { it.isNotEmpty() }
+            val contentSource = candidates.firstOrNull { str -> distanceRegex.containsMatchIn(str) } ?: title.ifEmpty { text }
 
-        if (isDistanceInfo(contentSource)) {
-            val match = distanceRegex.find(contentSource)
-            if (match != null) {
-                distance = match.value
-                instruction = contentSource.replace(distance, "").trim { it == '·' || it == '-' || it.isWhitespace() }
+            if (isDistanceInfo(contentSource)) {
+                val match = distanceRegex.find(contentSource)
+                if (match != null) {
+                    distance = match.value
+                    instruction = contentSource.replace(distance, "").trim { it == '·' || it == '-' || it.isWhitespace() }
+                }
+            } else {
+                instruction = contentSource
             }
-        } else {
-            instruction = contentSource
         }
 
         if (instruction.isEmpty()) instruction = context.getString(R.string.maps_title)
 
-        // 4. Build Notification
-        val builder = HyperIslandNotification.Builder(context, "bridge_${sbn.packageName}", instruction)
+        // 4. Build Notification (Collapsed Title: Swapped title and text for preview)
+        val builder = HyperIslandNotification.Builder(context, "bridge_${sbn.packageName}", text.ifEmpty { instruction })
         builder.setEnableFloat(config.isFloat ?: false)
         builder.setShowNotification(config.isShowShade ?: true)
         builder.setIslandFirstFloat(config.isFloat ?: false)
@@ -125,13 +136,11 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
             actionKeys.add(uniqueKey)
         }
 
-        // 6. Shade Layout
-        val shadeContent = listOf(distance, eta).filter { it.isNotEmpty() }.joinToString(" • ")
-
+        // 6. Shade/Collapsed Layout (Swapped title and text)
         builder.setBaseInfo(
             type = 1, // Standard Template
-            title = instruction,
-            content = shadeContent,
+            title = text.ifEmpty { instruction },
+            content = title.ifEmpty { distance },
             pictureKey = picKey,
             actionKeys = actionKeys
         )
@@ -164,6 +173,8 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
 
         builder.setSmallIsland(picKey)
         builder.setIslandConfig(highlightColor = theme?.global?.highlightColor, expandedTimeMs = config.floatTimeout)
+
+        Log.d("NavTranslator", "Expanded Info -> Left: '$distance', Right: '$instruction'")
 
         return HyperIslandData(builder.buildResourceBundle(), builder.buildJsonParam())
     }
