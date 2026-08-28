@@ -59,6 +59,9 @@
     <string name="permanent_island_hide_landscape">Hide in Landscape</string>
 
     <string name="group_about">About</string>
+    <string name="special_thanks">Special Thanks</string>
+    <string name="xmsf_workaround_credit_title">XMSF Workaround</string>
+    <string name="xmsf_workaround_credit_subtitle">Research by Stardawn (星间晞)</string>
     <string name="developer">Developer</string>
     <string name="developer_subtitle">Visit d4viddf.com</string>
     <string name="source_code">Source Code</string>
@@ -690,6 +693,13 @@
     <string name="onboard_design_desc">Expand the possibilities with different customization options</string>
     <string name="behavior_desc_glob_config">Determines how the island behaves.</string>
     <string name="widget_layout_snapshot">Preview of the widget</string>
+
+    <string name="changelog_0_5_7">
+        <b>Optimizations &amp; Fixes</b>\n
+              • <b>Code Optimization:</b> Upgraded to the latest Android Gradle Plugin and enabled R8 code shrinking for a smaller, faster app.\n
+              • <b>Stability:</b> Improved notification synchronization and fixed an issue where original notifications were sometimes prematurely dismissed (PR #258).\n
+    </string>
+    <string name="title_0_5_7">Performance &amp; Sync Update</string>
 
     <string name="changelog_0_5_6">
         <b>Fixes &amp; Improvements</b>\n
