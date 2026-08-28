@@ -60,7 +60,8 @@ fun mainNavGraph(
             onGlobalSettingsClick = { navigator.navigate(Screen.GlobalSettings) },
             onHistoryClick = { navigator.navigate(Screen.History) },
             onBlocklistClick = { navigator.navigate(Screen.GlobalBlocklist) },
-            onBackupClick = { navigator.navigate(Screen.Backup) }
+            onBackupClick = { navigator.navigate(Screen.Backup) },
+            onEngineClick = { navigator.navigate(Screen.EngineSettings) }
         )
     }
     entry<Screen.GlobalSettings> {

@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.SettingsSuggest
 import androidx.compose.material.icons.filled.Tune
@@ -86,7 +87,8 @@ fun InfoScreen(
     onGlobalSettingsClick: () -> Unit,
     onHistoryClick: () -> Unit,
     onBlocklistClick: () -> Unit,
-    onBackupClick: () -> Unit
+    onBackupClick: () -> Unit,
+    onEngineClick: () -> Unit
 ) {
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
@@ -174,8 +176,7 @@ fun InfoScreen(
                 title = stringResource(R.string.group_configuration),
                 items = listOf(
                     SettingsItemData(Icons.Default.SettingsSuggest, stringResource(R.string.system_setup), stringResource(R.string.system_setup_subtitle), onSetupClick),
-                    SettingsItemData(Icons.Default.Tune, stringResource(R.string.island_behavior), stringResource(R.string.limit_strategy), onBehaviorClick),
-                    SettingsItemData(Icons.Default.Palette, stringResource(R.string.global_settings), stringResource(R.string.island_appearance), onGlobalSettingsClick),
+                    SettingsItemData(Icons.Default.Refresh, "내비게이션 규칙 업데이트", "최신 규칙 다운로드", onEngineClick),
                     SettingsItemData(Icons.Default.Block, stringResource(R.string.blocked_terms), stringResource(R.string.spoiler_subtitle), onBlocklistClick),
                     SettingsItemData(Icons.Default.Save, stringResource(R.string.backup_restore_title), stringResource(R.string.backup_section_title), onBackupClick)
                 )

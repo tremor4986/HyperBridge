@@ -269,6 +269,7 @@ fun NotificationTypesContent(
                     Text(typeLabel, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold)
                 }
 
+                /* Hiding Navigation Edit icon as per user request
                 if (type == NotificationType.NAVIGATION) {
                     IconButton(
                         onClick = onNavConfigClick,
@@ -277,6 +278,7 @@ fun NotificationTypesContent(
                         Icon(Icons.Default.Edit, null, tint = MaterialTheme.colorScheme.primary)
                     }
                 }
+                */
 
                 Switch(
                     checked = isChecked,

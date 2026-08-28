@@ -154,7 +154,7 @@ class LiveUpdateTranslator(
             var instructionOverride: String? = null
 
             // --- APP-SPECIFIC CUSTOM RULES (e.g. Naver Maps) ---
-            val customMatch = NavigationRuleEngine.tryTranslate(sbn, titleExtra, textExtra)
+            val customMatch = NotificationRuleEngine.tryTranslate(sbn, titleExtra, textExtra)
             if (customMatch != null) {
                 instructionOverride = customMatch.instruction
                 distance = customMatch.distance

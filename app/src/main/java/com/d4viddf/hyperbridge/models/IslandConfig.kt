@@ -14,11 +14,11 @@ data class IslandConfig(
         return IslandConfig(
             isFloat = this.isFloat ?: global.isFloat ?: false,
             isShowShade = this.isShowShade ?: global.isShowShade ?: false,
-            timeout = this.timeout ?: global.timeout ?: 10,
+            timeout = this.timeout ?: global.timeout ?: 0,
             floatTimeout = this.floatTimeout ?: global.floatTimeout ?: 5,
             removeOriginalNotification = this.removeOriginalNotification ?: global.removeOriginalNotification ?: false,
             dismissWithOriginal = this.dismissWithOriginal ?: global.dismissWithOriginal ?: true,
-            enableInlineReply = this.enableInlineReply ?: global.enableInlineReply ?: true,
+            enableInlineReply = this.enableInlineReply ?: global.enableInlineReply ?: false,
         )
     }
 }

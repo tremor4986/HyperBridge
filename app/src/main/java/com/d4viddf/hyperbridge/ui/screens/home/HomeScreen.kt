@@ -111,12 +111,6 @@ fun HomeScreen(
                 ) {
                     ShortNavigationBar {
                         ShortNavigationBarItem(
-                            selected = selectedTab == 0,
-                            onClick = { selectedTab = 0 },
-                            icon = { Icon(if (selectedTab == 0) Icons.Filled.Brush else Icons.Outlined.Brush, null) },
-                            label = { Text(stringResource(R.string.design)) }
-                        )
-                        ShortNavigationBarItem(
                             selected = selectedTab == 1,
                             onClick = { selectedTab = 1 },
                             icon = { Icon(if (selectedTab == 1) Icons.Filled.ToggleOn else Icons.Outlined.ToggleOff, null) },

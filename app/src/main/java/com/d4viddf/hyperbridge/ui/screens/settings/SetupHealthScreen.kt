@@ -31,7 +31,6 @@ import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.material.icons.filled.Smartphone
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -65,7 +64,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.d4viddf.hyperbridge.R
 import com.d4viddf.hyperbridge.util.DeviceUtils
-import com.d4viddf.hyperbridge.util.XiaomiNotificationHelper
+import com.d4viddf.hyperbridge.util.isIgnoringBatteryOptimizations
 import com.d4viddf.hyperbridge.util.isNotificationServiceEnabled
 import com.d4viddf.hyperbridge.util.isPostNotificationsEnabled
 import com.d4viddf.hyperbridge.util.openAutoStartSettings
@@ -83,9 +82,7 @@ fun SetupHealthScreen(onBack: () -> Unit) {
     // --- STATE ---
     var isListenerGranted by remember { mutableStateOf(isNotificationServiceEnabled(context)) }
     var isPostGranted by remember { mutableStateOf(isPostNotificationsEnabled(context)) }
-    var isOverlayGranted by remember { mutableStateOf(Settings.canDrawOverlays(context)) }
     var isBatteryOptimized by remember { mutableStateOf(isIgnoringBatteryOptimizations(context)) }
-    var isFeaturedGranted by remember { mutableStateOf(false) }
 
     // --- LIFECYCLE ---
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
@@ -94,9 +91,7 @@ fun SetupHealthScreen(onBack: () -> Unit) {
             if (event == Lifecycle.Event.ON_RESUME) {
                 isListenerGranted = isNotificationServiceEnabled(context)
                 isPostGranted = isPostNotificationsEnabled(context)
-                isOverlayGranted = Settings.canDrawOverlays(context)
                 isBatteryOptimized = isIgnoringBatteryOptimizations(context)
-                isFeaturedGranted = XiaomiNotificationHelper.hasFocusPermission(context)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -206,39 +201,6 @@ fun SetupHealthScreen(onBack: () -> Unit) {
                         } catch (_: Exception) { }
                     }
                 )
-
-                // Overlay
-                HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(0.2f))
-                HealthItem(
-                    title = stringResource(R.string.perm_display_title),
-                    subtitle = stringResource(R.string.perm_display_onboard_desc),
-                    icon = Icons.Default.Layers,
-                    isGranted = isOverlayGranted,
-                    onClick = {
-                        try {
-                            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-                            intent.data = "package:${context.packageName}".toUri()
-                            context.startActivity(intent)
-                        } catch (_: Exception) { }
-                    }
-                )
-
-                val isSupported = XiaomiNotificationHelper.isSupportIsland()
-                if (isXiaomi && isSupported) {
-                    HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(0.2f))
-                    HealthItem(
-                        title = stringResource(R.string.xiaomi_featured_notifications),
-                        subtitle = stringResource(R.string.featured_notifications_open_settings),
-                        icon = Icons.Default.Smartphone,
-                        isGranted = isFeaturedGranted,
-                        onClick = {
-                            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                                putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-                            }
-                            context.startActivity(intent)
-                        }
-                    )
-                }
             }
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -453,7 +415,3 @@ fun HealthItem(
     }
 }
 
-fun isIgnoringBatteryOptimizations(context: Context): Boolean {
-    val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-    return pm.isIgnoringBatteryOptimizations(context.packageName)
-}

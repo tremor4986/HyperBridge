@@ -3,7 +3,7 @@ package com.d4viddf.hyperbridge.service.translators
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RemoteNavConfig(
+data class RemoteRuleConfig(
     val version: Int = 1,
     val apps: List<RemoteAppRule> = emptyList()
 )
@@ -12,16 +12,18 @@ data class RemoteNavConfig(
 data class RemoteAppRule(
     val packageName: String,
     val ignoreList: List<String> = emptyList(),
-    val rules: List<NavRuleDef> = emptyList()
+    val allowList: List<String> = emptyList(),
+    val rules: List<NotificationRuleDef> = emptyList()
 )
 
 @Serializable
-data class NavRuleDef(
+data class NotificationRuleDef(
     val type: String, // e.g., "match", "regex"
     val match: String? = null,
     val regex: String? = null,
     val contains: List<String>? = null,
     val instruction: String,
     val distance: String,
-    val textCleanup: String? = null
+    val textCleanup: String? = null,
+    val targetLayout: String? = null // e.g., "NAVIGATION", "MESSAGE", "PROGRESS"
 )

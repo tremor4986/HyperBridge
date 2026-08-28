@@ -123,20 +123,12 @@ import kotlin.time.Duration.Companion.milliseconds
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(onFinish: () -> Unit) {
-    val isCN = remember { DeviceUtils.isCNRom }
     val isXiaomi = remember { DeviceUtils.isXiaomi }
     val isCompatibleOS = remember { DeviceUtils.isCompatibleOS() }
     val canProceedCompat = isXiaomi && isCompatibleOS
     
     val context = LocalContext.current
-    val prefs = remember { AppPreferences(context) }
-    val useNativeLiveUpdates by prefs.useNativeLiveUpdates.collectAsState(initial = false)
-    val needsShizuku = !useNativeLiveUpdates && isCN
-
-    val isShizukuWorkaroundEnabled by prefs.isShizukuWorkaroundEnabled.collectAsState(initial = false)
-    val isShizukuPermissionGranted by com.d4viddf.hyperbridge.util.ShizukuManager.isPermissionGranted.collectAsState()
-
-    val totalPages = if (needsShizuku) 18 else 17
+    val totalPages = 5
     val pagerState = rememberPagerState(pageCount = { totalPages })
     val scope = rememberCoroutineScope()
 
@@ -148,7 +140,6 @@ fun OnboardingScreen(onFinish: () -> Unit) {
     // --- Permissions State ---
     var isListenerGranted by remember { mutableStateOf(isNotificationServiceEnabled(context)) }
     var isPostGranted by remember { mutableStateOf(isPostNotificationsEnabled(context)) }
-    var isOverlayGranted by remember { mutableStateOf(Settings.canDrawOverlays(context)) }
 
     // --- Compatibility Logic ---
     // Moved up
@@ -166,7 +157,6 @@ fun OnboardingScreen(onFinish: () -> Unit) {
             if (event == Lifecycle.Event.ON_RESUME) {
                 isListenerGranted = isNotificationServiceEnabled(context)
                 isPostGranted = isPostNotificationsEnabled(context)
-                isOverlayGranted = Settings.canDrawOverlays(context)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -203,26 +193,11 @@ fun OnboardingScreen(onFinish: () -> Unit) {
                         )
                     }
                 } else {
-                    val canProceed = if (needsShizuku) {
-                        when (currentPage) {
-                            1 -> canProceedCompat || BuildConfig.DEBUG
-                            2 -> isPostGranted
-                            3 -> isListenerGranted
-                            4 -> isOverlayGranted
-                            12 -> {
-                                // If they turn the workaround off, they can proceed without permission
-                                !isShizukuWorkaroundEnabled || isShizukuPermissionGranted || BuildConfig.DEBUG
-                            }
-                            else -> true
-                        }
-                    } else {
-                        when (currentPage) {
-                            1 -> canProceedCompat || BuildConfig.DEBUG
-                            2 -> isPostGranted
-                            3 -> isListenerGranted
-                            4 -> isOverlayGranted
-                            else -> true
-                        }
+                    val canProceed = when (currentPage) {
+                        1 -> canProceedCompat || BuildConfig.DEBUG
+                        2 -> isPostGranted
+                        4 -> isListenerGranted
+                        else -> true
                     }
 
                     if (currentPage > 1) {
@@ -276,35 +251,17 @@ fun OnboardingScreen(onFinish: () -> Unit) {
                 .fillMaxSize(),
             userScrollEnabled = false
         ) { page ->
-            val adjustedPage = if (needsShizuku && page > 12) page - 1 else page
-            
-            if (needsShizuku && page == 12) {
-                ShizukuPage(prefs)
-            } else {
-                when (adjustedPage) {
-                    0 -> WelcomePage()
-                    1 -> CompatibilityPage()
-                    2 -> PostPermissionPage(
-                        isGranted = isPostGranted,
-                        onRequest = {
-                            postPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                        }
-                    )
-                    3 -> ListenerPermissionPage(context, isListenerGranted)
-                    4 -> OverlayPermissionPage(context, isOverlayGranted)
-                    5 -> FeaturedNotificationCheckPage(context)
-                    6 -> OptimizationPage(context)
-                    7 -> ExplanationPage()
-                    8 -> PrivacyPage()
-                    9 -> CustomizationPage()
-                    10 -> TriggersConfigPage(prefs)
-                    11 -> EngineConfigPage(prefs)
-                    12 -> PriorityEducationPage(prefs)
-                    13 -> BehaviorConfigPage(prefs)
-                    14 -> DndConfigPage(prefs)
-                    15 -> AutoHideConfigPage(prefs)
-                    16 -> PermanentIslandConfigPage(prefs)
-                }
+            when (page) {
+                0 -> WelcomePage()
+                1 -> CompatibilityPage()
+                2 -> PostPermissionPage(
+                    isGranted = isPostGranted,
+                    onRequest = {
+                        postPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    }
+                )
+                3 -> OptimizationPage(context)
+                4 -> ListenerPermissionPage(context, isListenerGranted)
             }
         }
     }
@@ -1290,79 +1247,6 @@ fun ListenerPermissionPage(context: Context, isGranted: Boolean) {
     }
 }
 
-@Composable
-fun FeaturedNotificationCheckPage(context: Context) {
-    val isSupported = remember { com.d4viddf.hyperbridge.util.XiaomiNotificationHelper.isSupportIsland() }
-    
-    // We want to re-check when returning to this page, so we use a LaunchedEffect
-    var isGranted by remember { mutableStateOf(false) }
-    
-    androidx.compose.runtime.LaunchedEffect(Unit) {
-        while (true) {
-            isGranted = com.d4viddf.hyperbridge.util.XiaomiNotificationHelper.hasFocusPermission(context)
-            kotlinx.coroutines.delay(1000.milliseconds)
-        }
-    }
-
-    OnboardingPageLayout(
-        title = stringResource(R.string.featured_notifications_check),
-        description = stringResource(R.string.featured_notifications_check_desc),
-        icon = Icons.Default.Info,
-        iconColor = MaterialTheme.colorScheme.tertiary
-    ) {
-        if (!isSupported) {
-            Text(
-                stringResource(R.string.featured_notifications_not_supported),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.titleMedium
-            )
-        } else {
-            Button(
-                onClick = {
-                    if (!isGranted) {
-                        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                            putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-                        }
-                        context.startActivity(intent)
-                    }
-                },
-                enabled = !isGranted,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                )
-            ) {
-                Text(
-                    stringResource(if (isGranted) R.string.featured_notifications_enabled else R.string.featured_notifications_open_settings),
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
-
-            if (!isGranted) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(Icons.Default.Architecture, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(stringResource(R.string.featured_notifications_shizuku_alternative), style = MaterialTheme.typography.titleSmall)
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(stringResource(R.string.featured_notifications_shizuku_desc), style = MaterialTheme.typography.bodySmall)
-                    }
-                }
-            }
-        }
-    }
-}
-
 // --- 7. OPTIMIZATION PAGE ---
 @SuppressLint("BatteryLife")
 @Composable
@@ -1382,7 +1266,13 @@ fun OptimizationPage(context: Context) {
                         "com.miui.permcenter.autostart.AutoStartManagementActivity"
                     )
                     context.startActivity(intent)
-                } catch (_: Exception) { }
+                } catch (_: Exception) {
+                    try {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.data = "package:${context.packageName}".toUri()
+                        context.startActivity(intent)
+                    } catch (_: Exception) { }
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -1401,7 +1291,13 @@ fun OptimizationPage(context: Context) {
                         data = "package:${context.packageName}".toUri()
                     }
                     context.startActivity(intent)
-                } catch (_: Exception) { }
+                } catch (_: Exception) {
+                    try {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.data = "package:${context.packageName}".toUri()
+                        context.startActivity(intent)
+                    } catch (_: Exception) { }
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -1412,6 +1308,8 @@ fun OptimizationPage(context: Context) {
         }
     }
 }
+
+
 
 @Preview(showBackground = true, apiLevel = 36)
 @Composable
@@ -1471,6 +1369,14 @@ fun ListenerPermissionPagePreview() {
 
 @Preview(showBackground = true, apiLevel = 36)
 @Composable
+fun OptimizationPagePreview() {
+    HyperBridgeTheme {
+        OptimizationPage(context = LocalContext.current)
+    }
+}
+
+@Preview(showBackground = true, apiLevel = 36)
+@Composable
 fun TriggersConfigPagePreview() {
     HyperBridgeTheme {
         TriggersConfigPage(prefs = AppPreferences(LocalContext.current))
@@ -1509,13 +1415,6 @@ fun EngineConfigPagePreview() {
     }
 }
 
-@Preview(showBackground = true, apiLevel = 36)
-@Composable
-fun OptimizationPagePreview() {
-    HyperBridgeTheme {
-        OptimizationPage(context = LocalContext.current)
-    }
-}
 
 @Preview(showBackground = true, apiLevel = 36)
 @Composable
@@ -1604,37 +1503,3 @@ fun PermanentIslandConfigPagePreview() {
     }
 }
 
-// --- 8. OVERLAY PERMISSION PAGE ---
-@Composable
-fun OverlayPermissionPage(context: Context, isGranted: Boolean) {
-    OnboardingPageLayout(
-        title = stringResource(R.string.perm_display_title),
-        description = stringResource(R.string.perm_display_onboard_desc),
-        icon = Icons.Default.Layers,
-        iconColor = MaterialTheme.colorScheme.tertiary
-    ) {
-        Button(
-            onClick = {
-                if (!isGranted) {
-                    val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).apply {
-                        data = "package:${context.packageName}".toUri()
-                    }
-                    context.startActivity(intent)
-                }
-            },
-            enabled = !isGranted,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-            )
-        ) {
-            Text(
-                stringResource(if (isGranted) R.string.perm_granted else R.string.open_settings),
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
-    }
-}

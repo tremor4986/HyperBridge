@@ -123,7 +123,7 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
         val whitelistedPkgs = try {
             if (remoteRulesJson != null) {
                 val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
-                val config = json.decodeFromString<com.d4viddf.hyperbridge.service.translators.RemoteNavConfig>(remoteRulesJson)
+                val config = json.decodeFromString<com.d4viddf.hyperbridge.service.translators.RemoteRuleConfig>(remoteRulesJson)
                 config.apps.map { it.packageName }.toSet()
             } else {
                 emptySet()

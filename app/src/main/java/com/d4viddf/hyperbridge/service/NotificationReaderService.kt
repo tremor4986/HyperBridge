@@ -36,7 +36,7 @@ import com.d4viddf.hyperbridge.service.translators.LiveUpdateTranslator
 import com.d4viddf.hyperbridge.service.translators.MediaTranslator
 import com.d4viddf.hyperbridge.service.translators.MessageTranslator
 import com.d4viddf.hyperbridge.service.translators.NavTranslator
-import com.d4viddf.hyperbridge.service.translators.NavigationRuleEngine
+import com.d4viddf.hyperbridge.service.translators.NotificationRuleEngine
 import com.d4viddf.hyperbridge.service.translators.ProgressTranslator
 import com.d4viddf.hyperbridge.service.translators.RemoteConfigManager
 import com.d4viddf.hyperbridge.service.translators.DownloadTranslator
@@ -215,7 +215,7 @@ class NotificationReaderService : NotificationListenerService() {
         serviceScope.launch {
             val localRules = preferences.getRemoteNavRulesSync()
             if (localRules != null) {
-                NavigationRuleEngine.loadRules(localRules)
+                NotificationRuleEngine.loadRules(localRules)
             }
             RemoteConfigManager.fetchLatestRules(applicationContext)
         }
@@ -660,9 +660,32 @@ class NotificationReaderService : NotificationListenerService() {
 
             // [LOGIC] 1. Resolve Info intelligently
             var effectiveTitle = resolveTitle(sbn)
-            val effectiveText = resolveText(sbn.notification.extras)
+            var effectiveText = resolveText(sbn.notification.extras)
 
-            // [LOGIC] 2. State Preservation
+            // [NEW] 2. Remote Rules Interception (rules.json)
+            // This is now general-purpose, not just for notification!
+            val remoteMatch = NotificationRuleEngine.tryTranslate(sbn, effectiveTitle, effectiveText)
+            var remoteTypeOverride: NotificationType? = null
+
+            if (remoteMatch != null) {
+                if (remoteMatch.shouldIgnore) {
+                    Log.d(TAG, " Remote Rule: IGNORING notification from ${sbn.packageName}")
+                    return
+                }
+
+                Log.d(TAG, " Remote Rule MATCHED for ${sbn.packageName}. Title: '${remoteMatch.distance}', Text: '${remoteMatch.instruction}'")
+
+                // instruction/distance mapping: instruction is the main text, distance is the secondary/title
+                if (remoteMatch.instruction.isNotEmpty()) effectiveText = remoteMatch.instruction
+                if (remoteMatch.distance.isNotEmpty()) effectiveTitle = remoteMatch.distance
+
+                remoteMatch.targetLayout?.let { layoutName ->
+                    try { remoteTypeOverride = NotificationType.valueOf(layoutName) }
+                    catch (_: Exception) { }
+                }
+            }
+
+            // [LOGIC] 3. State Preservation
             val key = sbn.key
             val previous = activeIslands[key]
 
@@ -685,15 +708,15 @@ class NotificationReaderService : NotificationListenerService() {
                 if (appBlockedTerms.any { term -> content.contains(term, ignoreCase = true) }) return
             }
 
-            // [LOGIC] 4. Theme & Rules Interception
+            // [LOGIC] 5. Theme & Rules Interception (Local Theme Rules)
             val activeTheme = themeRepository.activeTheme.value
             val ruleMatch = rulesEngine.match(sbn, effectiveTitle, effectiveText, activeTheme)
 
             val type = if (ruleMatch?.targetLayout != null) {
                 try { NotificationType.valueOf(ruleMatch.targetLayout) }
-                catch (_: Exception) { detectNotificationType(sbn) }
+                catch (_: Exception) { remoteTypeOverride ?: detectNotificationType(sbn, effectiveTitle, effectiveText) }
             } else {
-                detectNotificationType(sbn)
+                remoteTypeOverride ?: detectNotificationType(sbn, effectiveTitle, effectiveText)
             }
 
             // --- LAYERED TRIGGERS LOGIC ---
@@ -1006,18 +1029,16 @@ class NotificationReaderService : NotificationListenerService() {
         return sbn
     }
 
-    private fun detectNotificationType(sbn: StatusBarNotification): NotificationType {
+    private fun detectNotificationType(sbn: StatusBarNotification, title: String, text: String): NotificationType {
         val n = sbn.notification
         val extras = n.extras
         val template = extras.getString(Notification.EXTRA_TEMPLATE) ?: ""
         val isCall = n.category == Notification.CATEGORY_CALL || template == "android.app.Notification\$CallStyle"
-        val isNav = n.category == Notification.CATEGORY_NAVIGATION || sbn.packageName.let { it.contains("map") || it.contains("waze") || it.contains("naver") }
+        val isNav = n.category == Notification.CATEGORY_NAVIGATION || sbn.packageName.let { it.contains("maps") || it.contains("waze") }
         val isTimer = (extras.getBoolean(Notification.EXTRA_SHOW_CHRONOMETER) || n.category == Notification.CATEGORY_ALARM) && n.`when` > 0
         val isMedia = template.contains("MediaStyle") || n.category == Notification.CATEGORY_TRANSPORT
         val isMessage = n.category == Notification.CATEGORY_MESSAGE || template == "android.app.Notification.MessagingStyle"
         
-        val title = resolveTitle(sbn)
-        val text = resolveText(extras)
         val isDownload = isDownloadNotification(sbn, title, text)
         val hasProgress = hasProgressNotification(sbn, title, text)
 
@@ -1069,8 +1090,10 @@ class NotificationReaderService : NotificationListenerService() {
                 pendingIntent
             )
         } else {
+            val currentTitle = resolveTitle(sbn)
+            val currentText = resolveText(sbn.notification.extras)
             sbn.notification.contentIntent?.let { originalIntent ->
-                if (detectNotificationType(sbn) == NotificationType.MESSAGE) {
+                if (detectNotificationType(sbn, currentTitle, currentText) == NotificationType.MESSAGE) {
                     val clickIntent = Intent("com.d4viddf.hyperbridge.ISLAND_CLICKED").apply {
                         setPackage(packageName)
                         putExtra("sbn_key", sbn.key)
@@ -1228,7 +1251,7 @@ class NotificationReaderService : NotificationListenerService() {
         if (globalBlockedTerms.any { "$title $text".contains(it, true) }) return true
 
         if ((notification.flags and Notification.FLAG_GROUP_SUMMARY) != 0) {
-            val type = detectNotificationType(sbn)
+            val type = detectNotificationType(sbn, title, text)
             if (type != NotificationType.MESSAGE) return true
             if (text.isEmpty() || title.isEmpty()) return true
             // A summary with live children is a duplicate: messaging apps post the real

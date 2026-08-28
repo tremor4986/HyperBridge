@@ -1,6 +1,7 @@
 package com.d4viddf.hyperbridge.ui.screens.settings
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,7 +44,7 @@ import com.d4viddf.hyperbridge.R
 import com.d4viddf.hyperbridge.data.AppPreferences
 import com.d4viddf.hyperbridge.data.theme.ThemeRepository
 import com.d4viddf.hyperbridge.service.NotificationReaderService
-import com.d4viddf.hyperbridge.service.translators.NavigationRuleEngine
+import com.d4viddf.hyperbridge.service.translators.NotificationRuleEngine
 import com.d4viddf.hyperbridge.service.translators.RemoteConfigManager
 import com.d4viddf.hyperbridge.ui.components.EngineOptionCard
 import com.d4viddf.hyperbridge.ui.components.EnginePreview
@@ -99,7 +100,7 @@ fun EngineSettingsScreen(onBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.engine), fontWeight = FontWeight.Bold) },
+                title = { Text("내비게이션 규칙 업데이트", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     FilledTonalIconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
@@ -115,42 +116,6 @@ fun EngineSettingsScreen(onBack: () -> Unit) {
                 .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = stringResource(R.string.engine_preview_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            EnginePreview(isNative = isNative)
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Text(
-                text = stringResource(R.string.engine_section_design),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            EngineOptionCard(
-                title = stringResource(R.string.engine_xiaomi_title),
-                description = stringResource(R.string.engine_xiaomi_desc),
-                isSelected = !isNative,
-                onClick = { onEngineChange(false) }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            EngineOptionCard(
-                title = stringResource(R.string.engine_native_title),
-                description = stringResource(R.string.engine_native_desc),
-                isSelected = isNative,
-                onClick = { onEngineChange(true) }
-            )
-
             Spacer(modifier = Modifier.height(32.dp))
 
             // --- REMOTE RULES UPDATE ---
@@ -166,7 +131,7 @@ fun EngineSettingsScreen(onBack: () -> Unit) {
             val currentVersion = remember(currentRulesJson) {
                 try {
                     val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
-                    val config = json.decodeFromString<com.d4viddf.hyperbridge.service.translators.RemoteNavConfig>(currentRulesJson ?: "{}")
+                    val config = json.decodeFromString<com.d4viddf.hyperbridge.service.translators.RemoteRuleConfig>(currentRulesJson ?: "{}")
                     config.version
                 } catch (_: Exception) { 0 }
             }
@@ -180,8 +145,14 @@ fun EngineSettingsScreen(onBack: () -> Unit) {
                         if (!isUpdating) {
                             scope.launch {
                                 isUpdating = true
-                                RemoteConfigManager.fetchLatestRules(context)
+                                val newVersion = RemoteConfigManager.fetchLatestRules(context)
                                 isUpdating = false
+                                
+                                if (newVersion != null) {
+                                    Toast.makeText(context, "최신 규칙(v$newVersion)으로 업데이트되었습니다.", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(context, "규칙 업데이트에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }
                     },
@@ -197,6 +168,7 @@ fun EngineSettingsScreen(onBack: () -> Unit) {
                 }
             }
 
+            /*
             if (!isNative) {
                 Spacer(modifier = Modifier.height(32.dp))
 
@@ -269,6 +241,7 @@ fun EngineSettingsScreen(onBack: () -> Unit) {
                     )
                 }
             }
+            */
         }
     }
 }

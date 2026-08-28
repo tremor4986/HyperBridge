@@ -222,13 +222,13 @@ class AppPreferences(context: Context) {
         dao.getSettingFlow(SettingsKeys.GLOBAL_ENABLE_INLINE_REPLY)
     ) { args: Array<String?> ->
         IslandConfig(
-            args[0].toBoolean(true),
+            args[0].toBoolean(false),
             args[1].toBoolean(false),
-            args[2]?.toIntOrNull(),
+            args[2]?.toIntOrNull() ?: 0,
             args[3]?.toIntOrNull(),
             args[4]?.toBooleanStrictOrNull(),
             args[5]?.toBooleanStrictOrNull() ?: true,
-            args[6]?.toBooleanStrictOrNull()
+            args[6]?.toBooleanStrictOrNull() ?: false
         )
     }
 
@@ -562,13 +562,13 @@ class AppPreferences(context: Context) {
 
     fun getGlobalConfigSync(): IslandConfig {
         return IslandConfig(
-            memoryCache[SettingsKeys.GLOBAL_FLOAT].toBoolean(true),
+            memoryCache[SettingsKeys.GLOBAL_FLOAT].toBoolean(false),
             memoryCache[SettingsKeys.GLOBAL_SHADE].toBoolean(false),
-            memoryCache[SettingsKeys.GLOBAL_TIMEOUT]?.toIntOrNull(),
+            memoryCache[SettingsKeys.GLOBAL_TIMEOUT]?.toIntOrNull() ?: 0,
             memoryCache[SettingsKeys.GLOBAL_FLOAT_TIMEOUT]?.toIntOrNull(),
             memoryCache[SettingsKeys.GLOBAL_REMOVE_NOTIF]?.toBooleanStrictOrNull(),
             memoryCache[SettingsKeys.GLOBAL_DISMISS_WITH_ORIGINAL]?.toBooleanStrictOrNull() ?: true,
-            memoryCache[SettingsKeys.GLOBAL_ENABLE_INLINE_REPLY]?.toBooleanStrictOrNull()
+            memoryCache[SettingsKeys.GLOBAL_ENABLE_INLINE_REPLY]?.toBooleanStrictOrNull() ?: false
         )
     }
 

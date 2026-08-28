@@ -61,7 +61,7 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
         fun isDistanceInfo(s: String): Boolean = distanceRegex.containsMatchIn(s)
 
         // --- APP-SPECIFIC CUSTOM RULES (e.g. Naver Maps) ---
-        val customMatch = NavigationRuleEngine.tryTranslate(sbn, title, text)
+        val customMatch = NotificationRuleEngine.tryTranslate(sbn, title, text)
         if (customMatch != null) {
             if (customMatch.shouldIgnore) return null
             

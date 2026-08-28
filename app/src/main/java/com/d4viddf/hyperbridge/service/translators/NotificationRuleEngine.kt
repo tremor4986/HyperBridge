@@ -5,34 +5,35 @@ import android.util.Log
 import kotlinx.serialization.json.Json
 
 /**
- * Handles app-specific navigation notification parsing rules.
+ * Handles app-specific notification parsing rules from remote rules.json.
  */
-object NavigationRuleEngine {
+object NotificationRuleEngine {
 
-    data class CustomNavResult(
+    data class RemoteRuleMatch(
         val instruction: String,
         val distance: String,
         val eta: String = "",
-        val shouldIgnore: Boolean = false
+        val shouldIgnore: Boolean = false,
+        val targetLayout: String? = null
     )
 
-    private var currentConfig: RemoteNavConfig? = null
+    private var currentConfig: RemoteRuleConfig? = null
     private val json = Json { ignoreUnknownKeys = true }
 
     fun loadRules(jsonStr: String) {
         try {
-            currentConfig = json.decodeFromString<RemoteNavConfig>(jsonStr)
-            Log.d("NavigationRuleEngine", "Rules loaded: ${currentConfig?.apps?.size ?: 0} apps")
+            currentConfig = json.decodeFromString<RemoteRuleConfig>(jsonStr)
+            Log.d("NotificationRuleEngine", "Rules loaded: ${currentConfig?.apps?.size ?: 0} apps")
         } catch (e: Exception) {
-            Log.e("NavigationRuleEngine", "Failed to parse rules JSON", e)
+            Log.e("NotificationRuleEngine", "Failed to parse rules JSON", e)
         }
     }
 
     /**
-     * Attempts to translate a notification using app-specific rules.
-     * @return CustomNavResult if a matching rule is found, null otherwise.
+     * Attempts to translate a notification using app-specific rules from rules.json.
+     * @return RemoteRuleMatch if a matching rule is found, null otherwise.
      */
-    fun tryTranslate(sbn: StatusBarNotification, title: String, text: String): CustomNavResult? {
+    fun tryTranslate(sbn: StatusBarNotification, title: String, text: String): RemoteRuleMatch? {
         val pkg = sbn.packageName
         
         // 1. Try Remote Rules first
@@ -42,66 +43,78 @@ object NavigationRuleEngine {
             if (result != null) return result
         }
 
-        // 2. Fallback to hardcoded local rules if remote failed or not found
+        // 2. Fallback to hardcoded local rules if remote failed or not found (Only for Nav apps)
         return when (pkg) {
             "com.nhn.android.nmap" -> translateNaverMaps(title, text)
             else -> null
         }
     }
 
-    private fun applyAppRule(appRule: RemoteAppRule, title: String, text: String): CustomNavResult? {
+    private fun applyAppRule(appRule: RemoteAppRule, title: String, text: String): RemoteRuleMatch? {
         val combined = "$title / $text".replace("  ", " ")
 
-        // Check ignore list
-        if (appRule.ignoreList.any { combined.contains(it) }) {
-            return CustomNavResult("", "", shouldIgnore = true)
+        // 1. Check allow list (If specified, notification MUST contain at least one)
+        if (appRule.allowList.isNotEmpty()) {
+            val isAllowed = appRule.allowList.any { combined.contains(it, ignoreCase = true) }
+            if (!isAllowed) return null
+        }
+
+        // 2. Check ignore list
+        if (appRule.ignoreList.any { combined.contains(it, ignoreCase = true) }) {
+            return RemoteRuleMatch("", "", shouldIgnore = true)
         }
 
         for (rule in appRule.rules) {
             when (rule.type) {
                 "match" -> {
-                    if (rule.match != null && combined.contains(rule.match)) {
-                        return CustomNavResult(
+                    if (rule.match != null && combined.contains(rule.match, ignoreCase = true)) {
+                        return RemoteRuleMatch(
                             instruction = rule.instruction,
-                            distance = rule.distance
+                            distance = rule.distance,
+                            targetLayout = rule.targetLayout
                         )
                     }
                 }
                 "regex" -> {
                     if (rule.regex != null) {
-                        val regex = Regex(rule.regex)
-                        val match = regex.find(combined)
+                        val regex = try { Regex(rule.regex, RegexOption.IGNORE_CASE) } catch (_: Exception) { null }
+                        val match = regex?.find(combined)
                         if (match != null) {
                             var inst = rule.instruction
                             var dist = rule.distance
                             
                             // Simple replacement of $1, $2, etc.
                             match.groupValues.forEachIndexed { i, value ->
-                                inst = inst.replace("$$i", value)
-                                dist = dist.replace("$$i", value)
+                                if (i > 0) {
+                                    inst = inst.replace("$$i", value)
+                                    dist = dist.replace("$$i", value)
+                                }
                             }
                             
-                            return CustomNavResult(
+                            return RemoteRuleMatch(
                                 instruction = inst.trim(),
-                                distance = dist.trim()
+                                distance = dist.trim(),
+                                targetLayout = rule.targetLayout
                             )
                         }
                     }
                 }
                 "transit_moving" -> {
-                    if (rule.match != null && combined.contains(rule.match)) {
-                        val hasAll = rule.contains?.all { combined.contains(it) } ?: true
+                    if (rule.match != null && combined.contains(rule.match, ignoreCase = true)) {
+                        val hasAll = rule.contains?.all { combined.contains(it, ignoreCase = true) } ?: true
                         if (hasAll) {
                             val parts = combined.split("/").map { it.trim() }.filter { it.isNotEmpty() }
                             if (parts.size >= 2) {
                                 var inst = rule.instruction
-                                var cleanedPart1 = parts[1]
-                                rule.textCleanup?.let { cleanedPart1 = cleanedPart1.replace(it, "").trim() }
-                                inst = inst.replace("{cleanup}", cleanedPart1)
+                                // For transit, parts[1] is usually the detailed text
+                                var contentToClean = parts[1]
+                                rule.textCleanup?.let { contentToClean = contentToClean.replace(it, "", ignoreCase = true).trim() }
+                                inst = inst.replace("{cleanup}", contentToClean)
                                 
-                                return CustomNavResult(
+                                return RemoteRuleMatch(
                                     instruction = inst,
-                                    distance = rule.distance
+                                    distance = rule.distance,
+                                    targetLayout = rule.targetLayout
                                 )
                             }
                         }
@@ -112,21 +125,22 @@ object NavigationRuleEngine {
         return null
     }
 
-    private fun translateNaverMaps(title: String, text: String): CustomNavResult? {
+    private fun translateNaverMaps(title: String, text: String): RemoteRuleMatch? {
         // Local fallback logic (same as before)
         val combined = "$title / $text".replace("  ", " ")
 
         if (combined.contains("다른 앱 위에 표시") || combined.contains("내비게이션 - 안내 중")) {
-            return CustomNavResult("", "", shouldIgnore = true)
+            return RemoteRuleMatch("", "", shouldIgnore = true)
         }
         
         if (combined.contains("길안내를 시작합니다")) {
             val parts = combined.split("/").map { it.trim() }.filter { it.isNotEmpty() }
             val startIdx = parts.indexOfFirst { it.contains("길안내를 시작합니다") }
             if (startIdx != -1 && parts.size > startIdx + 1) {
-                return CustomNavResult(
+                return RemoteRuleMatch(
                     instruction = "길안내 시작",
-                    distance = "네이버 지도"
+                    distance = "네이버 지도",
+                    targetLayout = "NAVIGATION"
                 )
             }
         }
@@ -136,9 +150,10 @@ object NavigationRuleEngine {
             if (parts.size >= 2) {
                 val moveStatus = if (parts[0].contains("이동 중")) "이동 중" else parts[0]
                 val stopInfo = parts[1].replace("하차까지", "").trim()
-                return CustomNavResult(
+                return RemoteRuleMatch(
                     instruction = "$stopInfo 남음",
-                    distance = moveStatus
+                    distance = moveStatus,
+                    targetLayout = "NAVIGATION"
                 )
             }
         }
@@ -149,9 +164,10 @@ object NavigationRuleEngine {
         if (firstMatch != null) {
             val name = firstMatch.groupValues[1].trim()
             val status = firstMatch.groupValues[2].trim()
-            return CustomNavResult(
+            return RemoteRuleMatch(
                 instruction = status,
-                distance = name
+                distance = name,
+                targetLayout = "NAVIGATION"
             )
         }
 
@@ -160,13 +176,14 @@ object NavigationRuleEngine {
             if (parts.size >= 2) {
                 val left = parts[0].split(",").first().trim()
                 val right = parts[1].split(",").first().trim()
-                return CustomNavResult(instruction = right, distance = left)
+                return RemoteRuleMatch(instruction = right, distance = left, targetLayout = "NAVIGATION")
             }
         }
 
-        return CustomNavResult(
+        return RemoteRuleMatch(
             instruction = text,
-            distance = title.ifEmpty { "네이버 지도" }
+            distance = title.ifEmpty { "네이버 지도" },
+            targetLayout = "NAVIGATION"
         )
     }
 }

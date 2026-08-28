@@ -69,3 +69,11 @@ fun isPostNotificationsEnabled(context: Context): Boolean {
             android.Manifest.permission.POST_NOTIFICATIONS
         ) == android.content.pm.PackageManager.PERMISSION_GRANTED
 }
+
+/**
+ * Checks if the app is ignoring battery optimizations.
+ */
+fun isIgnoringBatteryOptimizations(context: Context): Boolean {
+    val pm = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
+    return pm.isIgnoringBatteryOptimizations(context.packageName)
+}
