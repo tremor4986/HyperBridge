@@ -117,9 +117,31 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val libraryAppsState: StateFlow<List<AppInfo>> = combine(
-        baseAppsFlow, librarySearch, libraryCategory, librarySort
-    ) { apps, query, category, sort ->
-        applyFilters(apps, query, category, sort)
+        baseAppsFlow, librarySearch, libraryCategory, librarySort, preferences.remoteNavRulesFlow
+    ) { apps, query, category, sort, remoteRulesJson ->
+        // --- WHITELIST FILTERING ---
+        val whitelistedPkgs = try {
+            if (remoteRulesJson != null) {
+                val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+                val config = json.decodeFromString<com.d4viddf.hyperbridge.service.translators.RemoteNavConfig>(remoteRulesJson)
+                config.apps.map { it.packageName }.toSet()
+            } else {
+                emptySet()
+            }
+        } catch (_: Exception) {
+            emptySet()
+        }
+
+        val filteredByWhitelist = if (whitelistedPkgs.isNotEmpty()) {
+            apps.filter { whitelistedPkgs.contains(it.packageName) }
+        } else {
+            // If no remote rules yet, maybe show nothing or keep previous behavior?
+            // User requested "only apps in json", so if json is empty/failed, maybe show nothing.
+            // But let's fallback to Naver Maps at least since it's hardcoded as fallback.
+            apps.filter { it.packageName == "com.nhn.android.nmap" }
+        }
+
+        applyFilters(filteredByWhitelist, query, category, sort)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     private fun applyFilters(list: List<AppInfo>, query: String, category: AppCategory, sort: SortOption): List<AppInfo> {

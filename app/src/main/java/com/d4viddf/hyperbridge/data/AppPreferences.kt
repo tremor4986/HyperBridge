@@ -426,6 +426,11 @@ class AppPreferences(context: Context) {
     // ========================================================================
 
     val GLOBAL_NOTIFICATION_TYPES_KEY = "global_notification_types"
+    val REMOTE_NAV_RULES_KEY = "remote_nav_rules"
+
+    val remoteNavRulesFlow: Flow<String?> = dao.getSettingFlow(REMOTE_NAV_RULES_KEY)
+    suspend fun setRemoteNavRules(json: String) = save(REMOTE_NAV_RULES_KEY, json)
+    fun getRemoteNavRulesSync(): String? = memoryCache[REMOTE_NAV_RULES_KEY]
 
     val globalNotificationTypesFlow: Flow<Set<String>> = dao.getSettingFlow(GLOBAL_NOTIFICATION_TYPES_KEY).map { str ->
         str?.deserializeSet() ?: NotificationType.entries.map { it.name }.toSet()

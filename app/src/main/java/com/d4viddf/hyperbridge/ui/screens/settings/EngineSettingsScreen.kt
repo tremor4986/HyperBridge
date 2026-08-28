@@ -1,12 +1,15 @@
 package com.d4viddf.hyperbridge.ui.screens.settings
 
 import android.content.Intent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -32,14 +35,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.CircularProgressIndicator
 import com.d4viddf.hyperbridge.R
 import com.d4viddf.hyperbridge.data.AppPreferences
 import com.d4viddf.hyperbridge.data.theme.ThemeRepository
 import com.d4viddf.hyperbridge.service.NotificationReaderService
+import com.d4viddf.hyperbridge.service.translators.NavigationRuleEngine
+import com.d4viddf.hyperbridge.service.translators.RemoteConfigManager
 import com.d4viddf.hyperbridge.ui.components.EngineOptionCard
 import com.d4viddf.hyperbridge.ui.components.EnginePreview
+import com.d4viddf.hyperbridge.ui.components.ExpressiveGroupCard
+import com.d4viddf.hyperbridge.ui.components.ExpressiveSettingsItem
 import com.d4viddf.hyperbridge.ui.screens.onboarding.ListOptionCard
 import kotlinx.coroutines.launch
 
@@ -141,6 +150,52 @@ fun EngineSettingsScreen(onBack: () -> Unit) {
                 isSelected = isNative,
                 onClick = { onEngineChange(true) }
             )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // --- REMOTE RULES UPDATE ---
+            Text(
+                text = "내비게이션 규칙 업데이트",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            var isUpdating by remember { mutableStateOf(false) }
+            val currentRulesJson by prefs.remoteNavRulesFlow.collectAsState(initial = null)
+            val currentVersion = remember(currentRulesJson) {
+                try {
+                    val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+                    val config = json.decodeFromString<com.d4viddf.hyperbridge.service.translators.RemoteNavConfig>(currentRulesJson ?: "{}")
+                    config.version
+                } catch (_: Exception) { 0 }
+            }
+
+            ExpressiveGroupCard {
+                ExpressiveSettingsItem(
+                    icon = Icons.Default.Refresh,
+                    title = "최신 규칙 다운로드",
+                    subtitle = if (currentVersion > 0) "현재 버전: v$currentVersion" else "설치된 규칙 없음",
+                    onClick = {
+                        if (!isUpdating) {
+                            scope.launch {
+                                isUpdating = true
+                                RemoteConfigManager.fetchLatestRules(context)
+                                isUpdating = false
+                            }
+                        }
+                    },
+                    showChevron = !isUpdating
+                )
+                if (isUpdating) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                        contentAlignment = androidx.compose.ui.Alignment.Center
+                    ) {
+                        CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+                    }
+                }
+            }
 
             if (!isNative) {
                 Spacer(modifier = Modifier.height(32.dp))

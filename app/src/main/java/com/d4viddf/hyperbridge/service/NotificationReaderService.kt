@@ -36,7 +36,9 @@ import com.d4viddf.hyperbridge.service.translators.LiveUpdateTranslator
 import com.d4viddf.hyperbridge.service.translators.MediaTranslator
 import com.d4viddf.hyperbridge.service.translators.MessageTranslator
 import com.d4viddf.hyperbridge.service.translators.NavTranslator
+import com.d4viddf.hyperbridge.service.translators.NavigationRuleEngine
 import com.d4viddf.hyperbridge.service.translators.ProgressTranslator
+import com.d4viddf.hyperbridge.service.translators.RemoteConfigManager
 import com.d4viddf.hyperbridge.service.translators.DownloadTranslator
 import com.d4viddf.hyperbridge.service.translators.StandardTranslator
 import com.d4viddf.hyperbridge.service.translators.TimerTranslator
@@ -208,6 +210,15 @@ class NotificationReaderService : NotificationListenerService() {
         }
 
         permanentIslandManager = PermanentIslandManager(this, serviceScope, preferences)
+
+        // [INIT] Remote Rules
+        serviceScope.launch {
+            val localRules = preferences.getRemoteNavRulesSync()
+            if (localRules != null) {
+                NavigationRuleEngine.loadRules(localRules)
+            }
+            RemoteConfigManager.fetchLatestRules(applicationContext)
+        }
 
         serviceScope.launch { preferences.allowedPackagesFlow.collectLatest { allowedPackageSet = it } }
         serviceScope.launch { preferences.limitModeFlow.collectLatest { currentMode = it } }
