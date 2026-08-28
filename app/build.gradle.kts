@@ -42,6 +42,10 @@ android {
         buildConfig = true
         aidl = true
     }
+
+    androidResources {
+        localeFilters.addAll(listOf("ko-rKR"))
+    }
 }
 
 dependencies {

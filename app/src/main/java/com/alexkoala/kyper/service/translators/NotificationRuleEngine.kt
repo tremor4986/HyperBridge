@@ -35,19 +35,9 @@ object NotificationRuleEngine {
      */
     fun tryTranslate(sbn: StatusBarNotification, title: String, text: String): RemoteRuleMatch? {
         val pkg = sbn.packageName
+        val appRule = currentConfig?.apps?.find { it.packageName == pkg } ?: return null
         
-        // 1. Try Remote Rules first
-        val appRule = currentConfig?.apps?.find { it.packageName == pkg }
-        if (appRule != null) {
-            val result = applyAppRule(appRule, title, text)
-            if (result != null) return result
-        }
-
-        // 2. Fallback to hardcoded local rules if remote failed or not found (Only for Nav apps)
-        return when (pkg) {
-            "com.nhn.android.nmap" -> translateNaverMaps(title, text)
-            else -> null
-        }
+        return applyAppRule(appRule, title, text)
     }
 
     private fun applyAppRule(appRule: RemoteAppRule, title: String, text: String): RemoteRuleMatch? {
@@ -123,67 +113,5 @@ object NotificationRuleEngine {
             }
         }
         return null
-    }
-
-    private fun translateNaverMaps(title: String, text: String): RemoteRuleMatch? {
-        // Local fallback logic (same as before)
-        val combined = "$title / $text".replace("  ", " ")
-
-        if (combined.contains("다른 앱 위에 표시") || combined.contains("내비게이션 - 안내 중")) {
-            return RemoteRuleMatch("", "", shouldIgnore = true)
-        }
-        
-        if (combined.contains("길안내를 시작합니다")) {
-            val parts = combined.split("/").map { it.trim() }.filter { it.isNotEmpty() }
-            val startIdx = parts.indexOfFirst { it.contains("길안내를 시작합니다") }
-            if (startIdx != -1 && parts.size > startIdx + 1) {
-                return RemoteRuleMatch(
-                    instruction = "길안내 시작",
-                    distance = "네이버 지도",
-                    targetLayout = "NAVIGATION"
-                )
-            }
-        }
-
-        if (combined.contains("이동 중") && combined.contains("정류장")) {
-            val parts = combined.split("/").map { it.trim() }.filter { it.isNotEmpty() }
-            if (parts.size >= 2) {
-                val moveStatus = if (parts[0].contains("이동 중")) "이동 중" else parts[0]
-                val stopInfo = parts[1].replace("하차까지", "").trim()
-                return RemoteRuleMatch(
-                    instruction = "$stopInfo 남음",
-                    distance = moveStatus,
-                    targetLayout = "NAVIGATION"
-                )
-            }
-        }
-
-        val busPattern = Regex("([^,()\\s/]+행|[^,()\\s/]+)\\s*\\((도착|곧 도착|\\d+분|출발|진입)\\)")
-        val firstMatch = busPattern.find(combined)
-
-        if (firstMatch != null) {
-            val name = firstMatch.groupValues[1].trim()
-            val status = firstMatch.groupValues[2].trim()
-            return RemoteRuleMatch(
-                instruction = status,
-                distance = name,
-                targetLayout = "NAVIGATION"
-            )
-        }
-
-        if (combined.contains("/")) {
-            val parts = combined.split("/").map { it.trim() }.filter { it.isNotEmpty() }
-            if (parts.size >= 2) {
-                val left = parts[0].split(",").first().trim()
-                val right = parts[1].split(",").first().trim()
-                return RemoteRuleMatch(instruction = right, distance = left, targetLayout = "NAVIGATION")
-            }
-        }
-
-        return RemoteRuleMatch(
-            instruction = text,
-            distance = title.ifEmpty { "네이버 지도" },
-            targetLayout = "NAVIGATION"
-        )
     }
 }
