@@ -65,10 +65,7 @@ class ProgressTranslator(context: Context, repo: ThemeRepository) : BaseTranslat
         val isFinished = percent >= 100 || isTextFinished
 
         val tickKey = "${picKey}_tick"
-        val hiddenKey = "hidden_pixel"
-
         builder.addPicture(resolveIcon(sbn, picKey))
-        builder.addPicture(getTransparentPicture(hiddenKey))
 
         if (isFinished) {
             if (customTick != null) {
@@ -94,7 +91,7 @@ class ProgressTranslator(context: Context, repo: ThemeRepository) : BaseTranslat
 
         if (isFinished) {
             builder.setBigIslandInfo(
-                left = ImageTextInfoLeft(1, PicInfo(1, hiddenKey)),
+                left = ImageTextInfoLeft(2, null),
                 right = ImageTextInfoRight(2, PicInfo(1, tickKey))
             )
             builder.setSmallIsland(tickKey)
@@ -103,7 +100,7 @@ class ProgressTranslator(context: Context, repo: ThemeRepository) : BaseTranslat
             if (isIndeterminate) {
                 builder.setBigIslandInfo(
                     left = ImageTextInfoLeft(1, PicInfo(1, picKey), TextInfo("", "")),
-                    right = ImageTextInfoRight(1, PicInfo(1, hiddenKey), TextInfo(title, "Processing..."))
+                    right = ImageTextInfoRight(2, null, TextInfo(title, "Processing..."))
                 )
                 builder.setSmallIsland(picKey)
             } else {

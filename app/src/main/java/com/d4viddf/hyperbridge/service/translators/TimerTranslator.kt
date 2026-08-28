@@ -41,9 +41,7 @@ class TimerTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(
         builder.setShowNotification(config.isShowShade ?: true)
         builder.setIslandFirstFloat(config.isFloat ?: false)
 
-        val hiddenKey = "hidden_pixel"
         builder.addPicture(resolveIcon(sbn, picKey))
-        builder.addPicture(getTransparentPicture(hiddenKey))
 
         val actions = extractBridgeActions(sbn, config, theme)
 
@@ -59,7 +57,7 @@ class TimerTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(
         } else {
             builder.setBigIslandInfo(
                 left = ImageTextInfoLeft(1, PicInfo(1, picKey), TextInfo("", "")),
-                right = ImageTextInfoRight(1, PicInfo(1, hiddenKey), TextInfo(title, context.getString(R.string.status_active)))
+                right = ImageTextInfoRight(2, null, TextInfo(title, context.getString(R.string.status_active)))
             )
         }
 

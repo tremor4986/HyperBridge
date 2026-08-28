@@ -55,9 +55,7 @@ class CallTranslator(
         builder.setShowNotification(config.isShowShade ?: true)
         builder.setIslandFirstFloat(config.isFloat ?: false)
 
-        val hiddenKey = "hidden_pixel"
         builder.addPicture(resolveIcon(sbn, picKey))
-        builder.addPicture(getTransparentPicture(hiddenKey))
 
         val bridgeActions = getFilteredCallActions(sbn, isIncoming, theme)
         val actionKeys = bridgeActions.map { it.action.key }

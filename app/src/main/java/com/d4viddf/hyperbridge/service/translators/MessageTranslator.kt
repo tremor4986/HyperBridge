@@ -53,9 +53,7 @@ class MessageTranslator(
         builder.setReopen(true)
         builder.setIslandFirstFloat(config.isFloat ?: false)
 
-        val hiddenKey = "hidden_pixel"
         builder.addPicture(resolveIcon(sbn, picKey))
-        builder.addPicture(getTransparentPicture(hiddenKey))
 
         val bridgeActions = extractBridgeActions(
             sbn = sbn,
@@ -81,7 +79,7 @@ class MessageTranslator(
         } else {
             builder.setBigIslandInfo(
                 left = ImageTextInfoLeft(1, PicInfo(1, picKey), TextInfo("", "")),
-                right = ImageTextInfoRight(1, PicInfo(1, hiddenKey), TextInfo(title, displayContent))
+                right = ImageTextInfoRight(2, null, TextInfo(title, displayContent))
             )
         }
 
