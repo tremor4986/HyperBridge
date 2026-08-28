@@ -1,0 +1,238 @@
+package com.alexkoala.kyper.ui.screens.settings
+
+import android.content.Intent
+import android.widget.Toast
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.CircularProgressIndicator
+import com.alexkoala.kyper.R
+import com.alexkoala.kyper.data.AppPreferences
+import com.alexkoala.kyper.data.theme.ThemeRepository
+import com.alexkoala.kyper.service.NotificationReaderService
+import com.alexkoala.kyper.service.translators.RemoteConfigManager
+import com.alexkoala.kyper.ui.components.ExpressiveGroupCard
+import com.alexkoala.kyper.ui.components.ExpressiveSettingsItem
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EngineSettingsScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
+    val prefs = remember { AppPreferences(context) }
+    val repo = remember { ThemeRepository(context) }
+    val scope = rememberCoroutineScope()
+
+    // 1. Observe both the Global Preference and the Active Theme
+    val defaultEnginePref by prefs.useNativeLiveUpdates.collectAsState(initial = false)
+    val activeTheme by repo.activeTheme.collectAsState(initial = null)
+
+    // 2. Calculate which engine is ACTUALLY being used right now
+    val isCustomTheme = activeTheme != null && activeTheme!!.id.isNotEmpty()
+    val isNative = if (isCustomTheme) {
+        // [FIX] If the theme inherits (null), fall back to the global preference!
+        activeTheme!!.global.useNativeLiveUpdates ?: defaultEnginePref
+    } else {
+        defaultEnginePref
+    }
+
+    // 3. Handle Engine Changes intelligently based on active state
+    val onEngineChange = { useNative: Boolean ->
+        scope.launch {
+            if (isCustomTheme) {
+                // Patch the active Custom Theme so the setting actually sticks!
+                val currentTheme = activeTheme!!
+                val updatedGlobal = currentTheme.global.copy(useNativeLiveUpdates = useNative)
+                val updatedTheme = currentTheme.copy(global = updatedGlobal)
+                repo.saveTheme(updatedTheme)
+                repo.activateTheme(updatedTheme.id)
+            } else {
+                // Save to standard AppPreferences
+                prefs.setUseNativeLiveUpdates(useNative)
+            }
+
+            // Immediately tell the background service to reload the engine config
+            val intent = Intent(context, NotificationReaderService::class.java).apply {
+                action = NotificationReaderService.ACTION_RELOAD_THEME
+            }
+            context.startService(intent)
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("내비게이션 규칙 업데이트", fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    FilledTonalIconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // --- REMOTE RULES UPDATE ---
+            Text(
+                text = "내비게이션 규칙 업데이트",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            var isUpdating by remember { mutableStateOf(false) }
+            val currentRulesJson by prefs.remoteNavRulesFlow.collectAsState(initial = null)
+            val currentVersion = remember(currentRulesJson) {
+                try {
+                    val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+                    val config = json.decodeFromString<com.alexkoala.kyper.service.translators.RemoteRuleConfig>(currentRulesJson ?: "{}")
+                    config.version
+                } catch (_: Exception) { 0 }
+            }
+
+            ExpressiveGroupCard {
+                ExpressiveSettingsItem(
+                    icon = Icons.Default.Refresh,
+                    title = "최신 규칙 다운로드",
+                    subtitle = if (currentVersion > 0) "현재 버전: v$currentVersion" else "설치된 규칙 없음",
+                    onClick = {
+                        if (!isUpdating) {
+                            scope.launch {
+                                isUpdating = true
+                                val newVersion = RemoteConfigManager.fetchLatestRules(context)
+                                isUpdating = false
+                                
+                                if (newVersion != null) {
+                                    Toast.makeText(context, "최신 규칙(v$newVersion)으로 업데이트되었습니다.", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(context, "규칙 업데이트에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    },
+                    showChevron = !isUpdating
+                )
+                if (isUpdating) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                        contentAlignment = androidx.compose.ui.Alignment.Center
+                    ) {
+                        CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+                    }
+                }
+            }
+
+            /*
+            if (!isNative) {
+                Spacer(modifier = Modifier.height(32.dp))
+
+                val isShizukuInstalled = remember { com.alexkoala.kyper.util.ShizukuManager.isShizukuInstalled(context) }
+                val isShizukuRunning by com.alexkoala.kyper.util.ShizukuManager.isShizukuRunning.collectAsState()
+                val isPermissionGranted by com.alexkoala.kyper.util.ShizukuManager.isPermissionGranted.collectAsState()
+                val isWorkaroundEnabled by prefs.isShizukuWorkaroundEnabled.collectAsState(initial = false)
+
+                androidx.compose.foundation.layout.Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(R.string.shizuku_workaround_title),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    androidx.compose.material3.Switch(
+                        checked = isWorkaroundEnabled,
+                        onCheckedChange = { scope.launch { prefs.setShizukuWorkaroundEnabled(it) } },
+                        enabled = isShizukuInstalled
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = stringResource(R.string.shizuku_workaround_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                if (isShizukuInstalled && isWorkaroundEnabled) {
+                    ListOptionCard(
+                        title = stringResource(if (isPermissionGranted) R.string.shizuku_permission_granted else R.string.shizuku_status_running),
+                        subtitle = stringResource(if (isPermissionGranted) R.string.shizuku_status_running else R.string.shizuku_permission_denied),
+                        icon = if (isPermissionGranted) Icons.Default.Security else Icons.Default.Warning,
+                        shape = RoundedCornerShape(16.dp),
+                        onClick = {},
+                        trailingContent = {}
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    androidx.compose.material3.Button(
+                        onClick = {
+                            if (!isPermissionGranted) {
+                                com.alexkoala.kyper.util.ShizukuManager.requestPermission(context, 1)
+                            }
+                        },
+                        enabled = !isPermissionGranted,
+                        modifier = Modifier.fillMaxWidth().height(56.dp),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                        )
+                    ) {
+                        Text(
+                            stringResource(if (isPermissionGranted) R.string.perm_granted else R.string.shizuku_request_permission),
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
+                }
+
+                if (!isShizukuInstalled) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.shizuku_not_installed),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
+            */
+        }
+    }
+}

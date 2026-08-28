@@ -19,7 +19,7 @@
         </intent>
 
         <intent>
-            <action android:name="com.d4viddf.hyperbridge.THEME_PROVIDER" />
+            <action android:name="com.alexkoala.kyper.THEME_PROVIDER" />
         </intent>
     </queries>
 
@@ -33,13 +33,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:enableOnBackInvokedCallback="true"
-        android:theme="@style/Theme.HyperBridge">
+        android:theme="@style/Theme.Kyper">
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:stateNotNeeded="true"
-            android:theme="@style/Theme.HyperBridge">
+            android:theme="@style/Theme.Kyper">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -58,13 +58,13 @@
                 <action android:name="android.intent.action.USER_UNLOCKED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.intent.action.USER_SWITCHED" />
-                <action android:name="com.d4viddf.hyperbridge.ACTION_TEST_MIGRATION" />
+                <action android:name="com.alexkoala.kyper.ACTION_TEST_MIGRATION" />
             </intent-filter>
         </receiver>
 
         <service
             android:name=".service.NotificationReaderService"
-            android:label="HyperBridge Listener"
+            android:label="Kyper Listener"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="true"
             android:directBootAware="true">
@@ -82,11 +82,11 @@
         <activity
             android:name=".ui.screens.theme.ThemeInstallerActivity"
             android:exported="true"
-            android:theme="@style/Theme.HyperBridge.Transparent"
+            android:theme="@style/Theme.Kyper.Transparent"
             android:excludeFromRecents="true">
 
             <intent-filter>
-                <action android:name="com.d4viddf.hyperbridge.APPLY_THEME" />
+                <action android:name="com.alexkoala.kyper.APPLY_THEME" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="application/zip" />
                 <data android:mimeType="application/octet-stream" />
