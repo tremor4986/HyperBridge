@@ -817,7 +817,7 @@ class NotificationReaderService : NotificationListenerService() {
 
                 builder.extras.putString(EXTRA_ORIGINAL_KEY, sbn.key)
 
-                val shouldAlertOnce = isUpdate && (type == NotificationType.PROGRESS || type == NotificationType.DOWNLOAD || type == NotificationType.MEDIA)
+                val shouldAlertOnce = isUpdate && (type == NotificationType.PROGRESS || type == NotificationType.DOWNLOAD || type == NotificationType.MEDIA || type == NotificationType.NAVIGATION || type == NotificationType.TIMER)
                 builder.setOnlyAlertOnce(shouldAlertOnce)
 
                 val hasPermission = com.d4viddf.hyperbridge.util.XiaomiNotificationHelper.hasFocusPermission(this)
@@ -900,7 +900,7 @@ class NotificationReaderService : NotificationListenerService() {
                 return
             }
 
-            val shouldAlertOnce = isUpdate && (type == NotificationType.PROGRESS || type == NotificationType.DOWNLOAD || type == NotificationType.MEDIA)
+            val shouldAlertOnce = isUpdate && (type == NotificationType.PROGRESS || type == NotificationType.DOWNLOAD || type == NotificationType.MEDIA || type == NotificationType.NAVIGATION || type == NotificationType.TIMER)
 
             Log.i(TAG, " POSTING Island -> ID: $bridgeId, Type: $type, FinalTitle: '$effectiveTitle', FinalText: '$effectiveText'")
             postStandardNotification(sbn, bridgeId, data, shouldAlertOnce)
