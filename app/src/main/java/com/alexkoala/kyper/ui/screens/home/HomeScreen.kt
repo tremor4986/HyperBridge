@@ -67,23 +67,25 @@ private enum class DesignRoute {
 fun HomeScreen(
     viewModel: AppListViewModel = viewModel(),
     onSettingsClick: () -> Unit,
-    onNavConfigClick: (String) -> Unit
+    onNavConfigClick: (String) -> Unit,
+    onScreenRecordingConfigClick: () -> Unit = {},
+    onAppConfigClick: (String) -> Unit = {}
 ) {
+
     var selectedTab by remember { mutableIntStateOf(1) }
     var designRoute by remember { mutableStateOf(DesignRoute.DASHBOARD) }
     var editingThemeId by remember { mutableStateOf<String?>(null) }
 
     var showWidgetPicker by remember { mutableStateOf(false) }
     var editingWidgetId by remember { mutableStateOf<Int?>(null) }
-    var configApp by remember { mutableStateOf<AppInfo?>(null) }
 
     val activeApps by viewModel.activeAppsState.collectAsState()
     val libraryApps by viewModel.libraryAppsState.collectAsState()
+    val systemIntegrations by viewModel.systemIntegrationsState.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 
     val context = LocalContext.current
 
-    if (configApp != null) BackHandler { configApp = null }
     if (editingWidgetId != null) BackHandler { editingWidgetId = null }
     if (showWidgetPicker) BackHandler { showWidgetPicker = false }
 
@@ -221,7 +223,7 @@ fun HomeScreen(
                                         ThemeManagerScreen(
                                             onBack = { designRoute = DesignRoute.DASHBOARD },
                                             onFindThemes = {
-                                                val query = "HyperBridge Theme"
+                                                val query = "Hyper Bridge Theme"
                                                 try {
                                                     val intent = Intent(
                                                         Intent.ACTION_VIEW,
@@ -269,18 +271,33 @@ fun HomeScreen(
                         1 -> ActiveAppsPage(
                             apps = activeApps,
                             isLoading = isLoading,
+                            systemIntegrations = systemIntegrations,
                             viewModel = viewModel,
-                            onConfig = { configApp = it },
+                            onConfig = { onAppConfigClick(it.packageName) },
+                            onSystemConfig = { integration ->
+                                when (integration.id) {
+                                    com.alexkoala.kyper.ui.SystemIntegrationId.SCREEN_RECORDER -> onScreenRecordingConfigClick()
+                                    com.alexkoala.kyper.ui.SystemIntegrationId.VPN -> {}
+                                }
+                            },
                             onSettingsClick = onSettingsClick
                         )
 
                         2 -> LibraryPage(
                             apps = libraryApps,
                             isLoading = isLoading,
+                            systemIntegrations = systemIntegrations,
                             viewModel = viewModel,
-                            onConfig = { configApp = it },
+                            onConfig = { onAppConfigClick(it.packageName) },
+                            onSystemConfig = { integration ->
+                                when (integration.id) {
+                                    com.alexkoala.kyper.ui.SystemIntegrationId.SCREEN_RECORDER -> onScreenRecordingConfigClick()
+                                    com.alexkoala.kyper.ui.SystemIntegrationId.VPN -> {}
+                                }
+                            },
                             onSettingsClick = onSettingsClick
                         )
+
                     }
                 }
             }
@@ -329,24 +346,6 @@ fun HomeScreen(
                         onBack = { editingWidgetId = null }
                     )
                 }
-            }
-
-            // [FIXED] Safe handling of nullable state
-            if (configApp != null) {
-                // Capture the non-null value locally for the lambda scope
-                val currentConfigApp = configApp!!
-
-                AppConfigBottomSheet(
-                    app = currentConfigApp,
-                    viewModel = viewModel,
-                    onDismiss = { configApp = null },
-                    onNavConfigClick = {
-                        // Use the LOCAL variable, not the mutable state which might have changed
-                        onNavConfigClick(currentConfigApp.packageName)
-                        configApp = null
-                    }
-
-                )
             }
         }
     }

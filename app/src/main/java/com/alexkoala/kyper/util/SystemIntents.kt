@@ -1,9 +1,12 @@
 package com.alexkoala.kyper.util
 
 import android.annotation.SuppressLint
+import android.app.AppOpsManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.os.PowerManager
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.net.toUri
@@ -71,9 +74,30 @@ fun isPostNotificationsEnabled(context: Context): Boolean {
 }
 
 /**
- * Checks if the app is ignoring battery optimizations.
+ * Checks if restricted settings / restricted permissions are allowed (Android 13+).
+ * When an app is sideloaded, Android may restrict sensitive permissions until the user
+ * explicitly enables "Allow restricted settings" in App Info.
+ */
+@Suppress("DEPRECATION")
+fun isRestrictedSettingsAllowed(context: Context): Boolean {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return true
+    return try {
+        val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as? AppOpsManager
+        val mode = appOps?.unsafeCheckOpNoThrow(
+            "android:access_restricted_settings",
+            android.os.Process.myUid(),
+            context.packageName
+        )
+        mode == AppOpsManager.MODE_ALLOWED
+    } catch (_: Throwable) {
+        true
+    }
+}
+
+/**
+ * Checks if battery optimizations are ignored for this app.
  */
 fun isIgnoringBatteryOptimizations(context: Context): Boolean {
-    val pm = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
-    return pm.isIgnoringBatteryOptimizations(context.packageName)
+    val pm = context.getSystemService(Context.POWER_SERVICE) as? PowerManager
+    return pm?.isIgnoringBatteryOptimizations(context.packageName) == true
 }

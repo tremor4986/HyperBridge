@@ -79,6 +79,7 @@ import com.alexkoala.kyper.R
 import com.alexkoala.kyper.data.AppPreferences
 import com.alexkoala.kyper.data.theme.ThemeRepository
 import com.alexkoala.kyper.data.widget.WidgetManager
+import com.alexkoala.kyper.util.DocumentationUrls
 import com.alexkoala.kyper.models.theme.CallModule
 import com.alexkoala.kyper.models.theme.GlobalConfig
 import com.alexkoala.kyper.models.theme.HyperTheme
@@ -325,11 +326,11 @@ fun SectionHeader(title: String, onClick: () -> Unit) {
 fun HeroSection() {
     val uriHandler = LocalUriHandler.current
     val items = listOf(
-        HeroItem(stringResource(R.string.design_hero_customization_title), stringResource(R.string.design_hero_customization_subtitle), Color(0xFF4CAF50)) {},
+        HeroItem(stringResource(R.string.design_hero_customization_title), stringResource(R.string.design_hero_customization_subtitle), Color(0xFF4CAF50)) {
+            uriHandler.openUri(DocumentationUrls.CUSTOMIZATION_DOCS)
+        },
         HeroItem(stringResource(R.string.design_hero_pro_title), stringResource(R.string.design_hero_pro_subtitle), Color(0xFF2196F3)) {
-            uriHandler.openUri(
-                "https://github.com/D4vidDf/HyperBridge/discussions/78"
-            )
+            uriHandler.openUri(DocumentationUrls.THEME_CREATOR_DOCS)
         },
         HeroItem(stringResource(R.string.design_hero_community_title), stringResource(R.string.design_hero_community_subtitle), Color(0xFF9C27B0)
         ) { uriHandler.openUri("https://github.com/D4vidDf/HyperBridge/discussions") }

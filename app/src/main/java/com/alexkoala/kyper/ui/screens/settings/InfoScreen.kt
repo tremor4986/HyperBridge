@@ -23,9 +23,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
+import com.alexkoala.kyper.util.DocumentationUrls
 import androidx.compose.material.icons.filled.Block
 import androidx.compose.material.icons.filled.Bolt
+import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Favorite
@@ -34,6 +37,9 @@ import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Palette
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.SettingsSuggest
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -86,7 +92,9 @@ fun InfoScreen(
     onHistoryClick: () -> Unit,
     onBlocklistClick: () -> Unit,
     onBackupClick: () -> Unit,
-    onEngineClick: () -> Unit
+    onBugReportClick: () -> Unit = {},
+    onFloatingSetupClick: () -> Unit = {},
+    onDiagnosticsClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
@@ -174,9 +182,31 @@ fun InfoScreen(
                 title = stringResource(R.string.group_configuration),
                 items = listOf(
                     SettingsItemData(Icons.Default.SettingsSuggest, stringResource(R.string.system_setup), stringResource(R.string.system_setup_subtitle), onSetupClick),
-                    SettingsItemData(Icons.Default.Refresh, "내비게이션 규칙 업데이트", "최신 규칙 다운로드", onEngineClick),
+                    SettingsItemData(Icons.Default.Tune, stringResource(R.string.island_behavior), stringResource(R.string.limit_strategy), onBehaviorClick),
+                    SettingsItemData(Icons.Default.Palette, stringResource(R.string.global_settings), stringResource(R.string.island_appearance), onGlobalSettingsClick),
                     SettingsItemData(Icons.Default.Block, stringResource(R.string.blocked_terms), stringResource(R.string.spoiler_subtitle), onBlocklistClick),
                     SettingsItemData(Icons.Default.Save, stringResource(R.string.backup_restore_title), stringResource(R.string.backup_section_title), onBackupClick)
+                )
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // --- GUIDES GROUP ---
+            SettingsSection(
+                title = stringResource(R.string.group_guides),
+                items = listOf(
+                    SettingsItemData(
+                        Icons.Default.Code,
+                        stringResource(R.string.diagnostics_title),
+                        stringResource(R.string.diagnostics_subtitle),
+                        onDiagnosticsClick
+                    ),
+                    SettingsItemData(
+                        Icons.Default.BugReport,
+                        stringResource(R.string.bug_report_entry_title),
+                        stringResource(R.string.bug_report_entry_subtitle),
+                        onBugReportClick
+                    )
                 )
             )
 
@@ -187,9 +217,6 @@ fun InfoScreen(
                 title = stringResource(R.string.group_about),
                 items = listOf(
                     SettingsItemData(Icons.Default.Language, stringResource(R.string.language), stringResource(R.string.language_desc)) { showLanguageDialog = true },
-                    SettingsItemData(Icons.Default.Person, stringResource(R.string.developer), stringResource(R.string.developer_subtitle)) { uriHandler.openUri("https://d4viddf.com") },
-                    SettingsItemData(Icons.Default.History, stringResource(R.string.version_history), "0.1.0 - $appVersion", onHistoryClick),
-                    SettingsItemData(Icons.Default.Code, stringResource(R.string.source_code), stringResource(R.string.source_code_subtitle)) { uriHandler.openUri("https://github.com/D4vidDf/HyperBridge") },
                     SettingsItemData(Icons.Default.Description, stringResource(R.string.licenses), stringResource(R.string.licenses_subtitle), onLicensesClick)
                 )
             )
@@ -200,6 +227,13 @@ fun InfoScreen(
             SettingsSection(
                 title = stringResource(R.string.special_thanks),
                 items = listOf(
+                    SettingsItemData(
+                        Icons.Default.Favorite,
+                        stringResource(R.string.special_thanks_hb),
+                        stringResource(R.string.special_thanks_hb_subtitle)
+                    ) {
+                        uriHandler.openUri("https://github.com/D4vidDf/HyperBridge")
+                    },
                     SettingsItemData(
                         Icons.Default.Favorite,
                         stringResource(R.string.xmsf_workaround_credit_title),
@@ -304,6 +338,7 @@ fun getSettingsShape(groupSize: Int, index: Int): Shape {
 fun LanguageSelectorDialog(onDismiss: () -> Unit) {
     val languages = mapOf(
         stringResource(R.string.system_default) to "",
+        "العربية" to "ar",
         "Bahasa Indonesia" to "id",
         "Čeština" to "cs",              // Added (Czech)
         "Deutsch" to "de",

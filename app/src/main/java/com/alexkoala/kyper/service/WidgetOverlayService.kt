@@ -178,7 +178,7 @@ class WidgetOverlayService : Service() {
     private fun createWidgetChannel() {
         val channel = NotificationChannel(
             WIDGET_CHANNEL_ID,
-            "HyperBridge Widgets", // Separate Name in System Settings
+            "Hyper Bridge Widgets", // Separate Name in System Settings
             NotificationManager.IMPORTANCE_LOW
         ).apply {
             description = "Overlay notifications for Widgets"

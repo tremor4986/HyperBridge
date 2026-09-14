@@ -396,6 +396,33 @@ fun ExplanationPage() {
         Spacer(modifier = Modifier.height(24.dp))
 
         Card(
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+            shape = RoundedCornerShape(24.dp)
+        ) {
+            Row(
+                modifier = Modifier.padding(20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Default.Notifications, null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
+                Spacer(modifier = Modifier.width(16.dp))
+                Column {
+                    Text(
+                        stringResource(R.string.floating_setup_onboarding_title),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Text(
+                        stringResource(R.string.floating_setup_onboarding_desc),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Card(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
             shape = RoundedCornerShape(24.dp)
         ) {
@@ -472,7 +499,7 @@ fun TriggersConfigPage(prefs: AppPreferences) {
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
 
-                    NotificationType.entries.forEach { type ->
+                    NotificationType.configurableEntries.forEach { type ->
                         val isEnabled = activeTypes.contains(type.name)
                         Card(
                             onClick = {
@@ -501,6 +528,7 @@ fun TriggersConfigPage(prefs: AppPreferences) {
                                         NotificationType.CALL -> R.string.type_call_desc
                                         NotificationType.TIMER -> R.string.type_timer_desc
                                         NotificationType.MESSAGE -> R.string.type_message_desc
+                                        NotificationType.SCREEN_RECORDING -> R.string.type_screen_recording_desc
                                     }
                                     Text(
                                         stringResource(descRes),

@@ -9,11 +9,15 @@ import com.alexkoala.kyper.R
 import com.alexkoala.kyper.data.AppPreferences
 import com.alexkoala.kyper.ui.screens.home.HomeScreen
 import com.alexkoala.kyper.ui.screens.onboarding.OnboardingScreen
+import com.alexkoala.kyper.ui.screens.settings.AppConfigScreen
 import com.alexkoala.kyper.ui.screens.settings.AppPriorityScreen
 import com.alexkoala.kyper.ui.screens.settings.BackupSettingsScreen
 import com.alexkoala.kyper.ui.screens.settings.BlocklistAppListScreen
+import com.alexkoala.kyper.ui.screens.settings.BugReportScreen
 import com.alexkoala.kyper.ui.screens.settings.ChangelogHistoryScreen
+import com.alexkoala.kyper.ui.screens.settings.DiagnosticsScreen
 import com.alexkoala.kyper.ui.screens.settings.EngineSettingsScreen
+import com.alexkoala.kyper.ui.screens.settings.FloatingNotificationSetupScreen
 import com.alexkoala.kyper.ui.screens.settings.GlobalBlocklistScreen
 import com.alexkoala.kyper.ui.screens.settings.GlobalSettingsScreen
 import com.alexkoala.kyper.ui.screens.settings.ImportPreviewScreen
@@ -48,9 +52,12 @@ fun mainNavGraph(
     entry<Screen.Home> {
         HomeScreen(
             onSettingsClick = { navigator.navigate(Screen.Info) },
-            onNavConfigClick = { pkg -> navigator.navigate(Screen.NavCustomization(pkg)) }
+            onNavConfigClick = { pkg -> navigator.navigate(Screen.NavCustomization(pkg)) },
+            onScreenRecordingConfigClick = { navigator.navigate(Screen.ScreenRecordingCustomization) },
+            onAppConfigClick = { pkg -> navigator.navigate(Screen.AppConfig(pkg)) }
         )
     }
+
     entry<Screen.Info> {
         InfoScreen(
             onBack = { if (!navigator.goBack()) onExit() },
@@ -61,7 +68,9 @@ fun mainNavGraph(
             onHistoryClick = { navigator.navigate(Screen.History) },
             onBlocklistClick = { navigator.navigate(Screen.GlobalBlocklist) },
             onBackupClick = { navigator.navigate(Screen.Backup) },
-            onEngineClick = { navigator.navigate(Screen.EngineSettings) }
+            onBugReportClick = { navigator.navigate(Screen.BugReport) },
+            onFloatingSetupClick = { navigator.navigate(Screen.FloatingSetup) },
+            onDiagnosticsClick = { navigator.navigate(Screen.Diagnostics) }
         )
     }
     entry<Screen.GlobalSettings> {
@@ -94,7 +103,19 @@ fun mainNavGraph(
         EngineSettingsScreen(onBack = { navigator.goBack() })
     }
     entry<Screen.Setup> {
-        SetupHealthScreen(onBack = { navigator.goBack() })
+        SetupHealthScreen(
+            onBack = { navigator.goBack() },
+            onNavigateToBugReport = { navigator.navigate(Screen.BugReport) }
+        )
+    }
+    entry<Screen.FloatingSetup> {
+        FloatingNotificationSetupScreen(onBack = { navigator.goBack() })
+    }
+    entry<Screen.Diagnostics> {
+        DiagnosticsScreen(
+            onBack = { navigator.goBack() },
+            onReportError = { navigator.navigate(Screen.BugReport) }
+        )
     }
     entry<Screen.Licenses> {
         LicensesScreen(onBack = { navigator.goBack() })
@@ -152,4 +173,21 @@ fun mainNavGraph(
     entry<Screen.IslandSettings> {
         IslandSettingsScreen(onBack = { navigator.goBack() })
     }
+    entry<Screen.BugReport> {
+        BugReportScreen(
+            onBack = { navigator.goBack() },
+            onNavigateToDiagnostics = { navigator.navigate(Screen.Diagnostics) }
+        )
+    }
+    entry<Screen.ScreenRecordingCustomization> {
+        com.alexkoala.kyper.ui.screens.settings.ScreenRecordingSettingsScreen(onBack = { navigator.goBack() })
+    }
+    entry<Screen.AppConfig> { key ->
+        AppConfigScreen(
+            packageName = key.packageName,
+            onBack = { navigator.goBack() },
+            onNavConfigClick = { pkg -> navigator.navigate(Screen.NavCustomization(pkg)) }
+        )
+    }
 }
+
