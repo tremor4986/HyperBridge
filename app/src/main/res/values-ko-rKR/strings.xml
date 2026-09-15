@@ -1,90 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Kyper</string>
+
     <string name="back">뒤로</string>
     <string name="next">다음</string>
     <string name="finish">완료</string>
-    <string name="done">완료됨</string>
+    <string name="done">완료</string>
     <string name="logo_desc">앱 로고</string>
     <string name="settings">설정</string>
-    <string name="configure">설정하기</string>
+    <string name="configure">구성</string>
     <string name="clear">지우기</string>
     <string name="sort_order">정렬 순서</string>
-    <string name="welcome_title">Kyper에 오신 것을\n환영합니다</string>
-    <string name="welcome_subtitle">Kyper를 HyperOS 시스템에 쉽게 통합하세요.</string>
+
+    <string name="welcome_title">환영합니다!\nKyper</string>
+    <string name="welcome_subtitle">HyperOS 환경에 HyperIsland를 매끄럽게 통합해 보세요.</string>
     <string name="get_started">시작하기</string>
+
     <string name="how_it_works">작동 방식</string>
-    <string name="how_it_works_desc">좋아하는 앱(Spotify, 지도, 타이머)을 선택하세요. Kyper가 알림을 아름다운 HyperIsland로 변환합니다.</string>
-    <string name="beta_warning">참고: 이 앱은 베타 버전입니다. 오류나 시각적 문제가 발생할 수 있습니다.</string>
-    <string name="device_compatible">호환되는 기기</string>
+    <string name="how_it_works_desc">자주 사용하는 앱(Spotify, 지도, 타이머 등)을 선택하세요. Kyper가 해당 알림을 세련된 HyperIsland 스타일로 변환해 드립니다.</string>
+    <string name="beta_warning">참고: 이 앱은 베타 버전입니다. 버그나 시각적 오류가 발생할 수 있습니다.</string>
+
+    <string name="device_compatible">기기 호환됨</string>
     <string name="unsupported_device">지원되지 않는 기기</string>
-    <string name="compatible_msg">기기가 HyperOS에서 실행 중인 것으로 보입니다. 준비 완료!</string>
-    <string name="show_island">Island 표시</string>
-    <string name="perm_post_desc">화면에 ‘Island’ 알림을 표시하려면 권한이 필요합니다.</string>
-    <string name="perm_granted">✅ 권한 허용됨</string>
-    <string name="allow_notifications">알림 허용</string>
-    <string name="read_data">데이터 읽기</string>
-    <string name="perm_listener_desc">앱을 연결하려면 해당 앱의 알림(음악, 지도, 타이머)을 읽을 수 있어야 합니다.</string>
+    <string name="compatible_msg">현재 기기가 HyperOS/MIUI를 실행 중입니다. 사용할 준비가 되었습니다!</string>
+
+    <string name="show_island">아일랜드 표시</string>
+    <string name="perm_post_desc">화면에 \'아일랜드\' 알람을 표시하려면 권한이 필요합니다.</string>
+    <string name="perm_granted">권한 허용됨</string>
+    <string name="allow_notifications">알람 허용</string>
+
+    <string name="read_data">알림 읽기</string>
+    <string name="perm_listener_desc">앱을 연동하려면 알림(음악, 지도, 타이머 등)을 읽을 수 있는 권한이 필요합니다.</string>
     <string name="open_settings">설정 열기</string>
-    <string name="optimization_desc">HyperOS는 백그라운드 앱을 중지합니다. 자동 실행과 “제한 없음”을 켜서 Island을 유지하세요.</string>
-    <string name="enable_autostart">1. 자동 실행 켜기</string>
-    <string name="set_battery_no_restrictions">2. 배터리 절약: “제한 없음”</string>
+
+    <string name="optimization_desc">HyperOS는 백그라운드 앱을 종료할 수 있습니다. 아일랜드를 계속 활성화하려면 자동 실행 및 제한 없음을 설정하세요.</string>
+    <string name="enable_autostart">자동 실행 허용</string>
+    <string name="set_battery_no_restrictions">제한 해제</string>
+
     <string name="tab_active">활성</string>
     <string name="tab_library">라이브러리</string>
     <string name="search_hint">앱 검색…</string>
-    <string name="no_active_bridges">활성 브리지가 없습니다</string>
-    <string name="no_active_bridges_desc">라이브러리에서 앱을 활성화하세요.</string>
-    <string name="no_apps_found">앱을 찾을 수 없습니다</string>
+
+    <string name="no_active_bridges">활성화된 브리지 없음</string>
+    <string name="no_active_bridges_desc">라이브러리로 이동하여 앱을 활성화하세요.</string>
+    <string name="no_apps_found">앱을 찾을 수 없음</string>
+
     <string name="version_template">버전 %s</string>
-    <string name="developer_credit">AlexKoala 제작</string>
+    <string name="developer_credit">개발자: D4vidDf</string>
+
     <string name="group_configuration">구성</string>
     <string name="system_setup">시스템 설정</string>
-    <string name="system_setup_subtitle">권한 및 배터리 문제 해결</string>
+    <string name="system_setup_subtitle">권한 및 배터리 설정 수정</string>
+
     <!-- Permanent Island -->
-    <string name="permanent_island_title">고정 Island</string>
-    <string name="permanent_island_desc">활성 알림이 없을 때도 다이내믹 Island를 화면에 항상 표시합니다.</string>
-    <string name="permanent_island_screen_desc">활성화하면 빈 다이내믹 Island가 화면에 항상 표시됩니다. 실제 알림이 오면 자동으로 숨겨지고, 모든 알림을 지우면 다시 나타납니다. 알림창에는 표시되지 않습니다.</string>
-    <string name="permanent_island_width">Island 너비</string>
+    <string name="permanent_island_title">고정 아일랜드</string>
+    <string name="permanent_island_desc">활성화된 알림이 없을 때도 다이내믹 아일랜드를 화면에 상시 표시합니다.</string>
+    <string name="permanent_island_screen_desc">활성화하면 빈 다이내믹 아일랜드가 화면에 항상 표시됩니다. 실제 알림이 오면 자동으로 숨겨지고, 모든 알림을 지우면 다시 나타납니다. 알림창 내부에는 표시되지 않습니다.</string>
+    <string name="permanent_island_width">아일랜드 너비</string>
     <string name="permanent_island_hide_landscape">가로 모드에서 숨기기</string>
-    <string name="group_about">앱 정보</string>
-    <string name="xmsf_workaround_credit_title">XMSF 우회책</string>
-    <string name="special_thanks">특별 감사</string>
+
+    <string name="group_about">정보</string>
+    <string name="special_thanks">특별한 감사</string>
     <string name="special_thanks_hb">HyperBridge</string>
-    <string name="special_thanks_hb_subtitle">D4vidDf 개발</string>
-    <string name="xmsf_workaround_credit_subtitle">싱젠시 (星间晞)의 연구</string>
+    <string name="special_thanks_hb_subtitle">개발자: D4vidDf</string>
+    <string name="xmsf_workaround_credit_title">XMSF 우회 기능</string>
+    <string name="xmsf_workaround_credit_subtitle">연구자: Stardawn (星间晞)</string>
+    <string name="sykeptical_credit_title">시스템 아일랜드 &amp; 기능 개선</string>
+    <string name="sykeptical_credit_subtitle">화면 녹화기, VPN, 통화 및 메시지 기능 개선: Sykeptical</string>
     <string name="developer">개발자</string>
-    <string name="developer_subtitle">d4viddf.com 방문</string>
+
+    <string name="developer_subtitle">d4viddf.com 방문하기</string>
     <string name="source_code">소스 코드</string>
     <string name="source_code_subtitle">GitHub 저장소</string>
-    <string name="licenses">오픈소스 라이선스</string>
-    <string name="licenses_subtitle">서드파티 소프트웨어</string>
-    <string name="footer_made_with_love">커뮤니티에서 ❤️로 제작됨</string>
-    <string name="app_health_desc">백그라운드 작동을 위해 모든 항목이 초록색인지 확인하세요.</string>
+    <string name="licenses">오픈 소스 라이선스</string>
+    <string name="licenses_subtitle">오픈 소스 소프트웨어</string>
+    <string name="footer_made_with_love">커뮤니티의 ❤️로 제작됨</string>
+
+    <string name="app_health_desc">앱이 백그라운드에서 정상적으로 작동하려면 모든 점검 항목이 초록색이어야 합니다.</string>
     <string name="req_permissions">필수 권한</string>
-    <string name="notif_access">알림 접근</string>
-    <string name="notif_access_desc">앱 이벤트를 읽기 위해 필요합니다</string>
+    <string name="notif_access">알림 접근 권한</string>
+    <string name="notif_access_desc">앱 이벤트를 읽는 데 필요합니다.</string>
     <string name="device_optimization">기기 최적화</string>
-    <string name="xiaomi_autostart">Xiaomi 자동 실행</string>
-    <string name="battery_unrestricted">배터리 제한 없음</string>
-    <string name="battery_desc">시스템이 앱을 중지하지 않도록 방지합니다</string>
-    <string name="recents_note">참고: 최근 앱 화면에서 앱을 고정(자물쇠)하세요.</string>
+    <string name="xiaomi_autostart">샤오미 자동 실행</string>
+    <string name="battery_unrestricted">배터리 최적화 제외</string>
+    <string name="battery_desc">시스템이 앱을 종료하지 않도록 방지합니다.</string>
+    <string name="recents_note">참고: \'최근 앱\' 화면에서 본 앱을 잠금 상태로 설정하세요.</string>
     <string name="status_active">활성</string>
+
     <string name="cat_all">전체</string>
     <string name="cat_music">음악</string>
     <string name="cat_nav">내비게이션</string>
     <string name="cat_timer">생산성</string>
     <string name="cat_other">기타</string>
-    <string name="type_standard">메시지 및 일반</string>
-    <string name="type_message">메시지 및 채팅</string>
-    <string name="type_progress">진행 상황 및 작업</string>
+
+    <string name="type_standard">일반 알림</string>
+    <string name="type_message">메시지 &amp; 채팅</string>
+    <string name="type_progress">진행 상황 &amp; 작업</string>
     <string name="type_download">다운로드</string>
-    <string name="type_media">음악 및 미디어</string>
-    <string name="type_nav">지도 및 GPS</string>
+    <string name="type_media">음악 &amp; 미디어</string>
+    <string name="type_nav">지도 &amp; GPS</string>
     <string name="type_call">통화</string>
-    <string name="type_timer">타이머 및 알람</string>
+    <string name="type_timer">타이머 &amp; 알람</string>
+
     <string name="download_complete">다운로드 완료</string>
     <string name="downloading">다운로드 중</string>
     <string name="maps_title">지도</string>
+
     <string-array name="progress_finish_keywords">
         <item>downloaded</item>
         <item>completed</item>
@@ -94,31 +114,41 @@
         <item>successful</item>
         <item>succeeded</item>
     </string-array>
-    <string name="status_now_playing">재생 중</string>
+
+    <string name="status_now_playing">현재 재생 중</string>
+
     <string name="fallback_timer">타이머</string>
+
     <string name="whats_new_title">%s의 새로운 기능</string>
-    <string name="awesome">멋져요!</string>
-    <string name="island_behavior">Island 동작 방식</string>
-    <string name="limit_strategy">제한 도달</string>
-    <string name="limit_desc">Island 개수 제한(9개)을 초과하면 어떻게 될까요?</string>
-    <string name="mode_fcfs_title">선착순 유지</string>
-    <string name="mode_fcfs_desc">처음 9개의 앱을 유지하며, 자리가 생길 때까지 새로운 알림은 무시됩니다.</string>
-    <string name="mode_recent_title">최신순 (기본값)</string>
-    <string name="mode_recent_desc">새 알림이 가장 오래된 알림을 교체합니다.</string>
-    <string name="mode_priority_title">사용자 우선순위</string>
-    <string name="mode_priority_desc">어떤 유형(예: 전화)이 더 중요한지 지정하세요.</string>
+    <string name="awesome">좋습니다!</string>
+
+    <string name="island_behavior">아일랜드 동작 방식</string>
+    <string name="limit_strategy">제한 정책</string>
+    <string name="limit_desc">아일랜드가 9개에 도달하면 어떻게 작동하나요?</string>
+    <string name="mode_fcfs_title">선착순 (First Come, First Served)</string>
+    <string name="mode_fcfs_desc">초기 9개 앱을 유지합니다. 공간이 생길 때까지 새로운 앱은 무시됩니다.</string>
+    <string name="mode_recent_title">최근 항목 우선 (기본값)</string>
+    <string name="mode_recent_desc">새 알림이 가장 오래된 알림을 대체합니다.</string>
+    <string name="mode_priority_title">사용자 지정 우선순위</string>
+    <string name="mode_priority_desc">어떤 유형(예: 전화)이 더 중요한지 설정합니다.</string>
     <string name="priority_order">우선순위 순서</string>
-    <string name="priority_order_desc">상위 우선순위가 하위 우선순위를 대체합니다.</string>
-    <string name="configure_order">순서 설정</string>
-    <string name="global_settings">전역 설정</string>
-    <string name="island_appearance">Island 외형</string>
-    <string name="setting_float">플로팅 Island 표시</string>
-    <string name="setting_float_desc">팝업 알림 표시</string>
-    <string name="setting_float_timeout_desc">헤드업 팝업이 표시되는 시간을 설정합니다.</string>
-    <string name="setting_shade">알림창에 표시</string>
-    <string name="setting_shade_desc">알림 패널에 알림을 유지합니다. 비활성화하면 Island로만 표시됩니다.</string>
+    <string name="priority_order_desc">높은 우선순위(상단)가 낮은 우선순위(하단)를 대체합니다.</string>
+    <string name="configure_order">앱 순서 구성</string>
+
+    <string name="global_settings">전체 설정</string>
+    <string name="global_settings_desc">동작 방식, 엔진, 인라인 답장 및 스마트 액션 설정</string>
+    <string name="island_appearance">아일랜드 모양</string>
+    <string name="setting_float">팝업 알림 (Heads-up)</string>
+    <string name="setting_float_desc">아일랜드로 최소화되기 전에 배너 알림 전체를 잠시 표시합니다.</string>
+    <string name="setting_float_timeout_desc">팝업 알림이 표시되는 시간입니다.</string>
+
+    <string name="setting_shade">알림창 표시</string>
+    <string name="setting_shade_desc">알림 패널에 알림을 유지합니다. 비활성화하면 아일랜드 형태로만 표시됩니다.</string>
+
     <string name="seconds_suffix">%d초</string>
-    <string name="use_global_default">전역 설정 사용</string>
+
+    <string name="use_global_default">전체 기본값 사용</string>
+
     <string-array name="nav_arrival_keywords">
         <item>arrival</item>
         <item>arrive</item>
@@ -126,80 +156,101 @@
         <item>reaching</item>
         <item>destination</item>
     </string-array>
-    <string name="version_history">버전 기록</string>
-    <string name="title_0_2_0">The Information 업데이트</string>
-    <string name="title_0_1_0">The Expressive 업데이트</string>
-    <string name="priority_edu_title">새 기능: Island 제어</string>
-    <string name="priority_edu_desc">Kyper는 이제 9개 제한에 도달했을 때 여러 알림을 어떻게 처리할지 관리할 수 있습니다.\n\n</string>
+
+    <string name="version_history">버전 히스토리</string>
+
+    <string name="title_0_2_0">정보 업데이트</string>
+
+    <string name="title_0_1_0">표현력 강화 업데이트</string>
+
+    <string name="priority_edu_title">아일랜드 제어</string>
+    <string name="priority_edu_desc">여러 알림이 동시에 활성화될 때 아일랜드가 작동하는 방식을 선택하세요.</string>
+
     <string name="badge_new">신규</string>
+
     <string name="nav_layout_title">내비게이션 레이아웃</string>
-    <string name="nav_layout_desc">표시할 정보를 선택하세요</string>
-    <string name="left_content">왼쪽</string>
-    <string name="right_content">오른쪽</string>
-    <string name="nav_content_instruction">안내</string>
+    <string name="nav_layout_desc">정보가 표시될 위치를 선택하세요</string>
+    <string name="left_content">왼쪽 영역</string>
+    <string name="right_content">오른쪽 영역</string>
+
+    <string name="nav_content_instruction">경로 안내</string>
     <string name="nav_content_distance">거리</string>
-    <string name="nav_content_eta">도착 시간</string>
-    <string name="nav_content_distance_eta">거리 + 시간</string>
-    <string name="nav_content_none">없음</string>
-    <string name="channel_active_islands">활성 Island</string>
-    <string name="cd_enable_type">%s 알림 켜기</string>
-    <string name="cd_disable_type">%s 알림 끄기</string>
+    <string name="nav_content_eta">도착 예정 시간</string>
+    <string name="nav_content_distance_eta">거리 및 시간</string>
+    <string name="nav_content_none">비어 있음</string>
+
+    <string name="channel_active_islands">활성 아일랜드</string>
+
+    <string name="cd_enable_type">%s 알림 활성화</string>
+    <string name="cd_disable_type">%s 알림 비활성화</string>
     <string name="cd_nav_edit">내비게이션 레이아웃 편집</string>
     <string name="cd_app_state_active">활성</string>
     <string name="cd_app_state_inactive">비활성</string>
-    <string name="cd_move_up">위로 이동</string>
-    <string name="cd_move_down">아래로 이동</string>
-    <string name="cd_drag_handle">드래그 핸들. 두 번 탭 후 길게 눌러 순서를 변경하거나 이동 작업을 사용하세요.</string>
-    <string name="cd_app_icon">%s 앱 아이콘</string>
-    <string name="cd_nav_preview">내비게이션 미리보기: 왼쪽 %1$s, 오른쪽 %2$s</string>
-    <string name="cd_expand_changelog">버전 기록 펼치기</string>
-    <string name="cd_collapse_changelog">버전 기록 접기</string>
+
+    <string name="cd_move_up">항목 위로 이동</string>
+    <string name="cd_move_down">항목 아래로 이동</string>
+    <string name="cd_drag_handle">드래그 핸들. 두 번 길게 눌러 순서를 변경하거나 작업 메뉴를 사용하여 이동하세요.</string>
+    <string name="cd_app_icon">%s의 앱 아이콘</string>
+    <string name="cd_nav_preview">내비게이션 미리보기: 왼쪽에 %1$s, 오른쪽에 %2$s</string>
+    <string name="cd_expand_changelog">버전 세부정보 펼치기</string>
+    <string name="cd_collapse_changelog">버전 세부정보 접기</string>
+
     <string name="nav_preview_instruction">우회전</string>
     <string name="nav_preview_distance">200m</string>
     <string name="nav_preview_time">10:30</string>
+
     <string name="blocked_terms">차단된 단어</string>
-    <string name="blocked_terms_desc">이 단어를 포함하는 알림은 무시됩니다.</string>
-    <string name="add_blocked_word">단어 추가 (예: ‘스포일러’)</string>
+    <string name="blocked_terms_desc">이 단어가 포함된 알림은 무시됩니다.</string>
+    <string name="add_blocked_word">단어 추가 (예: 스포일러)</string>
     <string name="add">추가</string>
-    <string name="remove">삭제</string>
-    <string name="spoiler_subtitle">스포일러 보호 및 필터 관리</string>
+    <string name="remove">제거</string>
+    <string name="spoiler_subtitle">스포일러 방지 및 필터 관리</string>
+
     <string name="active_notifications_title">알림 유형</string>
-    <string name="active_notifications_subtitle">%d개 활성</string>
-    <string name="appearance_use_defaults_desc">애니메이션 속도 및 플로팅 동작은 시스템 설정을 따릅니다.</string>
-    <string name="blocked_terms_active_count">활성 규칙: %d</string>
-    <string name="global_rules">전역 규칙</string>
-    <string name="app_specific_rules">앱별 규칙</string>
-    <string name="manage_app_rules_desc">앱별 필터를 설정하세요</string>
-    <string name="blocked_terms_count">차단된 단어: %d</string>
-    <string name="no_active_rules">활성 규칙 없음</string>
+    <string name="active_notifications_subtitle">%d개 활성화됨</string>
+    <string name="appearance_use_defaults_desc">애니메이션 속도 및 팝업 동작에 시스템 기본값을 사용합니다.</string>
+    <string name="blocked_terms_active_count">%d개 규칙 적용 중</string>
+
+    <string name="global_rules">전체 규칙</string>
+    <string name="app_specific_rules">앱 전용 규칙</string>
+    <string name="manage_app_rules_desc">특정 애플리케이션에 대한 필터 맞춤 설정</string>
+    <string name="blocked_terms_count">%d개 단어 차단됨</string>
+    <string name="no_active_rules">활성화된 규칙 없음</string>
+
     <string name="setup_health_title">시스템 호환성</string>
-    <string name="req_hyperos">HyperOS 3.0+ (Android 15+) 필요</string>
-    <string name="req_xiaomi">Xiaomi/Redmi/Poco 기기 필요</string>
-    <string name="warning_cn_rom_title">중국(CN) 롬 감지됨</string>
-    <string name="warning_cn_rom_desc">기기가 중국 롬을 사용 중입니다. Xiaomi는 이 버전에서 알림 구조를 크게 수정하므로 기능이 불안정하거나 작동하지 않을 수 있습니다.</string>
-    <string name="shizuku_workaround_title">Shizuku를 통한 우회책 활성화</string>
-    <string name="shizuku_enable_workaround">우회책 활성화</string>
-    <string name="shizuku_workaround_desc">중국(CN) 롬을 사용하는 경우 알림이 올바르게 실행되려면 Shizuku 우회 기능을 활성화해야 합니다.</string>
+    <string name="req_hyperos">HyperOS 3.0 이상 (Android 15 이상) 필요</string>
+    <string name="req_xiaomi">샤오미/레드미/포코 기기 필요</string>
+
+    <string name="warning_cn_rom_title">중국 롬(CN ROM) 감지됨</string>
+    <string name="warning_cn_rom_desc">기기에서 중국 펌웨어가 실행 중인 것으로 보입니다. 샤오미는 CN 롬의 내부 알림 구조를 대폭 수정합니다. 일부 기능이 불안정하거나 동작하지 않을 수 있습니다.</string>
+
+    <string name="shizuku_workaround_title">Shizuku 우회 모드 활성화</string>
+    <string name="shizuku_enable_workaround">우회 모드 활성화</string>
+    <string name="shizuku_workaround_desc">CN 롬을 사용하는 경우 알림이 정상적으로 작동하려면 Shizuku 우회 모드를 반드시 켜야 합니다.</string>
     <string name="shizuku_status_running">Shizuku 실행 중</string>
     <string name="shizuku_permission_granted">권한 허용됨</string>
     <string name="shizuku_permission_denied">권한 거부됨</string>
-    <string name="shizuku_request_permission">Shizuku 권한 부여</string>
-    <string name="shizuku_not_installed">Shizuku 앱이 설치되지 않았거나 실행 중이지 않습니다. 먼저 Shizuku를 설치하고 실행해 주세요.</string>
+    <string name="shizuku_request_permission">Shizuku 권한 요청</string>
+    <string name="shizuku_not_installed">Shizuku 앱이 설치되지 않았거나 실행 중이지 않습니다. 먼저 Shizuku를 설치 및 시작해 주세요.</string>
+
     <string name="system_version">시스템 버전</string>
-    <string name="call_incoming">수신 전화</string>
+
+    <string name="call_incoming">전화 수신 중</string>
     <string name="call_ongoing">통화 중</string>
-    <string name="call_calling">전화 거는 중…</string>
+    <string name="call_calling">전화 걸기 중…</string>
     <string name="call_ringing">벨 울리는 중…</string>
+
     <string name="call_connecting">연결 중…</string>
     <string name="call_ended">통화 종료됨</string>
-    <string name="call_stage_settings">통화 단계</string>
-    <string name="call_stage_settings_desc">음성 통화의 어떤 부분에서 Island를 표시할지 선택하세요</string>
+    <string name="call_stage_settings">통화 단계 설정</string>
+    <string name="call_stage_settings_desc">음성 통화의 어떤 단계에서 아일랜드를 표시할지 선택합니다</string>
     <string name="call_stage_incoming">수신 전화</string>
-    <string name="call_stage_incoming_desc">벨이 울리고 응답을 기다리는 통화</string>
+    <string name="call_stage_incoming_desc">벨이 울리며 응답을 기다리는 전화</string>
     <string name="call_stage_outgoing">발신 전화</string>
-    <string name="call_stage_outgoing_desc">통화 응답 전 전화 걸기, 벨 울림 및 연결 중 상태</string>
-    <string name="call_stage_active">활성 통화</string>
+    <string name="call_stage_outgoing_desc">통화가 연결되기 전 연결 중/발신 상태</string>
+    <string name="call_stage_active">현재 통화</string>
     <string name="call_stage_active_desc">경과 시간이 표시되는 연결된 통화</string>
+
     <string-array name="call_keywords_hangup">
         <item>hang</item>
         <item>end</item>
@@ -224,88 +275,121 @@
         <item>speaker</item>
         <item>audio</item>
     </string-array>
-    <string name="title_0_3_0">The Hidden 업데이트</string>
-    <string name="privacy_title">100% 오프라인 &amp; 보안</string>
-    <string name="privacy_desc">Kyper는 모든 작업을 휴대폰의 프로세서에서 직접 처리합니다.\n\n인터넷 연결이 필요하지 않으며, 이는 알림과 개인 데이터가 절대 기기를 떠나지 않음을 의미합니다.</string>
+
+    <string name="title_0_3_0">글로벌 업데이트</string>
+
+    <string name="privacy_title">100% 오프라인 &amp; 안전함</string>
+    <string name="privacy_desc">Kyper는 기기의 프로세서에서 모든 데이터를 직접 처리합니다.\n\n인터넷 권한을 요구하지 않으므로 알림과 개인 정보가 기기 외부로 유출되지 않습니다.</string>
+
     <string name="language">언어</string>
-    <string name="language_desc">애플리케이션 언어 변경</string>
+    <string name="language_desc">앱 언어 변경</string>
     <string name="system_default">시스템 기본값</string>
     <string name="save">저장</string>
+
     <string name="backup_restore_title">백업 &amp; 복원</string>
     <string name="backup_section_title">데이터 관리</string>
     <string name="backup_options_subtitle">작업에 포함할 데이터를 선택하세요</string>
+
     <string name="option_app_settings">앱 설정</string>
     <string name="option_app_settings_desc">설정 상태, 테마, 동작 모드</string>
+
     <string name="option_blocklist">차단 목록 데이터베이스</string>
-    <string name="option_blocklist_desc">사용자가 지정한 차단된 키워드 및 앱</string>
+    <string name="option_blocklist_desc">사용자가 추가한 차단 키워드 및 앱 목록</string>
+
     <string name="option_priorities">우선순위 규칙</string>
     <string name="option_priorities_desc">사용자 지정 알림 우선순위 구성</string>
+
     <string name="action_export">백업 생성</string>
     <string name="action_import">백업 복원</string>
+
     <string name="export_success">백업이 성공적으로 저장되었습니다</string>
-    <string name="export_failed">백업 실패: %s</string>
+    <string name="export_failed">내보내기 실패: %s</string>
     <string name="import_success">데이터가 성공적으로 복원되었습니다</string>
-    <string name="import_failed">복원 실패: %s</string>
-    <string name="autostart_manual_check">상태를 자동으로 확인할 수 없습니다.\n서비스가 정상적으로 동작하도록 직접 확인해 주세요</string>
+    <string name="import_failed">가져오기 실패: %s</string>
+
+    <string name="autostart_manual_check">상태를 자동으로 확인할 수 없습니다.\n서비스가 정상 작동하도록 수동으로 확인해 주세요</string>
+
     <string name="backup_info_title">백업 정보</string>
     <string name="backup_meta_date">날짜</string>
     <string name="backup_meta_device">기기</string>
     <string name="backup_meta_version">버전</string>
-    <string name="backup_meta_keys">전체 항목 수</string>
+    <string name="backup_meta_keys">총 항목 수</string>
     <string name="backup_empty_suffix"> (비어 있음)</string>
     <string name="action_restore_selected">선택한 데이터 복원</string>
+
     <string name="optimization_title">기기 최적화</string>
-    <string name="privacy_card_title">오프라인 우선</string>
-    <string name="privacy_card_desc">인터넷 연결이 필요 없습니다.</string>
-    <string name="title_0_3_1">백업 &amp; 다국어 업데이트</string>
+
+    <string name="privacy_card_title">오프라인 최우선</string>
+    <string name="privacy_card_desc">인터넷 연결이 필요하지 않습니다.</string>
+
+    <string name="title_0_3_1">백업 &amp; 다국어 지원 업데이트</string>
+
     <string name="close">닫기</string>
     <string name="search">검색</string>
     <string name="widget_updated_toast">위젯이 업데이트되었습니다</string>
     <string name="widget_settings_error">이 위젯 설정을 수정할 수 없습니다</string>
+
     <string name="widget_picker_title">위젯 추가</string>
     <string name="search_apps_placeholder">앱 검색...</string>
     <plurals name="widget_count_fmt">
+        <item quantity="many">위젯 %d개</item>
         <item quantity="other">위젯 %d개</item>
+        <item quantity="one">위젯 %d개</item>
     </plurals>
-    <string name="widget_config_title">위젯 설정</string>
+
+    <string name="widget_config_title">위젯 구성</string>
     <string name="widget_settings_button">위젯 설정</string>
-    <string name="config_tab_appearance">외형</string>
-    <string name="config_tab_behavior">동작</string>
+
+    <string name="config_tab_appearance">모양</string>
+    <string name="config_tab_behavior">동작 방식</string>
+
     <string name="config_render_mode_label">렌더링 모드</string>
     <string name="config_container_size_label">컨테이너 크기</string>
+
     <string name="config_shade_title">알림창에 표시</string>
-    <string name="config_shade_desc">알림 패널에 표시됩니다</string>
+    <string name="config_shade_desc">알림 패널에 표시함</string>
+
     <string name="config_timeout_title">자동 닫기</string>
-    <string name="config_timeout_desc">일정 시간 후 Island를 닫습니다</string>
+    <string name="config_timeout_desc">지정된 시간 후 아일랜드 닫기</string>
     <plurals name="config_timeout_fmt">
+        <item quantity="many">%d초</item>
         <item quantity="other">%d초</item>
+        <item quantity="one">%d초</item>
     </plurals>
+
     <string name="config_refresh_title">자동 새로고침</string>
-    <string name="config_refresh_desc">주기적으로 스냅샷을 업데이트합니다</string>
+    <string name="config_refresh_desc">주기적으로 스냅샷 업데이트</string>
     <plurals name="config_refresh_fmt">
+        <item quantity="many">%d분마다</item>
         <item quantity="other">%d분마다</item>
+        <item quantity="one">매 분마다</item>
     </plurals>
-    <string name="config_refresh_warning">빈도가 높을수록 배터리가 더 많이 소모됩니다.</string>
-    <string name="render_interactive_label">대화형 (인터랙티브)</string>
-    <string name="render_interactive_desc">버튼이 작동합니다. 음악, 제어 항목에 최적화되어 있습니다.</string>
-    <string name="render_snapshot_label">스냅샷</string>
-    <string name="render_snapshot_desc">빈 목록 현상을 수정합니다. 캘린더, Gmail에 최적화되어 있습니다.</string>
+    <string name="config_refresh_warning">새로고침 주기가 빠르면 배터리 소모가 늘어납니다.</string>
+
+    <string name="render_interactive_label">대화형 (Interactive)</string>
+    <string name="render_interactive_desc">버튼이 작동합니다. 음악, 컨트롤에 최적화되어 있습니다.</string>
+    <string name="render_snapshot_label">스냅샷 (Snapshot)</string>
+    <string name="render_snapshot_desc">빈 목록 현상을 수정합니다. 캘린더, Gmail 등에 최적화되어 있습니다.</string>
+
     <string name="size_original">원본 크기</string>
-    <string name="size_small">작게 (100dp)</string>
+    <size name="size_small">작게 (100dp)</size>
     <string name="size_medium">보통 (180dp)</string>
     <string name="size_large">크게 (280dp)</string>
     <string name="size_xlarge">매우 크게 (380dp)</string>
+
     <string name="app_uninstalled_badge">삭제됨</string>
     <string name="settings_action">설정</string>
+
     <string name="saved_widgets_title">저장된 위젯</string>
     <string name="no_saved_widgets">저장된 위젯이 없습니다.</string>
     <string name="widget_id_fmt">위젯 #%d</string>
-    <string name="show_on_island">Island에 표시</string>
+    <string name="show_on_island">아일랜드에 표시</string>
+
     <string name="theme_installer_analyzing">테마 패키지 분석 중...</string>
     <string name="theme_installer_success_title">테마 준비 완료</string>
     <string name="theme_installer_author">제작자: %s</string>
     <string name="theme_installer_version">버전 %d</string>
-    <string name="theme_installer_apply_question">지금 이 테마를 Kyper에 적용하시겠습니까?</string>
+    <string name="theme_installer_apply_question">지금 Kyper에 이 테마를 적용하시겠습니까?</string>
     <string name="theme_installer_action_apply">테마 적용</string>
     <string name="theme_installer_action_later">나중에 저장</string>
     <string name="theme_installer_error_title">가져오기 실패</string>
@@ -313,94 +397,111 @@
     <string name="theme_installer_btn_close">닫기</string>
     <string name="theme_manager_title">내 테마</string>
     <string name="theme_manager_cd_add">새 테마 추가</string>
-    <string name="theme_card_author_format">제작: %s</string>
-    <string name="theme_card_cd_active">사용 중인 테마</string>
+
+    <string name="theme_card_author_format">제작자: %s</string>
+    <string name="theme_card_cd_active">현재 적용된 테마</string>
     <string name="theme_card_cd_delete">테마 삭제</string>
+
     <string name="theme_system_default_title">시스템 기본값</string>
-    <string name="theme_system_default_desc">표준 디자인</string>
+    <string name="theme_system_default_desc">기본 스타일</string>
+
     <string name="theme_sheet_title">새 테마 추가</string>
+
     <string name="theme_sheet_action_create">새 테마 만들기</string>
     <string name="theme_sheet_action_find">검색</string>
     <string name="theme_action_import_short">가져오기</string>
     <string name="theme_card_action_edit">편집</string>
     <string name="theme_card_action_export">내보내기</string>
+
     <string name="creator_title_new">테마 만들기</string>
     <string name="creator_title_edit">테마 편집</string>
     <string name="creator_nav_colors">색상</string>
-    <string name="creator_nav_icons">아이콘 및 모양</string>
+    <string name="creator_nav_icons">아이콘 &amp; 모양</string>
     <string name="creator_nav_calls">통화 스타일</string>
     <string name="creator_nav_apps">앱 구성</string>
     <string name="creator_action_save">저장</string>
-    <string name="creator_btn_edit_info">테마 정보 편집</string>
-    <string name="creator_sub_colors">팔레트 및 대비</string>
-    <string name="creator_sub_icons">모양 및 여백</string>
-    <string name="creator_sub_calls">수신 및 거절 버튼</string>
-    <string name="creator_sub_apps">앱별 설정</string>
+    <string name="creator_btn_edit_info">테마 정보 수정</string>
+    <string name="creator_sub_colors">팔레트 &amp; 대비</string>
+    <string name="creator_sub_icons">모양 &amp; 여백</string>
+    <string name="creator_sub_calls">수신 &amp; 거절 버튼</string>
+    <string name="creator_sub_apps">앱별 개별 설정</string>
+
     <string name="meta_title">테마 정보</string>
     <string name="meta_label_name">테마 이름</string>
-    <string name="meta_label_author">제작자 이름</string>
+    <string name="meta_label_author">작성자 이름</string>
     <string name="meta_action_done">완료</string>
+
     <string name="colors_tab_presets">프리셋</string>
     <string name="colors_tab_custom">사용자 지정</string>
     <string name="colors_label_presets">프리셋</string>
     <string name="colors_label_use_app_colors">앱 색상 사용</string>
-    <string name="colors_desc_use_app_colors">설치된 앱에서 색상을 적용합니다</string>
+    <string name="colors_desc_use_app_colors">설치된 앱의 아이콘 색상에 맞춥니다</string>
     <string name="colors_label_custom_title">사용자 지정 색상</string>
     <string name="colors_cd_add_custom">사용자 지정 색상 추가</string>
     <string name="colors_dialog_title">색상 선택</string>
     <string name="colors_action_done">완료</string>
+
     <string name="icons_tab_style">스타일</string>
     <string name="icons_tab_assets">아이콘</string>
     <string name="icons_tab_shape">모양</string>
     <string name="icons_label_size">아이콘 크기</string>
-    <string name="icons_label_full">전체</string>
-    <string name="icons_label_minimal">최소</string>
+    <string name="icons_label_full">전체 (Full)</string>
+    <string name="icons_label_minimal">최소화 (Minimal)</string>
     <string name="icons_group_nav">내비게이션</string>
     <string name="icons_btn_start">시작</string>
     <string name="icons_btn_end">종료</string>
     <string name="icons_group_progress">진행률</string>
     <string name="icons_btn_success">성공</string>
     <string name="icons_label_shape_title">아이콘 모양</string>
+
     <string name="shape_circle">원형</string>
     <string name="shape_square">사각형</string>
-    <string name="shape_cookie">쿠키</string>
-    <string name="shape_arch">아치</string>
-    <string name="shape_clover">클로버</string>
-    <string name="calls_label_answer">수신</string>
-    <string name="calls_label_decline">거절</string>
-    <string name="apps_empty">설정된 앱 없음</string>
-    <string name="design_hero_customization_title">사용자 지정</string>
+    <string name="shape_cookie">쿠키 모양</string>
+    <string name="shape_arch">아치형</string>
+    <string name="shape_clover">클로버 모양</string>
+
+    <string name="calls_label_answer">통화 응답</string>
+    <string name="calls_label_decline">통화 거절</string>
+
+    <string name="apps_empty">설정된 앱이 없습니다</string>
+
+    <string name="design_hero_customization_title">커스텀 설정</string>
     <string name="design_hero_customization_subtitle">테마를 만드는 방법을 알아보세요</string>
     <string name="design_hero_pro_title">프로 기능</string>
     <string name="design_hero_pro_subtitle">더 강력한 기능을 잠금 해제하세요</string>
     <string name="design_hero_community_title">커뮤니티</string>
-    <string name="design_hero_community_subtitle">GitHub에 참여하세요</string>
+    <string name="design_hero_community_subtitle">GitHub 커뮤니티에 참여하세요</string>
+
     <string name="design_section_themes">테마</string>
     <string name="design_section_widgets">위젯</string>
+
     <string name="design_browse_more">더 둘러보기</string>
     <string name="design_add_new">새로 추가</string>
     <string name="design_add_design">디자인 추가</string>
     <string name="design_add_to_island">커스텀 설정</string>
     <string name="design_system_widget_beta">시스템 위젯 (베타)</string>
-    <string name="design_get_themes">테마 받기</string>
-    <string name="design_empty_widget_title">첫 번째 위젯을 추가하세요</string>
+    <string name="design_get_themes">테마 다운로드</string>
+    <string name="design_empty_widget_title">첫 번째 위젯을 추가해보세요</string>
     <string name="design">디자인</string>
-    <string name="creator_nav_actions">전역 동작</string>
+
+    <string name="creator_nav_actions">전체 액션</string>
     <string name="creator_sub_actions">키워드별 버튼 스타일 설정</string>
-    <string name="action_sheet_title">동작 설정</string>
+    <string name="action_sheet_title">액션 구성</string>
     <string name="action_label_keyword">키워드 (예: \'답장\')</string>
-    <string name="action_label_bg_color">배경색</string>
+    <string name="action_label_bg_color">배경 색상</string>
     <string name="action_label_tint_color">아이콘/텍스트 색상</string>
     <string name="action_preview">실시간 미리보기</string>
-    <string name="action_mode_icon">아이콘만</string>
-    <string name="action_mode_text">텍스트만</string>
-    <string name="action_mode_both">둘 다</string>
-    <string name="actions_empty_title">사용자 지정 동작 없음</string>
-    <string name="actions_empty_desc">알림 버튼의 텍스트(예: \"답장\", \"보관\")에 따라 스타일을 지정하는 규칙을 추가하세요.</string>
-    <string name="action_default_preview_text">동작</string>
-    <string name="actions_search_hint">동작 검색...</string>
-    <string name="actions_search_empty_fmt">\"%1$s\"에 대한 동작을 찾을 수 없습니다</string>
-    <string name="action_wip_warning">이 기능은 개발 중인 기능입니다. 키워드 일치 여부는 앱의 알림 구조 방식에 따라 달라지며 모든 앱에서 작동하지 않을 수 있습니다.</string>
+    <string name="action_mode_icon">아이콘만 표시</string>
+    <string name="action_mode_text">텍스트만 표시</string>
+    <string name="action_mode_both">둘 다 표시</string>
+    <string name="actions_empty_title">커스텀 액션 없음</string>
+    <string name="actions_empty_desc">버튼의 텍스트(예: "답장", "보관")에 따라 알림 버튼의 스타일을 지정하는 규칙을 추가하세요.</string>
+    <string name="action_default_preview_text">액션</string>
+
+    <string name="actions_search_hint">액션 검색...</string>
+    <string name="actions_search_empty_fmt">"%1$s"에 대한 액션을 찾을 수 없습니다</string>
+
+    <string name="action_wip_warning">이 기능은 개발 중인 기능입니다. 키워드 매칭은 앱이 알림을 구현하는 방식에 따라 다르며, 모든 앱에서 작동하지 않을 수 있습니다.</string>
     <string name="creator_dialog_apply_title">테마를 적용하시겠습니까?</string>
     <string name="creator_dialog_apply_desc">지금 이 테마를 적용하시겠습니까?</string>
     <string name="creator_dialog_action_save_apply">저장 및 적용</string>
@@ -409,116 +510,101 @@
     <string name="change_icon">아이콘 변경</string>
     <string name="action_add">앱 추가</string>
     <string name="apps_sheet_select_title">앱 선택</string>
-    <string name="edit_app">앱 편집</string>
+    <string name="edit_app">앱 수정</string>
+
     <string name="creator_sub_colors_custom">사용자 지정 색상 세트</string>
-    <string name="creator_sub_colors_default">전역 기본값 사용 중</string>
+    <string name="creator_sub_colors_default">전체 기본값 사용 중</string>
+
     <string name="creator_sub_icons_custom">사용자 지정 모양 세트</string>
-    <string name="creator_sub_icons_default">전역 기본값 사용 중</string>
-    <string name="app_customization_desc">외형을 개별 설정할 앱을 추가합니다.</string>
+    <string name="creator_sub_icons_default">전체 기본값 사용 중</string>
+    <string name="app_customization_desc">외관을 개별 설정할 앱을 추가하세요.</string>
     <string name="discard">취소</string>
     <string name="unsaved_changes">저장되지 않은 변경 사항</string>
-    <string name="unsaved_changes_desc">이 앱에 대한 저장되지 않은 변경 사항이 있습니다. 나가기 전에 저장하시겠습니까?</string>
+    <string name="unsaved_changes_desc">이 앱에 대한 변경 사항이 저장되지 않았습니다. 나가기 전에 저장하시겠습니까?</string>
     <string name="share_theme">테마 공유</string>
     <string name="my_theme">내 테마</string>
     <plurals name="creator_sub_actions_count">
-        <item quantity="other">사용자 지정 동작 %1$d개</item>
+        <item quantity="one">커스텀 액션 %1$d개</item>
+        <item quantity="other">커스텀 액션 %1$d개</item>
+        <item quantity="many">커스텀 액션 %1$d개</item>
     </plurals>
-    <string name="title_0_4_0">The Customization 업데이트</string>
-    <string name="changelog_0_4_0">        <b>테마 엔진 🎨</b>\n
-        역대 가장 큰 업데이트! 이제 다이내믹 Island의 시각적 환경을 완벽하게 맞춤 설정할 수 있습니다.\n
-        • <b>테마 크리에이터:</b> 실시간 미리보기를 통해 휴대폰에서 직접 테마를 디자인하세요.\n
-        • <b>세부 제어:</b> 아이콘 표시 방식을 정밀하게 선택하고, 통화 알림 색상 및 모양을 커스텀하며, 앱별 개별 설정을 지정하세요.\n
-        • <b>스마트 컬러:</b> 앱 아이콘에서 선명한 브랜드 색상을 자동으로 추출합니다.\n
-        • <b>동작별 개별 커스텀 (베타):</b> 특정 알림 동작의 스타일을 미세 조정할 수 있습니다.\n
-        • <b>공유:</b> 테마를 <i>.hbr</i> 패키지로 내보내고 가져올 수 있습니다.\n\n
 
-        <b>위젯 지원 🧩</b>\n
-        표준 안드로이드 위젯을 Island에 고정하여 빠른 액세스를 즐겨보세요—<b>잠금화면</b>에서도 가능합니다!\n
-        • 속도를 위한 <b>대화형</b> 모드와 배터리 효율을 위한 <b>스냅샷</b> 모드 중 선택하세요.\n\n
+    <string name="title_0_4_0">커스텀 기능 업데이트</string>
+    <string name="title_0_4_2">핫픽스(버그 수정) 업데이트</string>
 
-        <b>알림 엔진 2.0 ⚡</b>\n
-        더 뛰어난 안정성을 위해 핵심 로직을 완전히 재작성했습니다:\n
-        • <b>더 스마트해진 파싱:</b> 메시지 내용 대신 패키지 이름(예: com.whatsapp)이 표시되던 문제를 수정했습니다.\n
-        • <b>깜빡임 방지:</b> 새로운 콘텐츠 해싱으로 불필요한 업데이트 및 깜빡임을 방지합니다.\n
-        • <b>잔상 오류 수정:</b> 알림을 닫은 후에도 Island가 남아있던 경합 상태 문제를 해결했습니다.\n\n
-
-        <b>시각적 리프레시 ✨</b>\n
-        • 부드럽고 네이티브한 느낌의 캐러셀로 \"디자인\" 탭을 재디자인했습니다.\n
-        • 알림 동작을 더 명확하게 보여주는 새로운 \"텍스트 알약형\" 버튼을 추가했습니다.\n
-        • 🇮🇩 인도네시아어 및 🇹🇷 튀르키예어 지원이 추가되었습니다.\n\n
-
-        <i>참고: 이번 버전에는 주요 아키텍처 변경 사항이 포함되어 있습니다. 버그가 발견되면 GitHub에 제보해 주세요!</i>
-    </string>
-    <string name="title_0_4_2">핫픽스 업데이트</string>
-    <string name="changelog_0_4_2">        •&lt;b&gt;크래시 수정:&lt;/b&gt; 번체 중국어 설정 메뉴를 열 때 앱이 종료되던 치명적인 문제를 해결했습니다.\n
-        •&lt;b&gt;내부 개선:&lt;/b&gt; Island가 부드럽게 작동하도록 전반적인 버그 수정 및 안정성 향상을 진행했습니다.
-    </string>
     <string name="colors_label_hue">색상 (Hue)</string>
     <string name="colors_label_saturation">채도 (Saturation)</string>
     <string name="colors_label_lightness">명도 (Lightness)</string>
-    <string name="colors_label_dynamic_modes">동적 색상</string>
+    <string name="colors_label_dynamic_modes">동적 색상 모드</string>
     <string name="colors_label_material_you">Material You (시스템)</string>
     <string name="colors_desc_material_you">현재 배경화면에서 색상을 추출합니다.</string>
-    <string name="kill_all_widgets">활성 위젯 모두 종료</string>
+
+    <string name="kill_all_widgets">활성 위젯 모두 강제 종료</string>
     <string name="permission_reminder_title">업데이트 안내</string>
-    <string name="permission_reminder_desc">Kyper가 업데이트되었습니다! 위젯이 원활하게 작동할 수 있도록 자동 실행 및 백그라운드 배터리 권한이 시스템에 의해 몰래 취소되지 않았는지 확인해 주세요.</string>
+    <string name="permission_reminder_desc">Kyper가 업데이트되었습니다! 위젯이 원활하게 작동할 수 있도록 시스템에 의해 자동 실행 및 백그라운드 배터리 권한이 알게 모르게 취소되지 않았는지 확인해 주세요.</string>
     <string name="got_it">확인했습니다</string>
+
     <string name="recommended">추천</string>
     <string name="all">전체</string>
     <string name="favorites">즐겨찾기</string>
-    <string name="channel_live_updates">Android 라이브 업데이트</string>
+
+    <string name="channel_live_updates">네이티브 라이브 업데이트</string>
+
     <string name="engine_preview_title">미리보기</string>
     <string name="engine_design_section">알림 디자인</string>
-    <string name="engine_xiaomi_title">Xiaomi HyperIsland</string>
-    <string name="engine_xiaomi_desc">Xiaomi의 의도된 디자인이 적용된 최신 HyperOS 레이아웃입니다.</string>
+    <string name="engine_xiaomi_title">샤오미 시그니처 디자인</string>
+    <string name="engine_xiaomi_desc">샤오미가 의도한 현대적인 HyperOS 레이아웃.</string>
     <string name="engine_native_title">라이브 업데이트 디자인</string>
-    <string name="engine_native_desc">중국(CN) 롬에서도 작동하는 안드로이드의 알림 디자인입니다.</string>
+    <string name="engine_native_desc">안드로이드 순정 알림 디자인으로, 중국 롬(CN ROM)에서도 작동합니다.</string>
+
     <string name="engine_config_title">엔진 구성</string>
     <string name="engine_section_design">알림 디자인</string>
     <string name="good_to_know">참고 사항</string>
-    <string name="nav_layout_info">• 내비게이션 레이아웃은 향후 업데이트를 통해 테마 엔진에 완전 통합될 예정입니다.\n• 네이티브 라이브 업데이트 엔진을 사용할 경우 오른쪽 콘텐츠만 표시됩니다.</string>
-    <string name="xiaomi_featured_notifications">Xiaomi HyperIsland</string>
-    <string name="island_behavior_title">Island 동작 방식</string>
-    <string name="island_behavior_desc">시간 초과, 중복 및 표시 여부</string>
+    <string name="nav_layout_info">• 내비게이션 레이아웃은 향후 업데이트를 통해 테마 엔진에 완전 통합될 예정입니다.\n• 네이티브 라이브 업데이트 엔진 사용 시 오른쪽 영역의 내용만 표시됩니다.</string>
+    <string name="xiaomi_featured_notifications">샤오미 추천/포커스 알림</string>
+    <string name="island_behavior_title">아일랜드 동작 방식</string>
+    <string name="island_behavior_desc"><![CDATA[시간 초과, 중복 및 표시 방식]]></string>
     <string name="engine">엔진</string>
-    <string name="engine_desc">라이브 업데이트 vs Xiaomi Island</string>
+    <string name="engine_desc">라이브 업데이트 vs 샤오미 아일랜드</string>
+
     <string name="dnd_mode_title">방해 금지 모드</string>
-    <string name="dnd_mode_desc">방해 금지 모드 중 Island 표시 여부 관리</string>
-    <string name="dnd_manual_toggle">Island 일시 중지</string>
-    <string name="dnd_manual_toggle_desc">다시 켤 때까지 모든 Island를 수동으로 일시 중지합니다</string>
-    <string name="dnd_auto_detect">시스템 방해 금지 모드 자동 감지</string>
-    <string name="dnd_auto_detect_desc">휴대폰이 방해 금지 모드일 때 Island를 자동으로 일시 중지합니다</string>
-    <string name="behaviour_triggers">동작 및 트리거</string>
-    <string name="engine_timeouts_triggers">엔진, 시간 초과 및 트리거</string>
-    <string name="global_behavior">전역 동작</string>
-    <string name="auto_hide_island">Island 자동 숨김</string>
-    <string name="hides_after_a_set_time">설정한 시간 후 숨겨짐</string>
-    <string name="behavior_hide_desc">수동으로 닫을 때까지 계속 표시됩니다</string>
-    <string name="behavior_desc_hide_long">Island가 자동으로 사라지기 전까지 화면에 유지되는 시간을 결정합니다.</string>
+    <string name="dnd_mode_desc">방해 금지 모드 중 아일랜드 표시 관리</string>
+    <string name="dnd_manual_toggle">아일랜드 일시중지</string>
+    <string name="dnd_manual_toggle_desc">다시 켤 때까지 모든 아일랜드를 수동으로 일시중지합니다</string>
+    <string name="dnd_auto_detect">시스템 방해 금지 감지</string>
+    <string name="dnd_auto_detect_desc">휴대폰이 방해 금지 모드일 때 자동으로 아일랜드를 일시중지합니다</string>
+    <string name="behaviour_triggers"><![CDATA[동작 방식 및 트리거]]></string>
+    <string name="engine_timeouts_triggers"><![CDATA[엔진, 시간 초과 및 트리거]]></string>
+    <string name="global_behavior">전체 동작 방식</string>
+    <string name="auto_hide_island">아일랜드 자동 숨기기</string>
+    <string name="hides_after_a_set_time">지정된 시간이 지나면 숨김</string>
+    <string name="behavior_hide_desc">수동으로 닫을 때까지 계속 표시</string>
+    <string name="behavior_desc_hide_long">아일랜드가 자동으로 사라지기 전 화면에 유지되는 시간을 결정합니다.</string>
     <string name="active_triggers">활성 트리거</string>
-    <string name="active_triggers_global_desc">Island를 실행할 전역 이벤트를 선택하세요</string>
-    <string name="type_standard_desc">일반 메시지, 이메일 및 알림</string>
+    <string name="active_triggers_global_desc">아일랜드를 실행할 전체 이벤트를 선택하세요</string>
+    <string name="type_standard_desc">일반 경고 및 알림</string>
     <string name="type_message_desc">메시지, 채팅 및 대화</string>
     <string name="type_progress_desc">진행 중인 작업, 렌더링 및 작동</string>
     <string name="type_download_desc">다운로드, 업로드 및 파일 전송</string>
     <string name="type_media_desc">음악 및 비디오 재생 제어</string>
-    <string name="type_nav_desc">턴바이턴 경로 안내 및 도착 예정 시간</string>
-    <string name="type_call_desc">수신 및 통화 중인 전화</string>
-    <string name="type_timer_desc">활성 타이머 및 스톱워치</string>
+    <string name="type_nav_desc">턴 바이 턴 길안내 및 도착 예정 시간</string>
+    <string name="type_call_desc">수신 및 통화 중 전화</string>
+    <string name="type_timer_desc">실행 중인 타이머 및 스톱워치</string>
     <string name="select_triggered_events">트리거될 이벤트 선택</string>
-    <string name="override_global_triggers">전역 트리거 오버라이드</string>
-    <string name="override_global_trigger_desc">이 앱에 허용할 사용자 지정 알림 설정</string>
-    <string name="trigger_override">트리거 오버라이드</string>
-    <string name="trigger_app_desc">이 앱에서 Island를 실행할 이벤트를 선택하세요.</string>
+    <string name="override_global_triggers">전체 트리거 재정의</string>
+    <string name="override_global_trigger_desc">이 앱에 대해 허용할 알림을 개별 설정합니다</string>
+    <string name="trigger_override">트리거 재정의</string>
+    <string name="trigger_app_desc">이 앱에서 아일랜드를 실행할 이벤트를 선택하세요.</string>
     <string name="enable_triggers">특정 트리거 활성화</string>
-    <string name="open_source_licenses">오픈소스 라이선스</string>
+    <string name="open_source_licenses">오픈 소스 라이선스</string>
     <string name="remove_original_notification">원본 알림 제거</string>
-    <string name="remove_original_notification_desc">라이브 업데이트가 활성화되어 있을 때 원본 알림을 자동으로 닫습니다.</string>
-    <string name="dismiss_with_original">원본과 함께 닫기</string>
-    <string name="dismiss_with_original_desc">원본 알림을 지우면 Island도 함께 사라집니다.</string>
-    <string name="enable_inline_reply">인라인 답장 활성화</string>
-    <string name="enable_inline_reply_desc">Island에서 답장할 때 커스텀 인라인 답장 오버레이를 실행합니다.</string>
-    <string name="remove_original_notification_hidden_warning">참고: 이 기능을 활성화하면 Kyper가 메시지를 읽음으로 표시하거나 답장할 수 없습니다. 답장 및 읽음 표시 동작이 숨겨집니다.</string>
+    <string name="remove_original_notification_desc">라이브 업데이트가 활성화되어 있을 때 원본 알림을 자동으로 지웁니다.</string>
+    <string name="dismiss_with_original">원본 알림과 함께 지우기</string>
+    <string name="dismiss_with_original_desc">원본 알림을 지우면 아일랜드도 함께 사라집니다.</string>
+    <string name="enable_inline_reply">인라인 답장 사용</string>
+    <string name="enable_inline_reply_desc">아일랜드에서 답장할 때 사용자 지정 인라인 답장 창을 엽니다.</string>
+    <string name="remove_original_notification_hidden_warning">참고: 이 옵션을 활성화하면 Kyper가 메시지에 답장하거나 읽음 처리할 수 없습니다. 따라서 답장 및 읽음 처리 기능이 숨겨집니다.</string>
+
     <string name="color_mode">색상 모드</string>
     <string name="color_mode_select">색상 모드 선택</string>
     <string name="color_mode_change_cd">색상 모드 변경</string>
@@ -527,285 +613,300 @@
     <string name="color_mode_app">앱 색상</string>
     <string name="color_mode_app_desc">앱 아이콘에서 색상 추출</string>
     <string name="color_mode_material">Material You</string>
-    <string name="color_mode_material_desc">시스템 배경화면 색상에 맞춤 (Monet)</string>
+    <string name="color_mode_material_desc">시스템 배경화면 테마에 맞춤 (Monet)</string>
     <string name="color_mode_custom">사용자 지정 색상</string>
     <string name="color_mode_custom_desc">원하는 색상을 직접 선택</string>
-    <string name="reply_textfield_color">텍스트 입력창 색상</string>
+
+    <string name="reply_textfield_color">입력창 색상</string>
     <string name="reply_textfield_color_desc">내부 텍스트 상자 배경</string>
     <string name="reply_text_color">텍스트 색상</string>
     <string name="reply_text_color_desc">답장 텍스트 색상</string>
     <string name="reply_send_color">전송 버튼 색상</string>
     <string name="reply_send_color_desc">전송 아이콘 색상</string>
-    <string name="reply_appearance">외형</string>
+
+    <string name="reply_appearance">모양</string>
     <string name="reply_blur_effect">블러 효과</string>
-    <string name="reply_blur_effect_desc">텍스트 입력창에 글래스모피즘 적용</string>
-    <string name="reply_textfield_radius">텍스트 입력창 모서리 곡률</string>
+    <string name="reply_blur_effect_desc">입력창에 반투명 유리(Glassmorphism) 효과 적용</string>
+    <string name="reply_textfield_radius">입력창 모서리 곡률</string>
     <string name="reply_send_radius">전송 버튼 모서리 곡률</string>
+
     <string name="onboarding_can_be_changed">이 옵션들은 나중에 설정 및 테마 설정에서 변경할 수 있습니다.</string>
-    <string name="onboarding_widget_desc">빠른 액세스를 위해 Island에 안드로이드 표준 위젯을 추가하세요.</string>
-    <string name="onboard_theme_desc">Island의 색상, 모양 및 아이콘을 자유롭게 커스텀하세요.</string>
-    <string name="onboard_design_desc">다양한 커스텀 옵션으로 가능성을 확장하세요</string>
-    <string name="behavior_desc_glob_config">Island의 동작 방식을 결정합니다.</string>
+    <string name="onboarding_widget_desc">빠른 접근을 위해 아일랜드에 표준 안드로이드 위젯을 추가하세요.</string>
+    <string name="onboard_theme_desc">아일랜드의 색상, 모양, 아이콘을 완벽하게 커스텀 설정해보세요.</string>
+    <string name="onboard_design_desc">다양한 커스텀 옵션으로 가능성을 넓혀보세요</string>
+    <string name="behavior_desc_glob_config">아일랜드의 작동 방식을 결정합니다.</string>
     <string name="widget_layout_snapshot">위젯 미리보기</string>
-    <string name="changelog_0_5_6">        <b>수정 및 개선</b>\n
-              • <b>System UI 안정성:</b> SystemUI에 전달하기 전에 highlightColor를 검증하여 충돌을 방지했습니다.\n
-              • <b>고정 Island 동작:</b> 알림이 오거나 잠금 해제 후 고정 Island가 사라지던 문제를 수정했습니다.\n
-              • <b>가로 모드:</b> 가로 화면에서 고정 Island를 숨길 수 있는 옵션을 추가했습니다.
-    </string>
+
     <string name="title_0_5_7">성능 및 동기화 업데이트</string>
-    <string name="changelog_0_5_7">        <b>최적화 및 수정</b>\n
-              • <b>코드 최적화:</b> 최신 Android Gradle Plugin으로 업그레이드하고 R8 코드 축소를 활성화하여 더 작고 빠른 앱으로 개선했습니다.\n
-              • <b>안정성:</b> 알림 동기화를 개선하고, 원본 알림이 간혹 너무 일찍 사라지던 문제(PR #258)를 수정했습니다.
-    </string>
-    <string name="changelog_0_5_5">        <b>Live Updates 및 Island</b>\n
-              • <b>아이콘:</b> Android 16 Live Updates에서 원본 앱 아이콘이 제대로 표시되지 않던 문제를 수정했습니다.\n
-              • <b>인라인 답장:</b> 이제 Live Update 알림에서 바로 인라인 답장을 사용할 수 있습니다.\n
-              • <b>Island 제거:</b> Island를 닫았을 때 제대로 제거되지 않던 문제를 수정했습니다.\n\n
-        <b>메시지 그룹화 개선</b>\n
-              • <b>중복 제거:</b> WhatsApp과 같은 메시지 스타일 알림의 그룹화 방식을 전면 개편하여 중복 Island가 생성되지 않도록 했습니다.\n\n
-        <b>수정 및 안정성</b>\n
-              • <b>업데이트 마이그레이션:</b> 앱 업데이트 후 올바른 데이터베이스 마이그레이션 로직이 실행되지 않던 치명적인 버그를 수정했습니다.\n
-              • <b>기본값:</b> 온보딩 화면에서 기본적으로 "알림창에 표시"를 비활성화했습니다.\n
-              • <b>현지화:</b> 번역된 문자열에서 깨진 문자가 표시되던 문제를 해결했습니다.
-    </string>
-    <string name="title_0_5_5">메시지 및 업데이트 수정</string>
-    <string name="title_0_5_6">가로 모드 숨김 및 안정성 개선</string>
-    <string name="changelog_0_5_2">        <b>Play Store 크래시 수정 및 안정성 개선</b>\n
-              • <b>테마 크리에이터:</b> 대용량 커스텀 에셋을 파싱할 때 발생하던 크래시를 수정했습니다.\n
-              • <b>성능:</b> 최초 환영 화면에서 발생하던 ANR(응답 없음) 문제를 해결했습니다.\n
-              • <b>위젯 선택기:</b> 매우 큰 위젯 미리보기로 인해 발생하던 크래시 및 메모리 부족(OOM) 오류를 제거했습니다.\n
-              • <b>UI 레이아웃:</b> 특정 메뉴의 크기를 조정할 때 앱이 종료되던 Jetpack Compose 레이아웃 제약 조건 예외를 수정했습니다.\n
-              • <b>백업:</b> JSON 파싱을 최적화하여 대용량 백업 파일 가져오기 시 OOM 오류를 해결했습니다.\n
-              • <b>빠른 실행:</b> 중급형 기기에서 앱 실행 속도를 대폭 향상시키고 UI 스레드 병목 현상을 제거했습니다.\n
-              • <b>백그라운드 서비스:</b> 알림 리스너 메모리 아키텍처를 완전히 개편하여 백그라운드 오버헤드를 0%로 줄이고 배터리 수명을 향상시켰습니다.\n
-    </string>
-    <string name="title_0_5_2">성능 및 안정성 업데이트</string>
-    <string name="changelog_0_5_1">        <b>수정 및 안정성</b>\n
-              • WhatsApp 중복 수정: WhatsApp 알림이 중복으로 표시되던 문제를 해결했습니다.\n
-              • 알림 깜빡임 및 크래시 수정: 짧은 시간 동안 여러 알림이 수신될 때 발생하던 크래시를 수정했습니다. 이제 알림을 정상적이고 안전하게 업데이트하여 깜빡임을 제거하고 안정성을 향상시켰습니다.\n
-              • 알림 인텐트 복구: 주요 알림을 클릭했을 때 원래 앱 대신 문제 해결 화면으로 잘못 이동하던 문제를 수정했습니다.\n\n
-        <b>기능 및 개선</b>\n
-              • 닫을 때 Island 제거: 원본 시스템 알림을 지우면 Island도 자동으로 제거하는 옵션을 추가했습니다.\n
-              • 주요 알림 진단: Xiaomi 기기가 주요 알림(Featured Notifications)을 지원하는지 및 필요한 권한이 활성화되어 있는지 확인하는 전용 검사 화면을 온보딩에 추가했습니다.\n
-              • 설정 상태 통합: 주요 알림 권한 상태가 이제 설정 상태 화면 내에서 지속적으로 모니터링되고 표시됩니다.\n
-              • 문제 해결 화면: 엄격한 Xiaomi ROM에서 Island를 작동시키기 위해 필요한 숨겨진 시스템 권한을 활성화하는 방법(또는 Shizuku 사용법)을 안내하는 전용 문제 해결 화면을 추가했습니다.\n
-              • 명확해진 용어: 설정 메뉴의 \"라이브 업데이트\" 섹션 이름을 목적에 맞게 \"알림 관리\"로 변경했습니다.\n
-              • 설정 UI 개선: 전역 설정 목록의 \"고정 Island\" 옵션에서 누락되었던 둥근 모서리를 복원했습니다.\n
-              • 스페인어 번역: 새로운 문제 해결 대화상자, 설정 상태 검사, 알림 관리 설정에 대한 전체 스페인어 번역을 추가했습니다.
-    </string>
-    <string name="title_0_5_1">수정 및 다듬기</string>
-    <string name="changelog_0_5_0">        <b>중국(CN) 롬 지원</b>\n
-            • 기본 지원이 없는 HyperOS 중국(CN) 롬 기기에서도 새로운 Sui 및 Shizuku 우회 기능을 활성화하여 Hyper Islands를 이용할 수 있습니다.\n\n
-        <b>테마 엔진 개선</b>\n
-            • 엔진 선택: 이제 앱별 또는 전역으로 애니메이션 엔진을 선택할 수 있습니다.\n
-            • Shizuku 우회: 테마 에디터 엔진 탭에 토글이 직접 추가되었습니다.\n
-            • 동작 제어: 사용자 지정 시간 초과 및 팝업 로직이 완벽하게 지원됩니다.\n\n
-        <b>지능형 고정 Island</b>\n
-            • 상시 표시: 활성화된 알림이 없을 때도 Island를 화면에 유지합니다.\n
-            • 자동 숨김: 고정 Island는 화면에 활성화된 위젯이 표시될 때마다 자동으로 숨겨집니다.\n\n
-        <b>스마트 아이콘 틴트</b>\n
-            • 새로운 감지 시스템이 추출된 알림 아이콘을 자동으로 분석하여 어둡거나 단색인 경우 지능적으로 흰색 틴트를 적용합니다.\n\n
-        <b>다운로드 및 진행 상황</b>\n
-            • 전용 다운로드 레이아웃: 다운로드 및 진행률 레이아웃을 전용 시각적 디자인으로 분리했습니다.\n
-            • 텍스트 진행률 지원: 네이티브 진행률 표시줄이 없더라도 앱 업데이트 시 비율 텍스트(예: \"12%\")를 파싱합니다.\n
-            • 스마트 필터링: 상태 알림의 오작동을 방지하기 위해 텍스트 기반 진행률 확인을 스토어 및 인스톨러 다운로드로 제한했습니다.\n\n
-        <b>메시징 수정</b>\n
-            • Telegram과 같은 앱에서 보낸 사람 프로필 이미지가 누락되던 문제를 수정했습니다(이제 \"sender_person\" 데이터를 올바르게 추출함).\n
-            • 그룹화된 알림(채팅 요약)이 Island를 실행하지 못하던 문제를 해결했습니다.\n
-            • 알림 업데이트 경합 상태로 인해 Island가 사라지던 버그를 수정했습니다.\n\n
-        <b>시스템 및 온보딩</b>\n
-            • 새로운 온보딩 화면: 핵심 권한 설정을 위한 완전히 새로워지고 쉬워진 프로세스를 제공합니다.\n
-            • 부팅 수정: 재부팅 후 서비스가 즉시 안정적으로 시작됩니다.\n
-            • 스마트 알림: 다운로드 및 미디어 업데이트는 무음으로 진행되며, 메시지 업데이트는 팝업 애니메이션을 안정적으로 실행합니다.\n
-            • 내비게이션: 앱 전환이 더 빠르고 부드러워졌습니다.
-    </string>
-    <string name="title_0_5_0">The Live Update</string>
-    <string name="notification_went_wrong">이 문구가 보인다면 무언가 문제가 발생한 것입니다!</string>
-    <string name="widget_went_wrong">이 문구가 보인다면 무언가 문제가 발생한 것입니다! 시스템이 위젯을 표시할 수 없습니다.</string>
+
+    <string name="title_0_5_6">가로 모드 숨김 및 안정성 수정</string>
+
+    <string name="title_0_5_5">메시징 및 업데이트 오류 수정</string>
+
+    <string name="title_0_5_2">인라인 답장, 성능 및 안정성 업데이트</string>
+
+    <string name="title_0_5_1">버그 수정 및 기능 개선</string>
+
+    <string name="title_0_5_0">라이브 업데이트</string>
+    <string name="notification_went_wrong">이 문구가 보인다면 오류가 발생한 것입니다! 문제 해결 방법을 보려면 여기를 클릭하세요.</string>
+    <string name="widget_went_wrong">이 문구가 보인다면 오류가 발생한 것입니다! 시스템이 위젯을 표시할 수 없습니다.</string>
     <string name="troubleshoot_featured_notification">문제 해결</string>
-    <string name="featured_notifications_check">주요 알림 검사</string>
-    <string name="featured_notifications_check_desc">Kyper Island를 표시하도록 시스템이 올바르게 설정되어 있는지 확인해 봅시다.</string>
+
+    <string name="featured_notifications_check">추천/포커스 알림 점검</string>
+    <string name="featured_notifications_check_desc">Kyper 아일랜드를 표시하도록 시스템이 올바르게 설정되었는지 확인합니다.</string>
     <string name="featured_notifications_not_supported">지원되지 않음</string>
     <string name="featured_notifications_enabled">활성화됨</string>
     <string name="featured_notifications_open_settings">시스템 설정 열기</string>
-    <string name="featured_notifications_troubleshoot_title">왜 Island로 표시되지 않나요?</string>
-    <string name="featured_notifications_troubleshoot_desc">Xiaomi 기기가 알림을 수신했으나 시스템 설정에서 권한이 비활성화되어 있어 Island로 표시하지 못했습니다.\n\n해결 방법:\n1. \"시스템 설정 열기\"를 누릅니다.\n2. 아래로 스크롤하여 \"주요 알림(Featured Notifications)\" (또는 유사 항목)을 찾습니다.\n3. Kyper에 대한 권한을 활성화합니다.</string>
+    <string name="featured_notifications_troubleshoot_title">왜 아일랜드로 표시되지 않나요?</string>
+    <string name="featured_notifications_troubleshoot_desc">샤오미 기기가 알림을 수신했으나 시스템 설정에서 권한이 비활성화되어 있어 아일랜드 알림으로 표시하지 못했습니다.\n\n해결 방법:\n1. "시스템 설정 열기"를 누릅니다.\n2. 아래로 스크롤하여 "추천 알림 (Featured Notifications)"을 찾습니다.\n3. Kyper의 권한을 활성화합니다.</string>
     <string name="featured_notifications_shizuku_alternative">대안: Shizuku 우회</string>
-    <string name="featured_notifications_shizuku_desc">시스템에 해당 설정이 없거나 제한된 경우, Shizuku를 설정하여 Xiaomi 화이트리스트를 완전히 우회할 수 있습니다. Kyper는 Shizuku를 사용하여 Island를 직접 게시합니다.</string>
+    <string name="featured_notifications_shizuku_desc">시스템에서 관련 설정을 제공하지 않거나 제한된 경우, Shizuku를 설정하여 샤오미 화이트리스트를 우회할 수 있습니다. Kyper가 Shizuku를 사용해 아일랜드를 직접 띄웁니다.</string>
+
     <string name="migration_title">Kyper 업데이트</string>
-    <string name="migration_message">기기 보호 저장소로 데이터베이스를 마이그레이션하는 중…</string>
+    <string name="migration_message">데이터베이스를 기기 보호 저장소로 이전하는 중…</string>
     <string name="migration_complete">업데이트 완료</string>
+
     <string name="notification_management">알림 관리</string>
     <string name="inline_reply_title">인라인 답장</string>
-    <string name="customize_inline_reply">인라인 답장 오버레이 커스텀</string>
-    <string name="reply_hint">답장...</string>
-    <string name="perm_display_title">다른 앱 위에 표시</string>
-    <string name="perm_display_onboard_desc">커스텀 인라인 답장 오버레이를 표시하려면 이 권한이 필요합니다.</string>
+    <string name="customize_inline_reply">인라인 답장 화면 맞춤 설정</string>
+    <string name="reply_hint">답장 입력...</string>
+
+    <string name="perm_display_title">다른 앱 위에 그리다</string>
+    <string name="perm_display_onboard_desc">사용자 지정 인라인 답장 화면을 띄우려면 이 권한이 필요합니다.</string>
+
     <!-- Guides & Documentation -->
-    <string name="group_guides">가이드 및 도움말</string>
-    <string name="documentation_title">가이드 및 문서</string>
-    <string name="documentation_subtitle">Kyper 구성 및 커스텀 방법 알아보기</string>
+    <string name="group_guides">가이드 &amp; 도움말</string>
+    <string name="documentation_title">가이드 &amp; 문서</string>
+    <string name="documentation_subtitle">Kyper 구성 및 커스텀 방법을 배워보세요</string>
     <!-- Changelog & Website -->
     <string name="view_changelog">변경 사항 보기</string>
     <string name="view_full_changelog">웹사이트에서 보기</string>
-    <string name="changelog_notice">전체 출시 노트 및 변경 사항은 웹사이트에 게시됩니다.</string>
-    <string name="changelog_view_website_desc">웹사이트에서 최신 출시 노트, 개선 사항 및 새로운 기능을 확인해 보세요.</string>
+    <string name="changelog_notice">전체 릴리스 노트와 변경 사항은 웹사이트에 게시되어 있습니다.</string>
+    <string name="changelog_view_website_desc">최신 릴리스 노트, 개선 사항 및 새로운 기능을 웹사이트에서 확인하세요.</string>
+
     <!-- Bug Report -->
     <string name="bug_report_title">버그 리포트</string>
-    <string name="bug_report_subtitle">시스템 진단 생성 및 문제 보고</string>
-    <string name="bug_report_privacy_title">개인정보 보호 및 공개 안내</string>
-    <string name="bug_report_privacy_desc">GitHub에 이슈를 제출하면 이 정보가 인터넷의 모든 사람에게 공개됩니다. 리포트를 비공개로 유지하려면 개발자에게 %s로 직접 이메일을 보내실 수 있습니다.</string>
+    <string name="bug_report_subtitle">시스템 진단 데이터 생성 및 문제 제보</string>
+    <string name="bug_report_privacy_title">개인정보 보호 &amp; 정보 공개</string>
+    <string name="bug_report_privacy_desc">GitHub에 이슈를 등록하면 해당 정보가 인터넷의 모든 사용자에게 공개됩니다. 정보를 비공개로 제출하고 싶다면 개발자 이메일(%s)로 직접 전송해 주세요.</string>
     <string name="bug_report_view_privacy">개인정보 처리방침 보기</string>
-    <string name="bug_report_details_title">문제 상세 내용</string>
+    <string name="bug_report_details_title">문제 세부 정보</string>
     <string name="bug_report_what_happened">어떤 문제가 발생했나요?</string>
-    <string name="bug_report_what_happened_hint">문제나 예기치 않은 동작을 설명해 주세요...</string>
+    <string name="bug_report_what_happened_hint">문제 증상이나 예상치 못한 동작에 대해 설명해 주세요...</string>
     <string name="bug_report_steps">재현 단계</string>
-    <string name="bug_report_steps_hint">1. Spotify 실행&#8230;\n2. 화면 잠금&#8230;\n3. Island가 사라짐</string>
+    <string name="bug_report_steps_hint">1. Spotify 실행&#8230;\n2. 화면 잠금&#8230;\n3. 아일랜드 사라짐</string>
     <string name="bug_report_options_title">포함할 정보</string>
-    <string name="bug_report_include_device">기기 및 OS 정보</string>
-    <string name="bug_report_include_device_desc">모델, HyperOS/MIUI 버전, Android 버전, ROM 지역</string>
-    <string name="bug_report_include_permissions">시스템 권한 및 제한된 설정</string>
-    <string name="bug_report_include_permissions_desc">알림 리스너, 오버레이, 배터리 및 Android 13+ 제한된 설정</string>
-    <string name="bug_report_include_theme">테마 설정</string>
-    <string name="bug_report_include_theme_desc">활성 테마, 엔진 모드, 커스텀 테마 메타데이터</string>
-    <string name="bug_report_include_widgets">위젯 설정</string>
-    <string name="bug_report_include_widgets_desc">저장된 위젯, 업데이트 간격, 크기 및 알림창 표시 여부</string>
+    <string name="bug_report_include_device">기기 &amp; OS 정보</string>
+    <string name="bug_report_include_device_desc">모델명, HyperOS/MIUI 버전, 안드로이드 버전, ROM 지역 정보</string>
+    <string name="bug_report_include_permissions">시스템 권한 &amp; 제한된 설정</string>
+    <string name="bug_report_include_permissions_desc">알림 접근, 다른 앱 위에 그리기, 배터리 및 Android 13 이상 제한된 설정 상태</string>
+    <string name="bug_report_include_theme">테마 구성</string>
+    <string name="bug_report_include_theme_desc">적용 중인 테마, 엔진 모드, 커스텀 테마 메타데이터</string>
+    <string name="bug_report_include_widgets">위젯 구성</string>
+    <string name="bug_report_include_widgets_desc">저장된 위젯, 업데이트 주기, 크기 및 알림창 표시 여부</string>
     <string name="bug_report_widget_scope_all">모든 위젯</string>
-    <string name="bug_report_include_app_config">앱 구성 및 설정</string>
-    <string name="bug_report_app_scope_none">없음</string>
-    <string name="bug_report_app_scope_none_desc">리포트에 앱 구성을 포함하지 않습니다</string>
+    <string name="bug_report_include_app_config">앱 설정 &amp; 구성 정보</string>
+    <string name="bug_report_app_scope_none">포함 안 함</string>
+    <string name="bug_report_app_scope_none_desc">리포트에 어떠한 앱 설정 정보도 포함하지 않습니다</string>
     <string name="bug_report_app_scope_specific">특정 앱</string>
-    <string name="bug_report_app_scope_specific_desc">단일 애플리케이션의 설정 및 오버라이드 공유</string>
+    <string name="bug_report_app_scope_specific_desc">단일 애플리케이션의 설정 및 재정의 상태를 공유합니다</string>
     <string name="bug_report_app_scope_all">모든 앱</string>
-    <string name="bug_report_app_scope_all_desc">모든 앱의 구성 및 오버라이드 포함</string>
+    <string name="bug_report_app_scope_all_desc">모든 앱의 설정 및 재정의 상태를 포함합니다</string>
     <string name="bug_report_select_app">앱 선택</string>
     <string name="bug_report_include_logs">최근 앱 로그 (Logcat)</string>
-    <string name="bug_report_include_logs_desc">최근 500줄의 시스템 및 Kyper 로그</string>
+    <string name="bug_report_include_logs_desc">시스템 및 Kyper의 최근 500줄 로그</string>
     <string name="bug_report_preview_title">리포트 미리보기</string>
     <string name="bug_report_preview_desc">공유될 정확한 데이터를 검토하세요</string>
     <string name="bug_report_submit_github">GitHub에 제출</string>
     <string name="bug_report_send_email">이메일로 전송</string>
-    <string name="bug_report_copy_clipboard">클립보드에 복사</string>
+    <string name="bug_report_copy_clipboard">복사</string>
     <string name="bug_report_share">공유</string>
-    <string name="bug_report_copied_github_toast">진단 정보가 클립보드에 복사되었습니다! GitHub의 Logs 섹션에 붙여넣으세요.</string>
+    <string name="bug_report_copied_github_toast">진단 데이터가 클립보드에 복사되었습니다! GitHub의 Logs 섹션에 붙여넣으세요.</string>
     <string name="bug_report_copied_toast">리포트가 클립보드에 복사되었습니다.</string>
     <string name="bug_report_email_subject">Kyper 버그 리포트</string>
     <string name="bug_report_entry_title">버그 리포트</string>
-    <string name="bug_report_entry_subtitle">시스템 로그와 함께 문제 해결 및 오류 보고</string>
-    <string name="bug_report_need_help">권한 또는 Island 관련 문제가 있나요?</string>
+    <string name="bug_report_entry_subtitle">시스템 로그를 통한 문제 해결 및 제보</string>
+    <string name="bug_report_need_help">권한이나 아일랜드 표시에 문제가 있나요?</string>
     <string name="bug_report_open_diagnostics">진단 열기</string>
-    <string name="bug_report_bridged">브리지됨</string>
+    <string name="bug_report_bridged">연동됨</string>
     <string name="bug_report_change_app">앱 변경</string>
     <string name="privacy_policy_title">개인정보 처리방침</string>
-    <string name="privacy_policy_subtitle">데이터가 어떻게 보호되고 처리되는지 알아보세요</string>
-    <string name="bug_report_screen_description">Kyper의 문제를 해결하고 보고하기 위해 상세한 시스템 진단 및 로그를 생성합니다.</string>
+    <string name="privacy_policy_subtitle">데이터가 보호되고 처리되는 방식을 알아보세요</string>
+    <string name="bug_report_screen_description">Kyper의 문제를 해결하고 리포트하기 위해 상세 시스템 진단 데이터와 로그를 생성합니다.</string>
     <string name="cancel">취소</string>
     <string name="continue_action">계속</string>
     <string name="type_screen_recording">화면 녹화</string>
-    <string name="type_screen_recording_desc">Xiaomi 시스템 화면 녹화 세션</string>
+    <string name="type_screen_recording_desc">샤오미 시스템 화면 녹화 세션</string>
     <string name="screen_recording_title">화면 녹화</string>
     <string name="screen_recording_active">화면 녹화 중..</string>
     <string name="screen_recording_compact">녹화 중..</string>
     <string name="screen_recording_done">녹화 완료.</string>
     <string name="screen_recording_stop">중지</string>
-    <string name="system_integrations">시스템 통합</string>
+    <string name="system_integrations">시스템</string>
     <string name="system_integration_enabled">활성화됨</string>
     <string name="system_integration_disabled">비활성화됨</string>
-    <string name="system_integration_unavailable">이 기기에서는 지원되지 않음</string>
-    <string name="screen_recording_customization_title">화면 녹화 Island</string>
-    <string name="screen_recording_customization_desc">녹화 Island 표시 방식 커스텀</string>
-    <string name="screen_recording_left_option_icon_only">아이콘만</string>
+    <string name="system_integration_unavailable">이 기기에서는 사용할 수 없음</string>
+    <string name="screen_recording_customization_title">화면 녹화 아일랜드</string>
+    <string name="screen_recording_customization_desc">녹화 아일랜드가 표시되는 방식을 맞춤 설정합니다</string>
+    <string name="screen_recording_left_option_icon_only">아이콘만 표시</string>
     <string name="screen_recording_left_option_icon_and_text">아이콘 및 메시지</string>
-    <string name="screen_recording_left_option_text_only">메시지만</string>
+    <string name="screen_recording_left_option_text_only">메시지만 표시</string>
     <string name="screen_recording_right_option_timer">타이머</string>
-    <string name="screen_recording_right_option_none">없음</string>
-    <string name="screen_recording_saved_auto_hide_desc">녹화 중지 후 완료 체크표시가 표시되는 시간</string>
+    <string name="screen_recording_right_option_none">표시 안 함</string>
+    <string name="screen_recording_saved_auto_hide_desc">녹화가 중지된 후 완료 체크표시가 유지되는 시간</string>
     <string name="preview">미리보기</string>
     <string name="vpn_title">VPN</string>
     <string name="vpn_island_enabled">VPN 연결 감지 중</string>
-    <string name="vpn_island_disabled">VPN Island가 비활성화되었습니다</string>
-    <string name="vpn_is_connected">VPN이 연결되었습니다</string>
+    <string name="vpn_island_disabled">VPN 아일랜드가 비활성화됨</string>
+    <string name="vpn_is_connected">VPN에 연결됨</string>
     <string name="vpn_connected_to">%1$s에 연결됨</string>
     <string name="vpn_connecting">VPN 연결 중</string>
     <string name="vpn_reconnecting">VPN 재연결 중</string>
     <string name="vpn_waiting_for_network">네트워크 대기 중</string>
-    <string name="vpn_paused">VPN 일시 중지됨</string>
+    <string name="vpn_paused">VPN 일시중지됨</string>
     <string name="vpn_disconnecting">VPN 연결 해제 중</string>
     <string name="vpn_blocking">인터넷 차단 중</string>
     <string name="vpn_error">VPN 오류</string>
-    <string name="vpn_disconnected">VPN 연결이 해제되었습니다</string>
+    <string name="vpn_disconnected">VPN 연결이 해제됨</string>
 
-    <string name="floating_setup_title">플로팅 알림 설정</string>
-    <string name="floating_setup_settings_subtitle">선택한 앱의 네이티브 배너 중복 방지</string>
-    <string name="floating_setup_intro">Kyper는 선택된 알림을 Island에 표시합니다. 원본 앱은 여전히 소리, 진동 및 알림 센터 항목을 제어합니다.</string>
-    <string name="floating_setup_limitation">중복된 헤드업 팝업을 방지하려면 각 앱의 시스템 알림 설정으로 이동하여 네이티브 플로팅 알림을 비활성화하고 아래에서 확인하세요.</string>
-    <string name="floating_setup_alternative_title">네이티브 플로팅 알림을 선호하시나요?</string>
-    <string name="floating_setup_alternative_desc">앱에서 네이티브 플로팅 알림을 그대로 사용하려면, 대신 Kyper 전역 설정에서 "플로팅 Island 표시"를 꺼서 배너 중복을 피할 수 있습니다.</string>
-    <string name="floating_setup_no_apps_title">브리지된 앱 없음</string>
-    <string name="floating_setup_no_apps">먼저 라이브러리에서 앱을 선택하세요. 이 설정은 나중에도 변경할 수 있습니다.</string>
-    <string name="floating_status_user_confirmed">사용자 확인됨</string>
-    <string name="floating_status_needs_review">검토 필요</string>
-    <string name="floating_status_not_required">이 기기에서는 필요하지 않음</string>
-    <string name="floating_disabled_confirmation">이 앱의 플로팅 알림을 비활성화했습니다</string>
-    <string name="open_notification_settings">알림 설정 열기</string>
-    <string name="settings_not_available">호환되는 설정 화면을 찾을 수 없습니다</string>
-    <string name="finish_notification_setup">알림 설정 완료</string>
-    <string name="finish_notification_setup_desc">선택한 앱의 네이티브 플로팅 배너를 검토하세요. 이 단계는 선택 사항이며 나중에 다시 수행할 수 있습니다.</string>
-    <string name="floating_setup_onboarding_title">중복 플로팅 배너 방지</string>
-    <string name="floating_setup_onboarding_desc">앱을 선택한 후, Kyper는 각 앱의 알림 설정으로 직접 안내할 수 있습니다. 이 선택적 단계는 Root, Shizuku 또는 ADB 권한이 필요하지 않습니다.</string>
+    <string name="floating_setup_title" translatable="false">Floating notification setup</string>
+    <string name="floating_setup_settings_subtitle" translatable="false">Avoid duplicate native banners for selected apps</string>
+    <string name="floating_setup_intro" translatable="false">HyperBridge displays selected incoming notifications in the Island. The source app still owns sound, vibration, and its notification-center entry.</string>
+    <string name="floating_setup_limitation" translatable="false">To prevent duplicate heads-up popups, open each app’s system notification settings, disable its native floating notification, and confirm it below.</string>
+    <string name="floating_setup_alternative_title" translatable="false">Prefer native floating notifications?</string>
+    <string name="floating_setup_alternative_desc" translatable="false">You can keep native floating notifications enabled on your apps and instead turn off Heads-up Popup (Notificación Emergente) in HyperBridge Global Settings to avoid duplicate banners.</string>
+    <string name="floating_setup_no_apps_title" translatable="false">No bridged apps</string>
+    <string name="floating_setup_no_apps" translatable="false">Select apps from the Library first. This setup remains available later.</string>
+    <string name="floating_status_user_confirmed" translatable="false">User confirmed</string>
+    <string name="floating_status_needs_review" translatable="false">Needs review</string>
+    <string name="floating_status_not_required" translatable="false">Not required on this device</string>
+    <string name="floating_disabled_confirmation" translatable="false">I disabled floating notifications for this app</string>
+    <string name="open_notification_settings" translatable="false">Open notification settings</string>
+    <string name="settings_not_available" translatable="false">No compatible settings screen was found</string>
+    <string name="finish_notification_setup" translatable="false">Finish notification setup</string>
+    <string name="finish_notification_setup_desc" translatable="false">Review native floating banners for your selected apps. This is optional and can be revisited.</string>
+    <string name="floating_setup_onboarding_title" translatable="false">Avoid duplicate floating banners</string>
+    <string name="floating_setup_onboarding_desc" translatable="false">After selecting apps, HyperBridge can take you directly to each app’s notification settings. This optional step never requires root, Shizuku, or ADB.</string>
 
-    <string name="diagnostics_title">진단</string>
-    <string name="diagnostics_subtitle">권한, 서비스 상태 및 최근 이벤트 확인</string>
-    <string name="diagnostic_notification_access">알림 접근 권한</string>
-    <string name="diagnostic_post_notifications">알림 게시 권한</string>
-    <string name="diagnostic_focus_support">HyperOS Island 지원</string>
-    <string name="diagnostic_featured_permission">주요 알림 권한</string>
-    <string name="diagnostic_selected_apps">선택된 앱</string>
-    <string name="diagnostic_floating_review">플로팅 검토가 필요한 앱</string>
-    <string name="diagnostic_active_islands">활성 Island</string>
-    <string name="diagnostic_last_classification">마지막 분류</string>
-    <string name="diagnostic_last_call_state">마지막 통화 상태</string>
-    <string name="diagnostic_service">서비스</string>
-    <string name="diagnostic_recent_events">최근 이벤트 기록</string>
-    <string name="diagnostic_privacy_note">메시지 내용, 발신자 상세 정보 및 알림 데이터는 진단 목적으로 기기 내에만 저장되며 절대 외부로 전송되지 않습니다.</string>
-    <string name="copy">복사</string>
-    <string name="bug_report">버그 리포트</string>
-    <string name="copy_sanitized_diagnostics">진단 정보 복사</string>
-    <string name="diagnostic_export_header">Kyper 개인정보 보호 진단 정보</string>
-    <string name="connected">연결됨</string>
-    <string name="disconnected">연결 끊김</string>
-    <string name="granted">허용됨</string>
-    <string name="not_granted">허용 안 됨</string>
-    <string name="bug_report_include_diagnostics">진단 및 이벤트 포함</string>
-    <string name="bug_report_include_diagnostics_desc">최근 Island 분류 및 시스템 이벤트</string>
-    <string name="view_diagnostics">진단 정보 보기</string>
-    <string name="diagnostic_section_service">서비스 및 브리지 상태</string>
-    <string name="diagnostic_section_permissions">권한 및 HyperOS 통합</string>
-    <string name="diagnostic_section_apps">앱 및 플로팅 설정</string>
-    <string name="diagnostic_no_events">최근 이벤트 없음</string>
-    <string name="diagnostic_no_events_desc">시스템 및 알림 상호작용이 여기에 표시됩니다</string>
-    <string name="diagnostic_copied_toast">진단 정보가 클립보드에 복사되었습니다</string>
-    <string name="diagnostic_supported">지원됨</string>
-    <string name="diagnostic_unsupported">지원되지 않음</string>
-    <string name="diagnostic_all_clear">이상 없음</string>
-    <string name="diagnostic_metric_review">검토</string>
-    <string name="diagnostic_service_active_desc">활성 알림 가로채기 서비스 상태</string>
-    <string name="diagnostic_service_disconnected_desc">서비스 연결 끊김</string>
-    <string name="diagnostic_active_islands_desc">현재 화면에 표시 중인 다이내믹 Island 보기</string>
-    <string name="diagnostic_active_count">%1$d개 활성</string>
-    <string name="diagnostic_last_classification_desc">마지막으로 가로챈 알림 유형</string>
-    <string name="diagnostic_last_call_state_desc">마지막으로 모니터링된 통화 상태</string>
-    <string name="diagnostic_notification_access_desc">앱 이벤트를 읽기 위해 필요합니다</string>
-    <string name="diagnostic_post_notifications_desc">Island 알림을 표시하기 위해 필요합니다</string>
-    <string name="diagnostic_restricted_settings">제한된 권한</string>
-    <string name="diagnostic_restricted_settings_desc">Android 13+ 제한된 설정 상태</string>
-    <string name="diagnostic_restricted_allowed">허용됨</string>
-    <string name="diagnostic_restricted_blocked">제한됨</string>
-    <string name="diagnostic_focus_support_desc">Xiaomi HyperOS Island 하드웨어 지원 여부</string>
-    <string name="diagnostic_featured_permission_desc">주요 알림(Featured Notifications) 표시 권한</string>
-    <string name="diagnostic_selected_apps_desc">Island 표시가 활성화된 애플리케이션</string>
-    <string name="diagnostic_apps_count">%1$d개 앱</string>
-    <string name="diagnostic_floating_review_desc">네이티브 플로팅 배너 검토가 필요한 앱</string>
-    <string name="diagnostic_pending_count">%1$d개 대기 중</string>
-    <string name="diagnostic_reason_prefix">이유: %1$s</string>
+    <string name="diagnostics_title" translatable="false">Diagnostics</string>
+    <string name="diagnostics_subtitle" translatable="false">Permissions, service health, and sanitized recent events</string>
+    <string name="diagnostic_notification_access" translatable="false">Notification access</string>
+    <string name="diagnostic_post_notifications" translatable="false">Post notifications</string>
+    <string name="diagnostic_focus_support" translatable="false">HyperOS Island support</string>
+    <string name="diagnostic_featured_permission" translatable="false">Featured notifications</string>
+    <string name="diagnostic_selected_apps" translatable="false">Selected apps</string>
+    <string name="diagnostic_floating_review" translatable="false">Apps needing floating review</string>
+    <string name="diagnostic_active_islands" translatable="false">Active Islands</string>
+    <string name="diagnostic_last_classification" translatable="false">Last classification</string>
+    <string name="diagnostic_last_call_state" translatable="false">Last call state</string>
+    <string name="diagnostic_service" translatable="false">Service</string>
+    <string name="diagnostic_recent_events" translatable="false">Recent sanitized events</string>
+    <string name="diagnostic_privacy_note" translatable="false">Message text, caller details, and notification content are never stored in this log.</string>
+    <string name="copy" translatable="false">Copy</string>
+    <string name="bug_report" translatable="false">Bug report</string>
+    <string name="copy_sanitized_diagnostics" translatable="false">Copy</string>
+    <string name="diagnostic_export_header" translatable="false">HyperBridge sanitized diagnostics</string>
+    <string name="connected" translatable="false">Connected</string>
+    <string name="disconnected" translatable="false">Disconnected</string>
+    <string name="granted" translatable="false">Granted</string>
+    <string name="not_granted" translatable="false">Not granted</string>
+    <string name="bug_report_include_diagnostics" translatable="false">Include Diagnostics &amp; Events</string>
+    <string name="bug_report_include_diagnostics_desc" translatable="false">Recent sanitized Island classifications and event history</string>
+    <string name="view_diagnostics" translatable="false">View Diagnostics</string>
+    <string name="diagnostic_section_service" translatable="false">Service &amp; Bridge State</string>
+    <string name="diagnostic_section_permissions" translatable="false">Permissions &amp; HyperOS Integration</string>
+    <string name="diagnostic_section_apps" translatable="false">Apps &amp; Floating Setup</string>
+    <string name="diagnostic_no_events" translatable="false">No recent events recorded</string>
+    <string name="diagnostic_no_events_desc" translatable="false">System and notification interactions will appear here in real time.</string>
+    <string name="diagnostic_copied_toast" translatable="false">Sanitized diagnostics copied to clipboard</string>
+    <string name="diagnostic_supported" translatable="false">Supported</string>
+    <string name="diagnostic_unsupported" translatable="false">Unsupported</string>
+    <string name="diagnostic_all_clear" translatable="false">All clear</string>
+    <string name="diagnostic_metric_review" translatable="false">Review</string>
+    <string name="diagnostic_service_active_desc" translatable="false">Active notification interceptor service</string>
+    <string name="diagnostic_service_disconnected_desc" translatable="false">Service disconnected</string>
+    <string name="diagnostic_active_islands_desc" translatable="false">Currently active Dynamic Island views</string>
+    <string name="diagnostic_active_count" translatable="false">%1$d active</string>
+    <string name="diagnostic_last_classification_desc" translatable="false">Latest intercepted notification category</string>
+    <string name="diagnostic_last_call_state_desc" translatable="false">Latest monitored call state</string>
+    <string name="diagnostic_notification_access_desc" translatable="false">Required to intercept app events</string>
+    <string name="diagnostic_post_notifications_desc" translatable="false">Required to display Island notifications</string>
+    <string name="diagnostic_restricted_settings" translatable="false">Restricted permissions</string>
+    <string name="diagnostic_restricted_settings_desc" translatable="false">Android 13+ restricted settings access for sideloaded app</string>
+    <string name="diagnostic_restricted_allowed" translatable="false">Allowed</string>
+    <string name="diagnostic_restricted_blocked" translatable="false">Restricted</string>
+    <string name="diagnostic_focus_support_desc" translatable="false">Xiaomi HyperOS Island hardware support</string>
+    <string name="diagnostic_featured_permission_desc" translatable="false">Focus notification display permission</string>
+    <string name="diagnostic_selected_apps_desc" translatable="false">Applications enabled for Island display</string>
+    <string name="diagnostic_apps_count" translatable="false">%1$d apps</string>
+    <string name="diagnostic_floating_review_desc" translatable="false">Apps needing native floating banner disabled</string>
+    <string name="diagnostic_pending_count" translatable="false">%1$d pending</string>
+    <string name="diagnostic_reason_prefix" translatable="false">Reason: %1$s</string>
+
+    <!-- App Configuration Screen -->
+    <string name="app_config_title">앱 구성</string>
+    <string name="app_config_subtitle">동작 방식, 위젯 &amp; 확장 기능</string>
+    <string name="custom_design_title">사용자 지정 디자인</string>
+    <string name="custom_design_badge">출시 예정</string>
+    <string name="custom_design_desc">맞춤 레이아웃과 개별 디자인 기능이 개발 중입니다. 다음 업데이트를 기대해 주세요.</string>
+    <string name="custom_translators_title">사용자 지정 변환기</string>
+    <string name="custom_translators_badge">출시 예정</string>
+    <string name="custom_translators_desc">이 앱의 알림 데이터를 가공 및 제어할 커뮤니티 커스텀 변환기를 작성하고 설치할 수 있습니다.</string>
+    <string name="app_widgets_section_title">아일랜드 위젯</string>
+    <string name="app_widgets_section_desc">Hyper Island에 표시할 앱 위젯을 설정합니다.</string>
+    <string name="add_island_widget">위젯 추가</string>
+    <string name="no_widgets_for_app">이 앱에 설정된 아일랜드 위젯이 없습니다.</string>
+    <string name="no_available_widgets_for_app">이 앱은 제공하는 위젯이 없습니다.</string>
+    <string name="select_app_widget">위젯 선택</string>
+    <string name="theme_managed_banner">동작 방식은 현재 적용된 테마에 의해 관리되고 있습니다.</string>
+    <string name="app_status_bridged">연동됨</string>
+    <string name="app_status_not_bridged">연동 안 됨</string>
+    <string name="custom_behavior_desc">이 앱에 대한 사용자 지정 동작 방식을 사용하는 중입니다. 전체 기본값을 사용하려면 활성화하세요.</string>
+    <string name="no_blocked_terms">설정된 차단 단어가 없습니다</string>
+    <string name="no_blocked_terms_desc">추가한 단어가 포함된 알림은 아일랜드를 실행하지 않습니다.</string>
+
+    <!-- Smart Actions (issue #270) -->
+    <string name="smart_actions_title">스마트 액션</string>
+    <string name="smart_actions_desc">인증 코드, 링크, 전화번호, 택배 추적 및 주소를 한 번의 터치로 이용할 수 있는 버튼</string>
+    <string name="setting_smart_actions">스마트 액션 활성화</string>
+    <string name="setting_smart_actions_desc">알림 텍스트에서 실행 가능한 콘텐츠를 검사하여 아일랜드 및 알림창에 버튼을 추가합니다. 비활성화 시 어떠한 항목도 검사하지 않습니다.</string>
+    <string name="smart_actions_group_detect">감지 대상</string>
+    <string name="setting_smart_actions_otp">인증 코드</string>
+    <string name="setting_smart_actions_otp_desc">OTP 및 2단계 인증 코드를 원터치로 복사</string>
+    <string name="setting_smart_actions_url">웹 링크</string>
+    <string name="setting_smart_actions_url_desc">아일랜드에서 바로 웹 링크 열기</string>
+    <string name="setting_smart_actions_phone">전화번호</string>
+    <string name="setting_smart_actions_phone_desc">전화번호가 입력된 상태로 다이얼러 앱 열기</string>
+    <string name="setting_smart_actions_tracking">택배 추적</string>
+    <string name="setting_smart_actions_tracking_desc">UPS, FedEx, USPS, DHL, 우체국 등 다양한 배송 추적</string>
+    <string name="setting_smart_actions_navigation">길찾기</string>
+    <string name="setting_smart_actions_navigation_desc">도로명 주소 및 공유된 지도 링크를 내비게이션 앱으로 열기</string>
+    <string name="smart_actions_group_excluded">제외할 앱</string>
+    <string name="smart_actions_excluded_desc">이 앱들의 알림은 절대로 스캔하지 않습니다</string>
+    <string name="smart_actions_no_apps">Kyper에서 앱을 먼저 활성화하세요</string>
+    <string name="smart_action_copy_code">%1$s 복사</string>
+    <string name="smart_action_open_link">링크 열기</string>
+    <string name="smart_action_call">전화 걸기</string>
+    <string name="smart_action_track">배송 추적</string>
+    <string name="smart_action_directions">길찾기</string>
+    <string name="smart_action_copied">코드가 복사되었습니다</string>
+    <string name="smart_action_copy_code_hidden">코드 복사</string>
+    <string name="smart_actions_group_privacy">개인정보 보호</string>
+    <string name="setting_smart_actions_hide_otp">버튼에서 코드 숨기기</string>
+    <string name="setting_smart_actions_hide_otp_desc">코드 문자 대신 "코드 복사"만 표시하여 아일랜드나 알림창에 노출되지 않도록 합니다</string>
+    <string name="smart_actions_excluded_empty">제외된 앱이 없습니다. 연동된 모든 앱을 스캔합니다.</string>
+    <string name="smart_actions_add_excluded_app">앱 추가</string>
+    <string name="smart_actions_pick_app_title">앱 제외하기</string>
+    <string name="smart_actions_pick_app_search">앱 검색</string>
+    <string name="smart_actions_all_apps_excluded">연동된 모든 앱이 이미 제외되어 있습니다</string>
+    <string name="cd_smart_actions_remove_excluded">제외된 앱 목록에서 제거</string>
+    <string name="app_smart_actions_title">스마트 액션</string>
+    <string name="app_smart_actions_subtitle_on">인증 코드, 링크, 전화번호, 택배 추적 및 주소</string>
+    <string name="app_smart_actions_subtitle_off">이 앱에서는 비활성화됨</string>
+    <string name="app_smart_actions_subtitle_global_off">전체 설정에서 스마트 액션을 먼저 활성화하세요</string>
+    <string name="app_smart_actions_enable">이 앱의 스마트 액션</string>
+    <string name="app_smart_actions_enable_desc">비활성화하면 이 앱의 알림을 절대 스캔하지 않습니다</string>
+    <string name="app_smart_actions_types_title">이 앱에 사용할 액션</string>
+    <string name="app_smart_actions_types_desc">이 앱에서 표시할 버튼을 선택하세요. 여기에서 수정하기 전까지는 전체 설정을 따릅니다.</string>
+    <string name="app_smart_actions_global_off_banner">스마트 액션이 전체 설정에서 비활성화되어 있습니다. 이 옵션들을 사용하려면 전체 설정 &gt; 스마트 액션에서 활성화하세요.</string>
 </resources>
