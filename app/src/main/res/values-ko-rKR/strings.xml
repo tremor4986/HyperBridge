@@ -130,7 +130,7 @@
     <string name="title_0_2_0">The Information 업데이트</string>
     <string name="title_0_1_0">The Expressive 업데이트</string>
     <string name="priority_edu_title">새 기능: Island 제어</string>
-    <string name="priority_edu_desc">Hyper Bridge는 이제 9개 제한에 도달했을 때 여러 알림을 어떻게 처리할지 관리할 수 있습니다.\n\n</string>
+    <string name="priority_edu_desc">Kyper는 이제 9개 제한에 도달했을 때 여러 알림을 어떻게 처리할지 관리할 수 있습니다.\n\n</string>
     <string name="badge_new">신규</string>
     <string name="nav_layout_title">내비게이션 레이아웃</string>
     <string name="nav_layout_desc">표시할 정보를 선택하세요</string>
@@ -226,7 +226,7 @@
     </string-array>
     <string name="title_0_3_0">The Hidden 업데이트</string>
     <string name="privacy_title">100% 오프라인 &amp; 보안</string>
-    <string name="privacy_desc">Hyper Bridge는 모든 작업을 휴대폰의 프로세서에서 직접 처리합니다.\n\n인터넷 연결이 필요하지 않으며, 이는 알림과 개인 데이터가 절대 기기를 떠나지 않음을 의미합니다.</string>
+    <string name="privacy_desc">Kyper는 모든 작업을 휴대폰의 프로세서에서 직접 처리합니다.\n\n인터넷 연결이 필요하지 않으며, 이는 알림과 개인 데이터가 절대 기기를 떠나지 않음을 의미합니다.</string>
     <string name="language">언어</string>
     <string name="language_desc">애플리케이션 언어 변경</string>
     <string name="system_default">시스템 기본값</string>
