@@ -16,6 +16,7 @@ import com.alexkoala.kyper.data.theme.ThemeRepository
 import com.alexkoala.kyper.models.IslandConfig
 import com.alexkoala.kyper.models.NavContent
 import com.alexkoala.kyper.models.NotificationType
+import com.alexkoala.kyper.models.SmartActionType
 import com.alexkoala.kyper.models.theme.HyperTheme
 import com.alexkoala.kyper.models.theme.NavigationModule
 import com.alexkoala.kyper.service.recording.ScreenRecordingClassifier
@@ -387,6 +388,19 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
     fun getAppBlockedTerms(packageName: String) = preferences.getAppBlockedTerms(packageName)
     fun updateAppBlockedTerms(packageName: String, terms: Set<String>) {
         viewModelScope.launch { preferences.setAppBlockedTerms(packageName, terms) }
+    }
+
+    // --- SMART ACTIONS ---
+    val smartActionsConfigFlow = preferences.smartActionsConfigFlow
+    fun getAppSmartActionsOverride(packageName: String) = preferences.getAppSmartActionsOverride(packageName)
+    fun setSmartActionExcluded(packageName: String, excluded: Boolean) {
+        viewModelScope.launch { preferences.setSmartActionExcluded(packageName, excluded) }
+    }
+    fun setAppSmartActionTypeOverride(packageName: String, type: SmartActionType, enabled: Boolean?) {
+        viewModelScope.launch { preferences.setAppSmartActionTypeOverride(packageName, type, enabled) }
+    }
+    fun clearAppSmartActionsOverride(packageName: String) {
+        viewModelScope.launch { preferences.clearAppSmartActionsOverride(packageName) }
     }
 
     // App Loader
