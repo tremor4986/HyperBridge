@@ -5,6 +5,8 @@ import android.util.Log
 import com.alexkoala.kyper.data.AppPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import java.net.HttpURLConnection
 import java.net.URL
 
 object RemoteConfigManager {
@@ -15,15 +17,22 @@ object RemoteConfigManager {
         return withContext(Dispatchers.IO) {
             try {
                 Log.d(TAG, "Fetching rules from $RULES_URL")
-                val json = URL(RULES_URL).readText()
-                
-                val kotlinxJson = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+                val url = URL(RULES_URL)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.connectTimeout = 10000
+                connection.readTimeout = 10000
+                connection.setRequestProperty("User-Agent", "HyperBridge-Android")
+
+                val json = connection.inputStream.bufferedReader().use { it.readText() }
+                connection.disconnect()
+
+                val kotlinxJson = Json { ignoreUnknownKeys = true }
                 val config = kotlinxJson.decodeFromString<RemoteRuleConfig>(json)
-                
+
                 val preferences = AppPreferences(context)
                 preferences.setRemoteNavRules(json)
                 Log.d(TAG, "Rules updated successfully to version v${config.version}")
-                
+
                 // Refresh the engine cache
                 NotificationRuleEngine.loadRules(json)
                 config.version

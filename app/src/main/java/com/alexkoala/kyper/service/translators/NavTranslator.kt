@@ -64,16 +64,16 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
         val customMatch = NotificationRuleEngine.tryTranslate(sbn, title, text)
         if (customMatch != null) {
             if (customMatch.shouldIgnore) return null
-            
-            instruction = customMatch.instruction
-            distance = customMatch.distance
-            eta = customMatch.eta
+
+            if (customMatch.instruction.isNotEmpty()) instruction = customMatch.instruction
+            if (customMatch.distance.isNotEmpty()) distance = customMatch.distance
+            if (customMatch.eta.isNotEmpty()) eta = customMatch.eta
         }
 
-        // logic to extract ETA/Distance from various fields (Waze vs Maps vs Others)
-        if (instruction.isEmpty() && distance.isEmpty()) {
-            if (isTimeInfo(subText)) eta = subText
-            else if (isTimeInfo(text) && !isDistanceInfo(text)) eta = text
+        // logic to extract ETA/Distance from various fields (Waze vs Maps vs Others) if missing
+        if (instruction.isEmpty() || distance.isEmpty()) {
+            if (isTimeInfo(subText) && eta.isEmpty()) eta = subText
+            else if (isTimeInfo(text) && !isDistanceInfo(text) && eta.isEmpty()) eta = text
 
             val candidates = listOf(bigText, title, text).filter { it.isNotEmpty() }
             val contentSource = candidates.firstOrNull { str -> distanceRegex.containsMatchIn(str) } ?: title.ifEmpty { text }
@@ -81,10 +81,12 @@ class NavTranslator(context: Context, repo: ThemeRepository) : BaseTranslator(co
             if (isDistanceInfo(contentSource)) {
                 val match = distanceRegex.find(contentSource)
                 if (match != null) {
-                    distance = match.value
-                    instruction = contentSource.replace(distance, "").trim { it == '·' || it == '-' || it.isWhitespace() }
+                    if (distance.isEmpty()) distance = match.value
+                    if (instruction.isEmpty()) {
+                        instruction = contentSource.replace(distance, "").trim { it == '·' || it == '-' || it.isWhitespace() }
+                    }
                 }
-            } else {
+            } else if (instruction.isEmpty()) {
                 instruction = contentSource
             }
         }

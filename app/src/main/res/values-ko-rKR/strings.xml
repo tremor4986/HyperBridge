@@ -372,7 +372,7 @@
     <string name="render_snapshot_desc">빈 목록 현상을 수정합니다. 캘린더, Gmail 등에 최적화되어 있습니다.</string>
 
     <string name="size_original">원본 크기</string>
-    <size name="size_small">작게 (100dp)</size>
+    <string name="size_small">작게 (100dp)</string>
     <string name="size_medium">보통 (180dp)</string>
     <string name="size_large">크게 (280dp)</string>
     <string name="size_xlarge">매우 크게 (380dp)</string>

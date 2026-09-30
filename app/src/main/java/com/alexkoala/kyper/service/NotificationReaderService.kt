@@ -305,10 +305,13 @@ class NotificationReaderService : NotificationListenerService() {
 
         // [INIT] Remote Rules
         serviceScope.launch {
-            val localRules = preferences.getRemoteNavRulesSync()
-            if (localRules != null) {
-                NotificationRuleEngine.loadRules(localRules)
+            preferences.remoteNavRulesFlow.collect { localRules ->
+                if (!localRules.isNullOrEmpty()) {
+                    NotificationRuleEngine.loadRules(localRules)
+                }
             }
+        }
+        serviceScope.launch {
             RemoteConfigManager.fetchLatestRules(applicationContext)
         }
 
@@ -1279,11 +1282,22 @@ class NotificationReaderService : NotificationListenerService() {
                 return
             }
 
+            // Remote Rules Engine (rules.json) check
+            val remoteRuleMatch = NotificationRuleEngine.tryTranslate(sbn, effectiveTitle, effectiveText)
+            if (remoteRuleMatch?.shouldIgnore == true) {
+                Log.d(TAG, "Notification ignored by remote rules for ${sbn.packageName}")
+                DiagnosticsStore.record(typeBeforeRules.name, "ignored", sbn.packageName, "remote-rule-ignore")
+                return
+            }
+
+            // Active Theme Rules Engine check
             val activeTheme = themeRepository.activeTheme.value
             val ruleMatch = rulesEngine.match(sbn, effectiveTitle, effectiveText, activeTheme)
 
-            val detectedType = if (ruleMatch?.targetLayout != null) {
-                try { NotificationType.valueOf(ruleMatch.targetLayout) }
+            // Determine target layout (Theme rules override remote rules, which override default detected type)
+            val targetLayoutStr = ruleMatch?.targetLayout ?: remoteRuleMatch?.targetLayout
+            val detectedType = if (targetLayoutStr != null) {
+                try { NotificationType.valueOf(targetLayoutStr) }
                 catch (_: Exception) { typeBeforeRules }
             } else {
                 typeBeforeRules
